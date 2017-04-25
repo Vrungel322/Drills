@@ -2,9 +2,10 @@ package com.udtech.drills.data.remote;
 
 import com.udtech.drills.data.model.DrillsApi;
 import com.udtech.drills.data.remote.login.User;
-import okhttp3.ResponseBody;
+import com.udtech.drills.data.remote.signUp.SignUpBody;
 import retrofit2.Response;
 import rx.Observable;
+import timber.log.Timber;
 
 /**
  * Created by Vrungel on 26.01.2017.
@@ -19,5 +20,9 @@ public class RestApi {
 
   public  Observable<Response<User>> login(String authentication) {
     return api.login(authentication);
+  }
+
+  public Observable<Response<SignUpBody>> signUp(SignUpBody signUpBody) {
+    return api.signUp(signUpBody.getPhoneEmail());
   }
 }

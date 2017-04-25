@@ -11,5 +11,5 @@ import com.udtech.drills.data.remote.login.User;
 
 @StateStrategyType(AddToEndSingleStrategy.class) public interface IMainActivityView
     extends MvpView {
-  void showBody(User body);
+  void showBody(String body);
 }

@@ -4,6 +4,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.udtech.drills.App;
 import com.udtech.drills.base.BasePresenter;
 import com.udtech.drills.data.DataManager;
+import com.udtech.drills.data.remote.signUp.SignUpBody;
 import com.udtech.drills.feature.start_point.views.IMainActivityView;
 import com.udtech.drills.utils.ThreadSchedulers;
 import javax.inject.Inject;
@@ -24,15 +25,25 @@ import timber.log.Timber;
 
   @Override protected void onFirstViewAttach() {
     super.onFirstViewAttach();
-    login("admin", "So3pqv+");
   }
 
-  private void login(String login, String password) {
+  public void login(String login, String password) {
     Subscription subscription = mDataManager.login(login, password)
         .compose(ThreadSchedulers.applySchedulers())
         .subscribe(userResponse -> {
-          if (userResponse.code() == 200){
-            getViewState().showBody(userResponse.body());
+          if (userResponse.code() == 200) {
+            getViewState().showBody(userResponse.body().toString());
+          }
+        }, Timber::e);
+    addToUnsubscription(subscription);
+  }
+
+  public void signUp(String phoneNumber) {
+    Subscription subscription = mDataManager.signUp(new SignUpBody(phoneNumber))
+        .compose(ThreadSchedulers.applySchedulers())
+        .subscribe(signUpBodyResponse -> {
+          if (signUpBodyResponse.code() == 200){
+            getViewState().showBody(signUpBodyResponse.body().toString());
           }
         }, Timber::e);
     addToUnsubscription(subscription);
