@@ -91,9 +91,6 @@ dependencies {
   //Timber
   compile 'com.jakewharton.timber:timber:4.5.1'
 
-  //ZGallery
-  compile 'com.github.mzelzoghbi:zgallery:0.3'
-
   //Test
   testCompile "junit:junit:4.12"
   testCompile "org.mockito:mockito-all:1.10.19"
@@ -101,7 +98,5 @@ dependencies {
   testCompile "org.robolectric:robolectric:3.3.2"
   androidTestCompile 'junit:junit:4.12'
 
-  //Image cropper
-  compile 'com.theartofdev.edmodo:android-image-cropper:2.4.0'
-  compile 'de.hdodenhof:circleimageview:2.1.0'
+
 }

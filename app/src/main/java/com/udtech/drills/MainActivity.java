@@ -1,12 +1,14 @@
 package com.udtech.drills;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.udtech.drills.base.BaseActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity implements IMainActivityView {
+  @InjectPresenter MainActivityPresenter mainActivityPresenter;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    super.onCreate(savedInstanceState);
   }
 }
