@@ -42,5 +42,15 @@
       app:layout_constraintBottom_toBottomOf="parent"
       android:layout_marginBottom="8dp"
       />
+  <Button
+      android:id="@+id/bbFetchUserData"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Fetch User Data"
+      android:layout_marginBottom="8dp"
+      app:layout_constraintBottom_toTopOf="@+id/bLogin"
+      android:layout_marginLeft="0dp"
+      app:layout_constraintLeft_toLeftOf="parent"
+      />
 
 </android.support.constraint.ConstraintLayout>

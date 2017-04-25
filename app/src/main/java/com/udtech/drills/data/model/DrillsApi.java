@@ -1,7 +1,7 @@
 package com.udtech.drills.data.model;
 
 import com.udtech.drills.data.remote.login.User;
-import com.udtech.drills.data.remote.signUp.SignUpResetBody;
+import com.udtech.drills.data.remote.signUp_Reset.SignUpResetBody;
 import retrofit2.Response;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

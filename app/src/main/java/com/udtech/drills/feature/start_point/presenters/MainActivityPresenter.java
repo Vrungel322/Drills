@@ -4,7 +4,8 @@ import com.arellomobile.mvp.InjectViewState;
 import com.udtech.drills.App;
 import com.udtech.drills.base.BasePresenter;
 import com.udtech.drills.data.DataManager;
-import com.udtech.drills.data.remote.signUp.SignUpResetBody;
+import com.udtech.drills.data.remote.login.User;
+import com.udtech.drills.data.remote.signUp_Reset.SignUpResetBody;
 import com.udtech.drills.feature.start_point.views.IMainActivityView;
 import com.udtech.drills.utils.ThreadSchedulers;
 import javax.inject.Inject;
@@ -18,6 +19,7 @@ import timber.log.Timber;
 @InjectViewState public class MainActivityPresenter extends BasePresenter<IMainActivityView> {
 
   @Inject DataManager mDataManager;
+  @Inject User mUser;
 
   @Override protected void inject() {
     App.getAppComponent().inject(this);
@@ -32,6 +34,7 @@ import timber.log.Timber;
         .compose(ThreadSchedulers.applySchedulers())
         .subscribe(userResponse -> {
           if (userResponse.code() == 200) {
+            mUser = userResponse.body();
             getViewState().showBody(userResponse.body().toString());
           }
         }, Timber::e);

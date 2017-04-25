@@ -3,7 +3,7 @@ package com.udtech.drills.data;
 import com.udtech.drills.data.local.PreferencesHelper;
 import com.udtech.drills.data.remote.RestApi;
 import com.udtech.drills.data.remote.login.User;
-import com.udtech.drills.data.remote.signUp.SignUpResetBody;
+import com.udtech.drills.data.remote.signUp_Reset.SignUpResetBody;
 import okhttp3.Credentials;
 import retrofit2.Response;
 import rx.Observable;

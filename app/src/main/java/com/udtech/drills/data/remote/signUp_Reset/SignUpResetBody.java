@@ -1,4 +1,4 @@
-package com.udtech.drills.data.remote.signUp;
+package com.udtech.drills.data.remote.signUp_Reset;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
