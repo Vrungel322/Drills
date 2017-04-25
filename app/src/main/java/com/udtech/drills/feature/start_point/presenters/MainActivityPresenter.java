@@ -45,7 +45,7 @@ import timber.log.Timber;
     Subscription subscription = mDataManager.signUp(new SignUpResetBody(phoneNumberEmail))
         .compose(ThreadSchedulers.applySchedulers())
         .subscribe(signUpBodyResponse -> {
-          if (signUpBodyResponse.code() == 200){
+          if (signUpBodyResponse.code() == 200) {
             getViewState().showBody(signUpBodyResponse.body().toString());
           }
         }, Timber::e);
@@ -56,10 +56,20 @@ import timber.log.Timber;
     Subscription subscription = mDataManager.resetPass(new SignUpResetBody(phoneNumberEmail))
         .compose(ThreadSchedulers.applySchedulers())
         .subscribe(signUpBodyResponse -> {
-          if (signUpBodyResponse.code() == 200){
+          if (signUpBodyResponse.code() == 200) {
             getViewState().showBody(signUpBodyResponse.body().toString());
           }
         }, Timber::e);
+    addToUnsubscription(subscription);
+  }
+
+  public void fetchUserData() {
+    Subscription subscription = mDataManager.fetchUserData(mUser.getAuthKey())
+        .compose(ThreadSchedulers.applySchedulers())
+        .subscribe(userDataEntityResponse -> {
+          getViewState().showBody(
+              userDataEntityResponse.body().getHistory().get(0).getHistoryPracticsID());
+        });
     addToUnsubscription(subscription);
   }
 }

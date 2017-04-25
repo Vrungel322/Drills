@@ -2,6 +2,7 @@ package com.udtech.drills.data;
 
 import com.udtech.drills.data.local.PreferencesHelper;
 import com.udtech.drills.data.remote.RestApi;
+import com.udtech.drills.data.remote.fetch_user_data.UserDataEntity;
 import com.udtech.drills.data.remote.login.User;
 import com.udtech.drills.data.remote.signUp_Reset.SignUpResetBody;
 import okhttp3.Credentials;
@@ -32,5 +33,9 @@ public class DataManager {
 
   public Observable<Response<SignUpResetBody>> resetPass(SignUpResetBody signUpResetBody) {
     return mRestApi.resetPass(signUpResetBody);
+  }
+
+  public Observable<Response<UserDataEntity>> fetchUserData(String token){
+    return mRestApi.fetchUserData(token);
   }
 }

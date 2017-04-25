@@ -34,6 +34,10 @@ public class MainActivity extends BaseActivity implements IMainActivityView {
     mainActivityPresenter.resetPass(TEST_EMAL_PHONE);
   }
 
+  @OnClick(R.id.bbFetchUserData) public void bFetchUserDataClicked() {
+    mainActivityPresenter.fetchUserData();
+  }
+
   @Override public void showBody(String body) {
     mTextViewBody.setText(body);
   }

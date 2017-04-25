@@ -1,6 +1,7 @@
 package com.udtech.drills.data.remote;
 
 import com.udtech.drills.data.model.DrillsApi;
+import com.udtech.drills.data.remote.fetch_user_data.UserDataEntity;
 import com.udtech.drills.data.remote.login.User;
 import com.udtech.drills.data.remote.signUp_Reset.SignUpResetBody;
 import retrofit2.Response;
@@ -27,5 +28,9 @@ public class RestApi {
 
   public Observable<Response<SignUpResetBody>> resetPass(SignUpResetBody signUpResetBody) {
     return api.resetPass(signUpResetBody.getPhoneEmail());
+  }
+
+  public Observable<Response<UserDataEntity>> fetchUserData(String token) {
+    return api.fetchUserData(token);
   }
 }
