@@ -1,9 +1,9 @@
 package com.udtech.drills.di.components;
 
-import com.udtech.drills.MainActivityPresenter;
 import com.udtech.drills.base.BaseActivity;
 import com.udtech.drills.base.BaseFragment;
 import com.udtech.drills.di.modules.AppModule;
+import com.udtech.drills.feature.start_point.presenters.MainActivityPresenter;
 import dagger.Component;
 import javax.inject.Singleton;
 

@@ -1,7 +1,9 @@
-package com.udtech.drills;
+package com.udtech.drills.feature.start_point.presenters;
 
 import com.arellomobile.mvp.InjectViewState;
+import com.udtech.drills.App;
 import com.udtech.drills.base.BasePresenter;
+import com.udtech.drills.feature.start_point.views.IMainActivityView;
 
 /**
  * Created by Vrungel on 25.04.2017.
