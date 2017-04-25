@@ -32,5 +32,15 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintLeft_toRightOf="@+id/bLogin"
       />
+  <Button
+      android:id="@+id/bResetPass"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Reset Password"
+      app:layout_constraintLeft_toRightOf="@+id/bSignUp"
+      android:layout_marginLeft="8dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      android:layout_marginBottom="8dp"
+      />
 
 </android.support.constraint.ConstraintLayout>

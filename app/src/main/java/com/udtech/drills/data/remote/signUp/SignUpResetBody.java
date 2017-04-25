@@ -3,11 +3,11 @@ package com.udtech.drills.data.remote.signUp;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class SignUpBody {
+public class SignUpResetBody {
 
   @SerializedName("phone_email") @Expose private String phoneEmail;
 
-  public SignUpBody(String phoneEmail) {
+  public SignUpResetBody(String phoneEmail) {
     super();
     this.phoneEmail = phoneEmail;
   }

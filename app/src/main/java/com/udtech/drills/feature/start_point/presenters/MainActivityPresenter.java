@@ -4,7 +4,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.udtech.drills.App;
 import com.udtech.drills.base.BasePresenter;
 import com.udtech.drills.data.DataManager;
-import com.udtech.drills.data.remote.signUp.SignUpBody;
+import com.udtech.drills.data.remote.signUp.SignUpResetBody;
 import com.udtech.drills.feature.start_point.views.IMainActivityView;
 import com.udtech.drills.utils.ThreadSchedulers;
 import javax.inject.Inject;
@@ -38,8 +38,19 @@ import timber.log.Timber;
     addToUnsubscription(subscription);
   }
 
-  public void signUp(String phoneNumber) {
-    Subscription subscription = mDataManager.signUp(new SignUpBody(phoneNumber))
+  public void signUp(String phoneNumberEmail) {
+    Subscription subscription = mDataManager.signUp(new SignUpResetBody(phoneNumberEmail))
+        .compose(ThreadSchedulers.applySchedulers())
+        .subscribe(signUpBodyResponse -> {
+          if (signUpBodyResponse.code() == 200){
+            getViewState().showBody(signUpBodyResponse.body().toString());
+          }
+        }, Timber::e);
+    addToUnsubscription(subscription);
+  }
+
+  public void resetPass(String phoneNumberEmail) {
+    Subscription subscription = mDataManager.resetPass(new SignUpResetBody(phoneNumberEmail))
         .compose(ThreadSchedulers.applySchedulers())
         .subscribe(signUpBodyResponse -> {
           if (signUpBodyResponse.code() == 200){
