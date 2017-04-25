@@ -4,7 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.udtech.drills.MainActivity"
+    tools:context=".feature.start_point.activities.MainActivity"
     >
+
+  <TextView
+      android:id="@+id/tvBody"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      />
 
 </android.support.constraint.ConstraintLayout>
