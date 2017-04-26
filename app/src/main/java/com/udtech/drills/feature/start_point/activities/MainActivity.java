@@ -1,5 +1,6 @@
 package com.udtech.drills.feature.start_point.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import butterknife.BindView;
@@ -7,6 +8,7 @@ import butterknife.OnClick;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.udtech.drills.R;
 import com.udtech.drills.base.BaseActivity;
+import com.udtech.drills.feature.login.activities.LoginActivity;
 import com.udtech.drills.feature.start_point.presenters.MainActivityPresenter;
 import com.udtech.drills.feature.start_point.views.IMainActivityView;
 
@@ -40,5 +42,10 @@ public class MainActivity extends BaseActivity implements IMainActivityView {
 
   @Override public void showBody(String body) {
     mTextViewBody.setText(body);
+  }
+
+  @Override public void showInitialScreen() {
+    mNavigator.startActivity(MainActivity.this, new Intent(MainActivity.this, LoginActivity.class));
+    finish();
   }
 }

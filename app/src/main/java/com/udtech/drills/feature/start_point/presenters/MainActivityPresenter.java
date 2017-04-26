@@ -27,6 +27,7 @@ import timber.log.Timber;
 
   @Override protected void onFirstViewAttach() {
     super.onFirstViewAttach();
+    getViewState().showInitialScreen();
   }
 
   public void login(String login, String password) {
