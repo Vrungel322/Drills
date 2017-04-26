@@ -11,4 +11,6 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 @StateStrategyType(AddToEndSingleStrategy.class) public interface ILoginActivityView
     extends MvpView {
   void playVideo();
+
+  void showBody(String s);
 }
