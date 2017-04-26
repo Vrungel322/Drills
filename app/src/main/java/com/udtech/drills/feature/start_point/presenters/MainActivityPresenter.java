@@ -73,4 +73,15 @@ import timber.log.Timber;
         });
     addToUnsubscription(subscription);
   }
+
+  public void sendUserData() {
+    Subscription subscription = mDataManager.sendUserData(mUser.getAuthKey())
+        .compose(ThreadSchedulers.applySchedulers())
+        .subscribe(booleanResponse -> {
+          if (booleanResponse.code() == 200) {
+            getViewState().showBody(booleanResponse.body().toString());
+          }
+        });
+    addToUnsubscription(subscription);
+  }
 }
