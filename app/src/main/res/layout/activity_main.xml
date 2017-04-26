@@ -52,5 +52,15 @@
       android:layout_marginLeft="0dp"
       app:layout_constraintLeft_toLeftOf="parent"
       />
+  <Button
+      android:id="@+id/bSendUserData"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="8dp"
+      android:layout_marginLeft="8dp"
+      android:text="Send User Data"
+      app:layout_constraintBottom_toTopOf="@+id/bSignUp"
+      app:layout_constraintLeft_toRightOf="@+id/bbFetchUserData"
+      />
 
 </android.support.constraint.ConstraintLayout>

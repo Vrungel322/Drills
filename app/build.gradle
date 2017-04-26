@@ -91,7 +91,7 @@ dependencies {
   //Timber
   compile 'com.jakewharton.timber:timber:4.5.1'
 
-  //Test
+  //SendUserDataEntity
   testCompile "junit:junit:4.12"
   testCompile "org.mockito:mockito-all:1.10.19"
   testCompile "org.hamcrest:hamcrest-all:1.3"

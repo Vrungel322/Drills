@@ -38,6 +38,10 @@ public class MainActivity extends BaseActivity implements IMainActivityView {
     mainActivityPresenter.fetchUserData();
   }
 
+  @OnClick(R.id.bSendUserData) public void bSendUserDataClicked() {
+    mainActivityPresenter.sendUserData();
+  }
+
   @Override public void showBody(String body) {
     mTextViewBody.setText(body);
   }

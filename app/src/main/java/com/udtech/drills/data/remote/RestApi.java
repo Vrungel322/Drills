@@ -3,6 +3,7 @@ package com.udtech.drills.data.remote;
 import com.udtech.drills.data.model.DrillsApi;
 import com.udtech.drills.data.remote.fetch_user_data.UserDataEntity;
 import com.udtech.drills.data.remote.login.User;
+import com.udtech.drills.data.remote.send_user_data.SendUserDataEntity;
 import com.udtech.drills.data.remote.signUp_Reset.SignUpResetBody;
 import retrofit2.Response;
 import rx.Observable;
@@ -18,7 +19,7 @@ public class RestApi {
     this.api = api;
   }
 
-  public  Observable<Response<User>> login(String authentication) {
+  public Observable<Response<User>> login(String authentication) {
     return api.login(authentication);
   }
 
@@ -32,5 +33,10 @@ public class RestApi {
 
   public Observable<Response<UserDataEntity>> fetchUserData(String token) {
     return api.fetchUserData(token);
+  }
+
+  public Observable<Response<Boolean>> sendUserData(SendUserDataEntity sendUserDataEntity,
+      String token) {
+    return api.sendUserData(token, sendUserDataEntity);
   }
 }
