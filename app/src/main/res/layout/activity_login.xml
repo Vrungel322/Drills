@@ -5,6 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
+
+  <com.yqritc.scalablevideoview.ScalableVideoView
+      android:id="@+id/evpVideo"
+      android:layout_width="0dp"
+      android:layout_height="587dp"
+      app:scalableType="fitXY"
+      />
+
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="#9d404040"
+      />
+
   <ImageView
       android:id="@+id/imageView"
       android:layout_width="wrap_content"
@@ -124,4 +138,5 @@
       app:layout_constraintRight_toRightOf="@+id/editText"
       app:layout_constraintTop_toTopOf="@+id/editText"
       />
+
 </android.support.constraint.ConstraintLayout>

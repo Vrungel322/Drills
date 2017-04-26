@@ -98,5 +98,7 @@ dependencies {
   testCompile "org.robolectric:robolectric:3.3.2"
   androidTestCompile 'junit:junit:4.12'
 
+  //Video
+  compile 'com.yqritc:android-scalablevideoview:1.0.4'
 
 }
