@@ -1,5 +1,6 @@
 package com.udtech.drills.feature.login.presenters;
 
+import android.os.CountDownTimer;
 import com.arellomobile.mvp.InjectViewState;
 import com.udtech.drills.App;
 import com.udtech.drills.base.BasePresenter;
@@ -19,6 +20,7 @@ import timber.log.Timber;
 
   @Inject DataManager mDataManager;
   @Inject User mUser;
+  private CountDownTimer mCountDownTimer;
 
   @Override protected void inject() {
     App.getAppComponent().inject(this);
@@ -26,7 +28,26 @@ import timber.log.Timber;
 
   @Override protected void onFirstViewAttach() {
     super.onFirstViewAttach();
-    //getViewState().playVideo();
+  }
+
+  public void startCountingTimer(int delay) {
+    mCountDownTimer = new CountDownTimer(delay, 1000) {
+      @Override public void onTick(long millisUntilFinished) {
+
+      }
+
+      @Override public void onFinish() {
+        getViewState().allGone();
+      }
+    }.start();
+  }
+
+  public void cancelTimer(){
+    mCountDownTimer.cancel();
+  }
+
+  public void allVisible() {
+    getViewState().allVisible();
   }
 
   public void login(String login, String password) {

@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
@@ -10,22 +10,27 @@
   <com.yqritc.scalablevideoview.ScalableVideoView
       android:id="@+id/evpVideo"
       android:layout_width="0dp"
-      android:layout_height="587dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       app:scalableType="fitXY"
-      tools:layout_editor_absoluteY="0dp"
-      tools:layout_editor_absoluteX="0dp"
       />
 
   <View
+      android:id="@+id/view"
       android:layout_width="0dp"
-      android:layout_height="587dp"
+      android:layout_height="0dp"
       android:background="#9d404040"
-      tools:layout_editor_absoluteY="8dp"
-      tools:layout_editor_absoluteX="8dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       />
 
   <ImageView
-      android:id="@+id/imageView"
+      android:id="@+id/ivLogo"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="24dp"
@@ -35,7 +40,7 @@
       app:layout_constraintTop_toTopOf="parent"
       />
   <TextView
-      android:id="@+id/textView"
+      android:id="@+id/tvTitle1"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="8dp"
@@ -47,12 +52,12 @@
       android:textColor="@color/colorAccent"
       android:textSize="19sp"
       android:textStyle="bold"
-      app:layout_constraintLeft_toLeftOf="@+id/imageView"
-      app:layout_constraintRight_toRightOf="@+id/imageView"
-      app:layout_constraintTop_toBottomOf="@+id/imageView"
+      app:layout_constraintLeft_toLeftOf="@+id/ivLogo"
+      app:layout_constraintRight_toRightOf="@+id/ivLogo"
+      app:layout_constraintTop_toBottomOf="@+id/ivLogo"
       />
   <TextView
-      android:id="@+id/textView2"
+      android:id="@+id/tvTitle2"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="8dp"
@@ -62,9 +67,9 @@
       android:text="@string/drills_application"
       android:textColor="@color/colorAccent"
       android:textSize="15sp"
-      app:layout_constraintLeft_toLeftOf="@+id/imageView"
-      app:layout_constraintRight_toRightOf="@+id/imageView"
-      app:layout_constraintTop_toBottomOf="@+id/textView"
+      app:layout_constraintLeft_toLeftOf="@+id/ivLogo"
+      app:layout_constraintRight_toRightOf="@+id/ivLogo"
+      app:layout_constraintTop_toBottomOf="@+id/tvTitle1"
       />
   <EditText
       android:id="@+id/etPassword"
@@ -83,7 +88,7 @@
       app:layout_constraintRight_toRightOf="@+id/bLogin"
       />
   <TextView
-      android:id="@+id/textView4"
+      android:id="@+id/tvCreateAccount"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginBottom="16dp"
@@ -110,7 +115,7 @@
       android:background="@drawable/rounded_rectangle"
       android:text="@string/login"
       android:textSize="19sp"
-      app:layout_constraintBottom_toTopOf="@+id/textView4"
+      app:layout_constraintBottom_toTopOf="@+id/tvCreateAccount"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
       />
@@ -131,7 +136,7 @@
       app:layout_constraintRight_toRightOf="@+id/etPassword"
       />
   <TextView
-      android:id="@+id/textView5"
+      android:id="@+id/tvHelp"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginBottom="8dp"
