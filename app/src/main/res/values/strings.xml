@@ -15,4 +15,6 @@
   <string name="login">Вход</string>
   <string name="enter_email_password">Введите Email или телефонный номер</string>
   <string name="help">Помошь?</string>
+  <string name="reset">Восстановить</string>
+  <string name="reset_hint">Телефон или Email для восстановления</string>
 </resources>

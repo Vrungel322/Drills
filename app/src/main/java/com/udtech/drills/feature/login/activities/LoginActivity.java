@@ -1,12 +1,13 @@
 package com.udtech.drills.feature.login.activities;
 
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -19,6 +20,8 @@ import com.udtech.drills.feature.login.views.ILoginActivityView;
 import com.udtech.drills.utils.Constants;
 import com.yqritc.scalablevideoview.ScalableVideoView;
 import java.io.IOException;
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
+import net.yslibrary.android.keyboardvisibilityevent.Unregistrar;
 
 /**
  * Created by John on 26.04.2017.
@@ -38,18 +41,18 @@ public class LoginActivity extends BaseActivity implements ILoginActivityView {
   @BindView(R.id.tvTitle2) TextView mTextViewTitle2;
   @BindView(R.id.bLogin) Button mButtonLogin;
   @BindView(R.id.tvCreateAccount) TextView mTextViewCreateAccount;
+  private Unregistrar mUnregistrar;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     setContentView(R.layout.activity_login);
     super.onCreate(savedInstanceState);
-    mConstraintLayoutParent.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-      Rect r = new Rect();
-      mConstraintLayoutParent.getWindowVisibleDisplayFrame(r);
 
-      int heightDiff = mConstraintLayoutParent.getRootView().getHeight() - (r.bottom - r.top);
-      if (heightDiff > 100) {
+    mUnregistrar = KeyboardVisibilityEvent.registerEventListener(this, isOpen -> {
+      if (isOpen) {
+        Toast.makeText(this, "visib", Toast.LENGTH_SHORT).show();
         mLoginActivityPresenter.cancelTimer();
       } else {
+        Toast.makeText(this, "hide", Toast.LENGTH_SHORT).show();
         mLoginActivityPresenter.startCountingTimer(Constants.DELAY_TO_INVISIBILITY);
       }
     });
@@ -61,14 +64,46 @@ public class LoginActivity extends BaseActivity implements ILoginActivityView {
     mLoginActivityPresenter.startCountingTimer(Constants.DELAY_TO_INVISIBILITY);
   }
 
-  @OnClick(R.id.bLogin) public void bLoginClicked() {
-    mLoginActivityPresenter.login(mEditTextPhoneEmail.getText().toString(),
-        mEditTextPassword.getText().toString());
+  @Override protected void onDestroy() {
+    super.onDestroy();
+    mUnregistrar.unregister();
+  }
+
+  @Override public void onBackPressed() {
+    if (mButtonLogin.getText()
+        .toString()
+        .equalsIgnoreCase(getResources().getString(R.string.login))) {
+      super.onBackPressed();
+    } else {
+      mButtonLogin.setText(R.string.login);
+      mEditTextPhoneEmail.setText("");
+      mEditTextPhoneEmail.setHint(getResources().getString(R.string.enter_email_password));
+      mEditTextPassword.setVisibility(View.VISIBLE);
+      mTextViewHelp.setVisibility(View.VISIBLE);
+    }
+  }
+
+  @OnClick(R.id.bLogin) public void bLoginResetPassClicked() {
+    if (mButtonLogin.getText()
+        .toString()
+        .equalsIgnoreCase(getResources().getString(R.string.login))) {
+      mLoginActivityPresenter.login(mEditTextPhoneEmail.getText().toString(),
+          mEditTextPassword.getText().toString());
+    } else {
+      mLoginActivityPresenter.resetPassword(mEditTextPhoneEmail.getText().toString());
+    }
+  }
+
+  @OnClick(R.id.tvHelp) public void tvHelpClicked() {
+    mEditTextPhoneEmail.setText("");
+    mEditTextPhoneEmail.setHint(R.string.reset_hint);
+    mEditTextPassword.setVisibility(View.INVISIBLE);
+    mTextViewHelp.setVisibility(View.INVISIBLE);
+    mButtonLogin.setText(R.string.reset);
   }
 
   @OnClick(R.id.clParent) public void clParentClicked() {
     mLoginActivityPresenter.allVisible();
-    mLoginActivityPresenter.startCountingTimer(Constants.DELAY_TO_INVISIBILITY);
   }
 
   @Override public void playVideo() {

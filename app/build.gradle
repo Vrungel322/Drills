@@ -106,4 +106,7 @@ dependencies {
   compile 'com.daimajia.easing:library:2.0@aar'
   compile 'com.daimajia.androidanimations:library:2.2@aar'
 
+
+  compile 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.1.0'
+
 }

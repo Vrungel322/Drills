@@ -6,6 +6,7 @@ import com.udtech.drills.App;
 import com.udtech.drills.base.BasePresenter;
 import com.udtech.drills.data.DataManager;
 import com.udtech.drills.data.remote.login.User;
+import com.udtech.drills.data.remote.signUp_Reset.SignUpResetBody;
 import com.udtech.drills.feature.login.views.ILoginActivityView;
 import com.udtech.drills.utils.ThreadSchedulers;
 import javax.inject.Inject;
@@ -56,6 +57,17 @@ import timber.log.Timber;
         .subscribe(userResponse -> {
           if (userResponse.code() == 200) {
             mUser = userResponse.body();
+            getViewState().showBody(userResponse.body().toString());
+          }
+        }, Timber::e);
+    addToUnsubscription(subscription);
+  }
+
+  public void resetPassword(String resetString) {
+    Subscription subscription = mDataManager.resetPass(new SignUpResetBody(resetString))
+        .compose(ThreadSchedulers.applySchedulers())
+        .subscribe(userResponse -> {
+          if (userResponse.code() == 200) {
             getViewState().showBody(userResponse.body().toString());
           }
         }, Timber::e);
