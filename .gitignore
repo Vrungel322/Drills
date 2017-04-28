@@ -84,4 +84,3 @@ hs_err_pid*
 /captures
 **/*.iml
 app/libs/
-/.idea/
