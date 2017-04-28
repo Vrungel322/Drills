@@ -27,7 +27,18 @@ import timber.log.Timber;
 
   @Override protected void onFirstViewAttach() {
     super.onFirstViewAttach();
-    getViewState().showInitialScreen();
+
+    // TODO: 28.04.2017 do not forget to  checkIfUserLoggedIn(); next line and comment  getViewState().showLoginScreen();
+    //checkIfUserLoggedIn();
+    getViewState().showLoginScreen();
+  }
+
+  private void checkIfUserLoggedIn() {
+    if (mDataManager.isUserLogin()) {
+      getViewState().showContentScreen();
+    } else {
+      getViewState().showLoginScreen();
+    }
   }
 
   public void login(String login, String password) {

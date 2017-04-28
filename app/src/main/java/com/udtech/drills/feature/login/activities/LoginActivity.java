@@ -1,11 +1,13 @@
 package com.udtech.drills.feature.login.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindView;
@@ -15,8 +17,10 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.udtech.drills.R;
 import com.udtech.drills.base.BaseActivity;
+import com.udtech.drills.feature.content.activities.ContentActivity;
 import com.udtech.drills.feature.login.presenters.LoginActivityPresenter;
 import com.udtech.drills.feature.login.views.ILoginActivityView;
+import com.udtech.drills.feature.registration.activities.RegistrationActivity;
 import com.udtech.drills.utils.Constants;
 import com.yqritc.scalablevideoview.ScalableVideoView;
 import java.io.IOException;
@@ -41,6 +45,8 @@ public class LoginActivity extends BaseActivity implements ILoginActivityView {
   @BindView(R.id.tvTitle2) TextView mTextViewTitle2;
   @BindView(R.id.bLogin) Button mButtonLogin;
   @BindView(R.id.tvCreateAccount) TextView mTextViewCreateAccount;
+  @BindView(R.id.progressBar) ProgressBar mProgressBar;
+
   private Unregistrar mUnregistrar;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +108,10 @@ public class LoginActivity extends BaseActivity implements ILoginActivityView {
     mButtonLogin.setText(R.string.reset);
   }
 
+  @OnClick(R.id.tvCreateAccount) public void tvCreateAccountClicked() {
+    mLoginActivityPresenter.startRegistration();
+  }
+
   @OnClick(R.id.clParent) public void clParentClicked() {
     mLoginActivityPresenter.allVisible();
   }
@@ -145,5 +155,22 @@ public class LoginActivity extends BaseActivity implements ILoginActivityView {
     YoYo.with(Techniques.FadeOut).delay(1000).duration(500).playOn(mButtonLogin);
     YoYo.with(Techniques.FadeOut).delay(1000).duration(500).playOn(mTextViewHelp);
     YoYo.with(Techniques.FadeOut).delay(1000).duration(500).playOn(mTextViewCreateAccount);
+  }
+
+  @Override public void showContentActivity() {
+    mNavigator.startActivity(this, new Intent(LoginActivity.this, ContentActivity.class));
+    finish();
+  }
+
+  @Override public void startRegistration() {
+    mNavigator.startActivity(this, new Intent(LoginActivity.this, RegistrationActivity.class));
+  }
+
+  @Override public void showPB() {
+    mProgressBar.setVisibility(View.VISIBLE);
+  }
+
+  @Override public void hidePB() {
+    mProgressBar.setVisibility(View.GONE);
   }
 }

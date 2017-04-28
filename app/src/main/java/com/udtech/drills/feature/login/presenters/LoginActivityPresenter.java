@@ -52,12 +52,16 @@ import timber.log.Timber;
   }
 
   public void login(String login, String password) {
+    getViewState().showPB();
     Subscription subscription = mDataManager.login(login, password)
         .compose(ThreadSchedulers.applySchedulers())
         .subscribe(userResponse -> {
           if (userResponse.code() == 200) {
             mUser = userResponse.body();
             getViewState().showBody(userResponse.body().toString());
+            getViewState().showContentActivity();
+            mDataManager.userLoggedIn();
+            getViewState().hidePB();
           }
         }, Timber::e);
     addToUnsubscription(subscription);
@@ -72,5 +76,9 @@ import timber.log.Timber;
           }
         }, Timber::e);
     addToUnsubscription(subscription);
+  }
+
+  public void startRegistration() {
+    getViewState().startRegistration();
   }
 }
