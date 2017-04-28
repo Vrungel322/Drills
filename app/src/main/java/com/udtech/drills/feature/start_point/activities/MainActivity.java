@@ -8,6 +8,7 @@ import butterknife.OnClick;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.udtech.drills.R;
 import com.udtech.drills.base.BaseActivity;
+import com.udtech.drills.feature.content.activities.ContentActivity;
 import com.udtech.drills.feature.login.activities.LoginActivity;
 import com.udtech.drills.feature.start_point.presenters.MainActivityPresenter;
 import com.udtech.drills.feature.start_point.views.IMainActivityView;
@@ -48,8 +49,14 @@ public class MainActivity extends BaseActivity implements IMainActivityView {
     mTextViewBody.setText(body);
   }
 
-  @Override public void showInitialScreen() {
+  @Override public void showLoginScreen() {
     mNavigator.startActivity(MainActivity.this, new Intent(MainActivity.this, LoginActivity.class));
+    finish();
+  }
+
+  @Override public void showContentScreen() {
+    mNavigator.startActivity(MainActivity.this,
+        new Intent(MainActivity.this, ContentActivity.class));
     finish();
   }
 }

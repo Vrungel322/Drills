@@ -58,4 +58,12 @@ public class DataManager {
 
     return mRestApi.sendUserData(sendUserDataEntity, token);
   }
+
+  public void userLoggedIn() {
+    mPref.setUserLogin();
+  }
+
+  public boolean isUserLogin(){
+    return mPref.isUserLogin();
+  }
 }

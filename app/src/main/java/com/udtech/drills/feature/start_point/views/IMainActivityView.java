@@ -13,5 +13,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
     extends MvpView {
   void showBody(String body);
 
-  @StateStrategyType(SkipStrategy.class) void showInitialScreen();
+  @StateStrategyType(SkipStrategy.class) void showLoginScreen();
+
+  void showContentScreen();
 }
