@@ -17,4 +17,8 @@
   <string name="help">Помошь?</string>
   <string name="reset">Восстановить</string>
   <string name="reset_hint">Телефон или Email для восстановления</string>
+  <string name="cancel">Отмена</string>
+  <string name="registration">Зарегестрироваться</string>
+  <string name="attention">Уведомление</string>
+  <string name="registration_dialog_content">Мы отправили вам SMS c вашим паролем</string>
 </resources>

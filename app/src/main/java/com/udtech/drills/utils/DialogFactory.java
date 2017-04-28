@@ -16,7 +16,7 @@ public final class DialogFactory {
   public static Dialog createSimpleOkErrorDialog(Context context, String title, String message) {
     AlertDialog.Builder alertDialog = new AlertDialog.Builder(context).setTitle(title)
         .setMessage(message)
-        .setNeutralButton(R.string.dialog_action_ok, null);
+        .setPositiveButton(R.string.dialog_action_ok, null);
     return alertDialog.create();
   }
 

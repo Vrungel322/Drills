@@ -19,6 +19,7 @@ import com.udtech.drills.base.BaseActivity;
 import com.udtech.drills.feature.content.activities.ContentActivity;
 import com.udtech.drills.feature.login.presenters.LoginActivityPresenter;
 import com.udtech.drills.feature.login.views.ILoginActivityView;
+import com.udtech.drills.feature.registration.activities.RegistrationActivity;
 import com.udtech.drills.utils.Constants;
 import com.yqritc.scalablevideoview.ScalableVideoView;
 import java.io.IOException;
@@ -104,6 +105,10 @@ public class LoginActivity extends BaseActivity implements ILoginActivityView {
     mButtonLogin.setText(R.string.reset);
   }
 
+  @OnClick(R.id.tvCreateAccount) public void tvCreateAccountClicked() {
+    mLoginActivityPresenter.startRegistration();
+  }
+
   @OnClick(R.id.clParent) public void clParentClicked() {
     mLoginActivityPresenter.allVisible();
   }
@@ -151,6 +156,11 @@ public class LoginActivity extends BaseActivity implements ILoginActivityView {
 
   @Override public void showContentActivity() {
     mNavigator.startActivity(this, new Intent(LoginActivity.this, ContentActivity.class));
+    finish();
+  }
+
+  @Override public void startRegistration() {
+    mNavigator.startActivity(this, new Intent(LoginActivity.this, RegistrationActivity.class));
     finish();
   }
 }

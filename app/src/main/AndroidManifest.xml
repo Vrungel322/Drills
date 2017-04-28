@@ -27,6 +27,8 @@
     </activity>
     <activity android:name=".feature.content.activities.ContentActivity">
     </activity>
+    <activity android:name=".feature.registration.activities.RegistrationActivity">
+    </activity>
   </application>
 
 </manifest>

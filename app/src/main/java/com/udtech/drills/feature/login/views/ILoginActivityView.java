@@ -19,4 +19,6 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
   void allGone();
 
   void showContentActivity();
+
+  void startRegistration();
 }
