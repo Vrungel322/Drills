@@ -7,8 +7,8 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 /**
  * Created by Vrungel on 28.04.2017.
  */
-
-@StateStrategyType(AddToEndSingleStrategy.class) public interface IContentActivityView
+@StateStrategyType(AddToEndSingleStrategy.class) public interface IContentFragmentView
     extends MvpView {
-  void showContentFragment();
+
+  void playVideo();
 }
