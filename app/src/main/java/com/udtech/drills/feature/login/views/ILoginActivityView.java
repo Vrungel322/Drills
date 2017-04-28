@@ -21,4 +21,8 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
   void showContentActivity();
 
   void startRegistration();
+
+  void showPB();
+
+  void hidePB();
 }

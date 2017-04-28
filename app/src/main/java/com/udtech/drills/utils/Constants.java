@@ -7,7 +7,6 @@ package com.udtech.drills.utils;
 public final class Constants {
   public class Remote {
     private static final String DOMEN = "the-gun-club.udtech.co";
-    // TODO: do not forget to paste base url
     public static final String BASE_URL = "http://" + DOMEN + "/";
   }
 

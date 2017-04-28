@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindView;
@@ -44,6 +45,8 @@ public class LoginActivity extends BaseActivity implements ILoginActivityView {
   @BindView(R.id.tvTitle2) TextView mTextViewTitle2;
   @BindView(R.id.bLogin) Button mButtonLogin;
   @BindView(R.id.tvCreateAccount) TextView mTextViewCreateAccount;
+  @BindView(R.id.progressBar) ProgressBar mProgressBar;
+
   private Unregistrar mUnregistrar;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
@@ -161,5 +164,13 @@ public class LoginActivity extends BaseActivity implements ILoginActivityView {
 
   @Override public void startRegistration() {
     mNavigator.startActivity(this, new Intent(LoginActivity.this, RegistrationActivity.class));
+  }
+
+  @Override public void showPB() {
+    mProgressBar.setVisibility(View.VISIBLE);
+  }
+
+  @Override public void hidePB() {
+    mProgressBar.setVisibility(View.GONE);
   }
 }

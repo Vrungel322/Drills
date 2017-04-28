@@ -52,6 +52,7 @@ import timber.log.Timber;
   }
 
   public void login(String login, String password) {
+    getViewState().showPB();
     Subscription subscription = mDataManager.login(login, password)
         .compose(ThreadSchedulers.applySchedulers())
         .subscribe(userResponse -> {
@@ -60,6 +61,7 @@ import timber.log.Timber;
             getViewState().showBody(userResponse.body().toString());
             getViewState().showContentActivity();
             mDataManager.userLoggedIn();
+            getViewState().hidePB();
           }
         }, Timber::e);
     addToUnsubscription(subscription);

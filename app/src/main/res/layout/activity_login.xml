@@ -151,4 +151,21 @@
       app:layout_constraintTop_toTopOf="@+id/etPassword"
       />
 
+  <ProgressBar
+      android:id="@+id/progressBar"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="8dp"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp"
+      android:layout_marginTop="8dp"
+      android:visibility="gone"
+      android:indeterminate="true"
+      android:indeterminateDrawable="@drawable/pb_color"
+      app:layout_constraintBottom_toBottomOf="@+id/view"
+      app:layout_constraintLeft_toLeftOf="@+id/view"
+      app:layout_constraintRight_toRightOf="@+id/view"
+      app:layout_constraintTop_toTopOf="@+id/view"
+      />
+
 </android.support.constraint.ConstraintLayout>
