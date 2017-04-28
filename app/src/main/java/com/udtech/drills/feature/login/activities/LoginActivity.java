@@ -161,6 +161,5 @@ public class LoginActivity extends BaseActivity implements ILoginActivityView {
 
   @Override public void startRegistration() {
     mNavigator.startActivity(this, new Intent(LoginActivity.this, RegistrationActivity.class));
-    finish();
   }
 }

@@ -3,7 +3,9 @@ package com.udtech.drills.feature.registration.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -22,6 +24,7 @@ public class RegistrationActivity extends BaseActivity implements IRegistrationA
   @BindView(R.id.clParent) ConstraintLayout mConstraintLayoutParent;
   @BindView(R.id.evpVideo) ScalableVideoView mScalableVideoView;
   @BindView(R.id.etPhoneEmail) EditText mEditTextPhoneEmail;
+  @BindView(R.id.progressBar) ProgressBar mProgressBar;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     setContentView(R.layout.activity_registration);
@@ -64,5 +67,13 @@ public class RegistrationActivity extends BaseActivity implements IRegistrationA
   @Override public void showRegistrationDialog() {
     DialogFactory.createSimpleOkErrorDialog(this, R.string.attention,
         R.string.registration_dialog_content).show();
+  }
+
+  @Override public void showPB() {
+    mProgressBar.setVisibility(View.VISIBLE);
+  }
+
+  @Override public void hidePB() {
+    mProgressBar.setVisibility(View.GONE);
   }
 }

@@ -26,9 +26,11 @@ import rx.Subscription;
   }
 
   public void sendRegistrationData(String emailOrPhone) {
+    getViewState().showPB();
     Subscription subscription = mDataManager.signUp(new SignUpResetBody(emailOrPhone))
         .compose(ThreadSchedulers.applySchedulers()).subscribe(signUpResetBodyResponse -> {
           if (signUpResetBodyResponse.code() == 200){
+            getViewState().hidePB();
             getViewState().showRegistrationDialog();
           }
         });
