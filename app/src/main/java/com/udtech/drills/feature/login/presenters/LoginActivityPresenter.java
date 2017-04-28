@@ -57,7 +57,7 @@ import timber.log.Timber;
         .compose(ThreadSchedulers.applySchedulers())
         .subscribe(userResponse -> {
           if (userResponse.code() == 200) {
-            mUser = userResponse.body();
+            fillUserEntity(userResponse.body());
             getViewState().showBody(userResponse.body().toString());
             getViewState().showContentActivity();
             mDataManager.userLoggedIn();
@@ -65,6 +65,24 @@ import timber.log.Timber;
           }
         }, Timber::e);
     addToUnsubscription(subscription);
+  }
+
+  private void fillUserEntity(User body) {
+    mUser.setId(body.getId());
+    mUser.setUsername(body.getUsername());
+    mUser.setAuthKey(body.getAuthKey());
+    mUser.setName(body.getName());
+    mUser.setLastname(body.getLastname());
+    mUser.setProfilePhoto(body.getProfilePhoto());
+    mUser.setTypeId(body.getTypeId());
+    mUser.setType(body.getType());
+    mUser.setTeam(body.getTeam());
+    mUser.setPlayer(body.getPlayer());
+    mUser.setEmail(body.getEmail());
+    mUser.setPhone(body.getPhone());
+    mUser.setCountry(body.getCountry());
+    mUser.setRegion(body.getRegion());
+    mUser.setCity(body.getCity());
   }
 
   public void resetPassword(String resetString) {

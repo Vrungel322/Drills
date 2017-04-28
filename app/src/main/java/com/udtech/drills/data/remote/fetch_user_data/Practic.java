@@ -9,7 +9,7 @@ public class Practic {
   @SerializedName("dryPracticsID") @Expose private String dryPracticsID;
   @SerializedName("dryPracticsName") @Expose private String dryPracticsName;
   @SerializedName("dryPracticsDate") @Expose private Double dryPracticsDate;
-  @SerializedName("dryPracticsTime") @Expose private Integer dryPracticsTime;
+  @SerializedName("dryPracticsTime") @Expose private Double dryPracticsTime;
   @SerializedName("dryPracticsFirstSignalDelay") @Expose private Integer
       dryPracticsFirstSignalDelay;
   @SerializedName("boolIsRandPracticsFirstSignalDelay") @Expose private Integer
@@ -43,7 +43,7 @@ public class Practic {
    * @param dryPracticsDate
    */
   public Practic(Integer id, String dryPracticsID, String dryPracticsName, Double dryPracticsDate,
-      Integer dryPracticsTime, Integer dryPracticsFirstSignalDelay,
+      Double dryPracticsTime, Integer dryPracticsFirstSignalDelay,
       Integer boolIsRandPracticsFirstSignalDelay, Integer dryPracticsTimeBetweenSets,
       Integer boolIsRandPracticsTimeBetweenSets, Integer dryPracticsSets,
       String dryPracticsDescription, Integer userId) {
@@ -94,11 +94,11 @@ public class Practic {
     this.dryPracticsDate = dryPracticsDate;
   }
 
-  public Integer getDryPracticsTime() {
+  public Double getDryPracticsTime() {
     return dryPracticsTime;
   }
 
-  public void setDryPracticsTime(Integer dryPracticsTime) {
+  public void setDryPracticsTime(Double dryPracticsTime) {
     this.dryPracticsTime = dryPracticsTime;
   }
 
