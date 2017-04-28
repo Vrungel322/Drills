@@ -17,4 +17,6 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
   void allVisible();
 
   void allGone();
+
+  void showContentActivity();
 }

@@ -58,6 +58,7 @@ import timber.log.Timber;
           if (userResponse.code() == 200) {
             mUser = userResponse.body();
             getViewState().showBody(userResponse.body().toString());
+            getViewState().showContentActivity();
           }
         }, Timber::e);
     addToUnsubscription(subscription);

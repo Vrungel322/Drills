@@ -1,5 +1,6 @@
 package com.udtech.drills.feature.login.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.udtech.drills.R;
 import com.udtech.drills.base.BaseActivity;
+import com.udtech.drills.feature.content.activities.ContentActivity;
 import com.udtech.drills.feature.login.presenters.LoginActivityPresenter;
 import com.udtech.drills.feature.login.views.ILoginActivityView;
 import com.udtech.drills.utils.Constants;
@@ -145,5 +147,10 @@ public class LoginActivity extends BaseActivity implements ILoginActivityView {
     YoYo.with(Techniques.FadeOut).delay(1000).duration(500).playOn(mButtonLogin);
     YoYo.with(Techniques.FadeOut).delay(1000).duration(500).playOn(mTextViewHelp);
     YoYo.with(Techniques.FadeOut).delay(1000).duration(500).playOn(mTextViewCreateAccount);
+  }
+
+  @Override public void showContentActivity() {
+    mNavigator.startActivity(this, new Intent(LoginActivity.this, ContentActivity.class));
+    finish();
   }
 }
