@@ -16,7 +16,8 @@ public interface INavigator {
   //for activity
   void finishActivity(@NonNull AppCompatActivity appCompatActivity);
 
-  void startActivityClearStack(@NonNull AppCompatActivity appCompatActivity, @NonNull Intent intent);
+  void startActivityClearStack(@NonNull AppCompatActivity appCompatActivity,
+      @NonNull Intent intent);
 
   void startActivity(@NonNull AppCompatActivity appCompatActivity, @NonNull Intent intent);
 
@@ -59,6 +60,9 @@ public interface INavigator {
       @IdRes int containerId, @NonNull Fragment fragment);
 
   void addChildFragment(@NonNull Fragment parent, @IdRes int containerId, @NonNull Fragment child);
+
+  void addChildFragmentBackStack(@NonNull Fragment parent, @IdRes int containerId,
+      @NonNull Fragment child);
 
   void clearBackStack(@NonNull AppCompatActivity appCompatActivity);
 

@@ -1,21 +1,27 @@
 package com.udtech.drills.feature.content.fragments;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.udtech.drills.R;
 import com.udtech.drills.base.BaseFragment;
 import com.udtech.drills.feature.content.presenters.ContentFragmentPresenter;
 import com.udtech.drills.feature.content.views.IContentFragmentView;
+import com.udtech.drills.feature.holoshenie.fragments.HoloshenieFragment;
 import com.yqritc.scalablevideoview.ScalableVideoView;
 import java.io.IOException;
+import timber.log.Timber;
 
 public class ContentFragment extends BaseFragment implements IContentFragmentView {
 
   @InjectPresenter ContentFragmentPresenter mBookingDetailFragmentPresenter;
 
-
   @BindView(R.id.evpVideo) ScalableVideoView mScalableVideoView;
+  @BindView(R.id.ivHoloshenie) ImageView mImageViewHoloshenie;
+  @BindView(R.id.ivHistory) ImageView mImageViewHistory;
 
   public static ContentFragment newInstance() {
     Bundle args = new Bundle();
@@ -31,6 +37,11 @@ public class ContentFragment extends BaseFragment implements IContentFragmentVie
   @Override public void onStart() {
     super.onStart();
     playVideo();
+  }
+
+  @OnClick(R.id.ivHoloshenie) public void ivHoloshenieClicked() {
+    mNavigator.addFragmentBackStack((AppCompatActivity) getActivity(), R.id.contentContainer,
+        HoloshenieFragment.newInstance());
   }
 
   @Override public void playVideo() {

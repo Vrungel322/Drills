@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/clParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
     >
 
   <com.yqritc.scalablevideoview.ScalableVideoView
@@ -96,16 +96,16 @@
       >
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/ivHistory"
         android:layout_width="60dp"
         android:layout_height="60dp"
         app:srcCompat="@drawable/alerter_ic_face"
-        android:layout_alignTop="@+id/imageView"
+        android:layout_alignTop="@+id/ivHoloshenie"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         />
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ivHoloshenie"
         android:layout_width="60dp"
         android:layout_height="60dp"
         app:srcCompat="@drawable/alerter_ic_face"
