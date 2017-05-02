@@ -20,6 +20,7 @@ public class PracticeAdapter extends RecyclerView.Adapter<PracticeAdapter.Practi
   private ArrayList<Practic> mPractics = new ArrayList<>();
 
   public void addListPractic(List<Practic> practics) {
+    mPractics.clear();
     mPractics.addAll(practics);
     notifyDataSetChanged();
   }

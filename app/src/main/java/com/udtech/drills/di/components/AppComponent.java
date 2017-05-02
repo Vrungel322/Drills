@@ -5,6 +5,7 @@ import com.udtech.drills.base.BaseFragment;
 import com.udtech.drills.di.modules.AppModule;
 import com.udtech.drills.feature.content.presenters.ContentActivityPresenter;
 import com.udtech.drills.feature.content.presenters.ContentFragmentPresenter;
+import com.udtech.drills.feature.create_practice.presenters.CreatePracticeFragmentPresenter;
 import com.udtech.drills.feature.holoshenie.presenters.HoloshenieFragmentPresenter;
 import com.udtech.drills.feature.login.presenters.LoginActivityPresenter;
 import com.udtech.drills.feature.registration.presenters.RegistrationActivityPresenter;
@@ -29,6 +30,8 @@ import javax.inject.Singleton;
   void inject(ContentFragmentPresenter presenter);
 
   void inject(HoloshenieFragmentPresenter presenter);
+
+  void inject(CreatePracticeFragmentPresenter presenter);
 
   //activities
   void inject(BaseActivity activity);
