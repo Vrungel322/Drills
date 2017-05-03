@@ -10,8 +10,8 @@ import java.util.List;
 
 public class SendUserDataEntity {
 
-  @SerializedName("history") @Expose private List<HistoryForSend> history = null;
   @SerializedName("practic") @Expose private List<PracticForSend> practic = null;
+  @SerializedName("history") @Expose private List<HistoryForSend> history = null;
 
   /**
    * No args constructor for use in serialization

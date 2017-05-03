@@ -58,7 +58,7 @@ import timber.log.Timber;
   @Provides @Singleton HttpLoggingInterceptor provideHttpLoggingInterceptor() {
     HttpLoggingInterceptor interceptor =
         new HttpLoggingInterceptor(message -> Timber.tag("response").d(message));
-    interceptor.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.HEADERS
+    interceptor.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY
         : HttpLoggingInterceptor.Level.NONE);
     return interceptor;
   }

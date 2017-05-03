@@ -5,8 +5,12 @@ import com.udtech.drills.App;
 import com.udtech.drills.base.BasePresenter;
 import com.udtech.drills.data.DataManager;
 import com.udtech.drills.data.remote.login.User;
+import com.udtech.drills.data.remote.send_user_data.PracticForSend;
 import com.udtech.drills.feature.holoshenie.views.IHoloshenieFragmentView;
+import com.udtech.drills.utils.RxBus;
+import com.udtech.drills.utils.RxBusHelper;
 import com.udtech.drills.utils.ThreadSchedulers;
+import java.util.List;
 import javax.inject.Inject;
 import rx.Subscription;
 import timber.log.Timber;
@@ -18,6 +22,8 @@ import timber.log.Timber;
     extends BasePresenter<IHoloshenieFragmentView> {
   @Inject DataManager mDataManager;
   @Inject User mUser;
+  @Inject RxBus mRxBus;
+  private List<PracticForSend> mPracticForSend;
 
   @Override protected void inject() {
     App.getAppComponent().inject(this);
@@ -27,14 +33,34 @@ import timber.log.Timber;
     super.onFirstViewAttach();
     getViewState().setUpUI();
     fetchUserData();
-    Timber.e(mUser.getAuthKey());
+    getInfFromRxBusAboutPracticToSend();
+  }
+
+  private void getInfFromRxBusAboutPracticToSend() {
+    Subscription subscription = mRxBus.filteredObservable(RxBusHelper.SendDataToServer.class)
+        .compose(ThreadSchedulers.applySchedulers())
+        .subscribe(sendDataToServer -> {
+          mPracticForSend = sendDataToServer.mPracticForSends;
+        });
+    addToUnsubscription(subscription);
+  }
+
+  public void sendDataToServer() {
+    Subscription subscription = mDataManager.sendUserData(mUser.getAuthKey(), mPracticForSend)
+        .compose(ThreadSchedulers.applySchedulers())
+        .subscribe(booleanResponse -> {
+          if (booleanResponse.code() == 200 && booleanResponse.body()) {
+            Timber.e("sendDataToServer Done");
+          }
+        });
+    addToUnsubscription(subscription);
   }
 
   private void fetchUserData() {
     Subscription subscription = mDataManager.fetchUserData(mUser.getAuthKey())
         .compose(ThreadSchedulers.applySchedulers())
         .subscribe(userDataEntityResponse -> {
-          if (userDataEntityResponse.code() == 200){
+          if (userDataEntityResponse.code() == 200) {
             getViewState().fillInRecyclerView(userDataEntityResponse.body().getPractic());
           }
         });
