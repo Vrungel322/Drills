@@ -41,6 +41,7 @@ import timber.log.Timber;
         .compose(ThreadSchedulers.applySchedulers())
         .subscribe(sendDataToServer -> {
           mPracticForSend = sendDataToServer.mPracticForSends;
+          sendDataToServer();
         });
     addToUnsubscription(subscription);
   }
