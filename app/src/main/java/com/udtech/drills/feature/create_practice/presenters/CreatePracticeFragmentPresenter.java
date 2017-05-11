@@ -33,8 +33,8 @@ import javax.inject.Inject;
 
   public void sendData() {
     PracticForSend practic =
-        new PracticForSend("Dry 111111", "0", 3, 121.0, "1491815595.94008", 1,
-            3, "0", "FwUzomJwBQi4BvvNdVUD5r093Lj0TwxZ", 3);
+        new PracticForSend(String.valueOf(System.currentTimeMillis()), 0, 3, 121.0,
+            "1491815595.94008", 1, 3, 0, "FwUzomJwBQi4BvvNdVUD5r093Lj9Gwxz", 3);
     mPracticForSends.add(practic);
     mRxBus.post(new RxBusHelper.SendDataToServer(mPracticForSends));
   }

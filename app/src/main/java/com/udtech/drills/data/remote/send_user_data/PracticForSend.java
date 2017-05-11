@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 public class PracticForSend {
 
   @SerializedName("dryPracticsName") @Expose private String dryPracticsName;
-  @SerializedName("boolIsRandPracticsTimeBetweenSets") @Expose private String
+  @SerializedName("boolIsRandPracticsTimeBetweenSets") @Expose private Integer
       boolIsRandPracticsTimeBetweenSets;
   @SerializedName("dryPracticsFirstSignalDelay") @Expose private Integer
       dryPracticsFirstSignalDelay;
@@ -14,7 +14,7 @@ public class PracticForSend {
   @SerializedName("dryPracticsDescription") @Expose private String dryPracticsDescription;
   @SerializedName("dryPracticsSets") @Expose private Integer dryPracticsSets;
   @SerializedName("dryPracticsTime") @Expose private Integer dryPracticsTime;
-  @SerializedName("boolIsRandPracticsFirstSignalDelay") @Expose private String
+  @SerializedName("boolIsRandPracticsFirstSignalDelay") @Expose private Integer
       boolIsRandPracticsFirstSignalDelay;
   @SerializedName("dryPracticsID") @Expose private String dryPracticsID;
   @SerializedName("dryPracticsTimeBetweenSets") @Expose private Integer dryPracticsTimeBetweenSets;
@@ -22,9 +22,9 @@ public class PracticForSend {
   public PracticForSend() {
   }
 
-  public PracticForSend(String dryPracticsName, String boolIsRandPracticsTimeBetweenSets,
+  public PracticForSend(String dryPracticsName, Integer boolIsRandPracticsTimeBetweenSets,
       Integer dryPracticsFirstSignalDelay, Double dryPracticsDate, String dryPracticsDescription,
-      Integer dryPracticsSets, Integer dryPracticsTime, String boolIsRandPracticsFirstSignalDelay,
+      Integer dryPracticsSets, Integer dryPracticsTime, Integer boolIsRandPracticsFirstSignalDelay,
       String dryPracticsID, Integer dryPracticsTimeBetweenSets) {
     super();
     this.dryPracticsName = dryPracticsName;
@@ -47,11 +47,11 @@ public class PracticForSend {
     this.dryPracticsName = dryPracticsName;
   }
 
-  public String getBoolIsRandPracticsTimeBetweenSets() {
+  public Integer getBoolIsRandPracticsTimeBetweenSets() {
     return boolIsRandPracticsTimeBetweenSets;
   }
 
-  public void setBoolIsRandPracticsTimeBetweenSets(String boolIsRandPracticsTimeBetweenSets) {
+  public void setBoolIsRandPracticsTimeBetweenSets(Integer boolIsRandPracticsTimeBetweenSets) {
     this.boolIsRandPracticsTimeBetweenSets = boolIsRandPracticsTimeBetweenSets;
   }
 
@@ -95,11 +95,11 @@ public class PracticForSend {
     this.dryPracticsTime = dryPracticsTime;
   }
 
-  public String getBoolIsRandPracticsFirstSignalDelay() {
+  public Integer getBoolIsRandPracticsFirstSignalDelay() {
     return boolIsRandPracticsFirstSignalDelay;
   }
 
-  public void setBoolIsRandPracticsFirstSignalDelay(String boolIsRandPracticsFirstSignalDelay) {
+  public void setBoolIsRandPracticsFirstSignalDelay(Integer boolIsRandPracticsFirstSignalDelay) {
     this.boolIsRandPracticsFirstSignalDelay = boolIsRandPracticsFirstSignalDelay;
   }
 

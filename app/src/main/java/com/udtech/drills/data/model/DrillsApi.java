@@ -2,10 +2,8 @@ package com.udtech.drills.data.model;
 
 import com.udtech.drills.data.remote.fetch_user_data.UserDataEntity;
 import com.udtech.drills.data.remote.login.User;
-import com.udtech.drills.data.remote.send_user_data.SendUserDataEntity;
 import com.udtech.drills.data.remote.signUp_Reset.SignUpResetBody;
 import retrofit2.Response;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -32,8 +30,13 @@ public interface DrillsApi {
   @GET("/api/web/v2/practic-history") Observable<Response<UserDataEntity>> fetchUserData(
       @Query("access-token") String token);
 
-  @POST("/api/web/v2/practic-history") Observable<Response<Boolean>> sendUserData(
-      @Query("access-token") String token, @Body SendUserDataEntity sendUserDataEntity);
+  @POST("/api/web/v2/practic-history") @FormUrlEncoded
+  Observable<Response<Boolean>> sendUserDataPractic(@Query("access-token") String token,
+      @Field("practic") String practicForSends);
+
+  @POST("/api/web/v2/practic-history") @FormUrlEncoded
+  Observable<Response<Boolean>> sendUserDataHistory(@Query("access-token") String token,
+      @Field("history") String historyForSends);
 
   //@POST("signin") Observable<TokenEntity> login(
   //    @Body LoginBody credentials

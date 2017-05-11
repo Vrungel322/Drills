@@ -53,7 +53,7 @@ public class HoloshenieFragment extends BaseFragment implements IHoloshenieFragm
   }
 
   @OnClick(R.id.tvDone) public void tvDoneClick() {
-    mHoloshenieFragmentPresenter.sendDataToServer();
+    mHoloshenieFragmentPresenter.sendUserDataPracticToServer();
     mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,
         ContentFragment.newInstance());
   }

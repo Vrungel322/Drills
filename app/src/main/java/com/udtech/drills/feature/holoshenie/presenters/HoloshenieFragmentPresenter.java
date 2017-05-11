@@ -41,13 +41,12 @@ import timber.log.Timber;
         .compose(ThreadSchedulers.applySchedulers())
         .subscribe(sendDataToServer -> {
           mPracticForSend = sendDataToServer.mPracticForSends;
-          sendDataToServer();
         });
     addToUnsubscription(subscription);
   }
 
-  public void sendDataToServer() {
-    Subscription subscription = mDataManager.sendUserData(mUser.getAuthKey(), mPracticForSend)
+  public void sendUserDataPracticToServer() {
+    Subscription subscription = mDataManager.sendUserDataPractic(mUser.getAuthKey(), mPracticForSend)
         .compose(ThreadSchedulers.applySchedulers())
         .subscribe(booleanResponse -> {
           if (booleanResponse.code() == 200 && booleanResponse.body()) {

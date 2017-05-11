@@ -57,7 +57,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
 
     ///tv Total time
     holder.mTextViewTotalTime.setText(Converters.timeFromSeconds(
-        String.valueOf(Math.round(mHistories.get(position).getHistoryPracticsTime()))));
+        String.valueOf(mHistories.get(position).getHistoryPracticsTime())));
   }
 
   public boolean isCBEnabled(){
