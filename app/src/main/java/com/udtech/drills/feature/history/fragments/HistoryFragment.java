@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.udtech.drills.R;
 import com.udtech.drills.base.BaseFragment;
@@ -54,6 +55,16 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
         })
         .setOnItemClickListener((recyclerView, position, v) -> {
         });
+  }
+
+  @OnClick(R.id.tvOtmenaIzmenit) public void tvOtmenaIzmenitClicked() {
+    mHistoryAdapter.enableCheckBox(!mHistoryAdapter.isCBEnabled());
+    if (mHistoryAdapter.isCBEnabled()){
+      mTextViewOtmenaIzmenit.setText(getText(R.string.cancel));
+    }
+    else {
+      mTextViewOtmenaIzmenit.setText(getText(R.string.change));
+    }
   }
 
   @Override public void setHistoryList(List<History> history) {

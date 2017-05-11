@@ -49,9 +49,12 @@
       android:text="@string/history"
       android:textSize="18sp"
       app:layout_constraintBottom_toBottomOf="@+id/view2"
-      app:layout_constraintLeft_toRightOf="@+id/tvDoneDelete"
-      app:layout_constraintRight_toLeftOf="@+id/tvOtmenaIzmenit"
       app:layout_constraintTop_toTopOf="@+id/view2"
+      app:layout_constraintVertical_bias="0.526"
+      android:layout_marginRight="8dp"
+      app:layout_constraintRight_toRightOf="parent"
+      android:layout_marginLeft="8dp"
+      app:layout_constraintLeft_toLeftOf="parent"
       />
   <android.support.v7.widget.RecyclerView
       android:id="@+id/rvHistory"
