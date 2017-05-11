@@ -27,4 +27,7 @@
   <string name="done">Готово</string>
   <string name="holoshenie">Холощение</string>
   <string name="create">Создать</string>
+  <string name="history">История</string>
+  <string name="change">Изменить</string>
+  <string name="all_time">Все время</string>
 </resources>

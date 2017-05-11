@@ -10,6 +10,7 @@ import com.udtech.drills.R;
 import com.udtech.drills.base.BaseFragment;
 import com.udtech.drills.feature.content.presenters.ContentFragmentPresenter;
 import com.udtech.drills.feature.content.views.IContentFragmentView;
+import com.udtech.drills.feature.history.fragments.HistoryFragment;
 import com.udtech.drills.feature.holoshenie.fragments.HoloshenieFragment;
 import com.yqritc.scalablevideoview.ScalableVideoView;
 import java.io.IOException;
@@ -42,6 +43,11 @@ public class ContentFragment extends BaseFragment implements IContentFragmentVie
   @OnClick(R.id.ivHoloshenie) public void ivHoloshenieClicked() {
     mNavigator.addFragmentBackStack((AppCompatActivity) getActivity(), R.id.contentContainer,
         HoloshenieFragment.newInstance());
+  }
+
+  @OnClick(R.id.ivHistory) public void ivHistoryClicked() {
+    mNavigator.addFragmentBackStack((AppCompatActivity) getActivity(), R.id.contentContainer,
+        HistoryFragment.newInstance());
   }
 
   @Override public void playVideo() {

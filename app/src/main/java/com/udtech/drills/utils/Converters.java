@@ -22,7 +22,7 @@ public class Converters {
   public static String timeFromMilliseconds(String date) {
     if (!date.equals("")) {
       String dateResult;
-      SimpleDateFormat formatter = new SimpleDateFormat("HH:mm", java.util.Locale.getDefault());
+      SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault());
       Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
       long d = Long.valueOf(date);
       calendar.setTimeInMillis(d);
@@ -36,7 +36,7 @@ public class Converters {
   public static String timeFromSeconds(String date) {
     if (!date.equals("")) {
       String dateResult;
-      SimpleDateFormat formatter = new SimpleDateFormat("HH:mm", java.util.Locale.getDefault());
+      SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault());
       Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
       long d = Long.valueOf(date) * 1000L;
       calendar.setTimeInMillis(d);
