@@ -14,6 +14,7 @@ import com.udtech.drills.feature.create_practice.presenters.CreatePracticeFragme
 import com.udtech.drills.feature.create_practice.views.ICreatePracticeFragmentView;
 import com.udtech.drills.feature.holoshenie.fragments.HoloshenieFragment;
 import com.udtech.drills.utils.Converters;
+import com.udtech.drills.utils.Randomizer;
 
 /**
  * Created by vrungel on 03.05.17.
@@ -53,5 +54,13 @@ public class CreatePracticeFragment extends BaseFragment implements ICreatePract
   @OnClick(R.id.tvCancel) public void tvCancelClicked() {
     mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,
         HoloshenieFragment.newInstance());
+  }
+
+  @OnClick(R.id.cbRandDelay) public void cbRandDelayCkicked() {
+    mEditTextDelay.setText(String.valueOf(Randomizer.getRandomNumberInRange(3, 70)));
+  }
+
+  @OnClick(R.id.cbRandBetweenSets) public void cbRandBetweenSetsCkicked() {
+    mEditTextBetweenSets.setText(String.valueOf(Randomizer.getRandomNumberInRange(3, 70)));
   }
 }
