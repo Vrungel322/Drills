@@ -41,6 +41,7 @@ import timber.log.Timber;
         .compose(ThreadSchedulers.applySchedulers())
         .subscribe(sendDataToServer -> {
           mPracticForSend = sendDataToServer.mPracticForSends;
+          sendUserDataPracticToServer();
         });
     addToUnsubscription(subscription);
   }
@@ -51,6 +52,7 @@ import timber.log.Timber;
         .subscribe(booleanResponse -> {
           if (booleanResponse.code() == 200 && booleanResponse.body()) {
             Timber.e("sendDataToServer Done");
+            getViewState().openHoloshenieFragment();
           }
         });
     addToUnsubscription(subscription);

@@ -106,4 +106,8 @@ public class Converters {
     }
     return "";
   }
+
+  public static int boolToInt(boolean b) {
+    return b ? 1 : 0;
+  }
 }

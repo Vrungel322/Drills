@@ -30,4 +30,8 @@
   <string name="history">История</string>
   <string name="change">Изменить</string>
   <string name="all_time">Все время</string>
+  <string name="set_time">Время сэта (секунды)</string>
+  <string name="delay">Задержка (секунды)</string>
+  <string name="between_sets">Между сэтами (секунды)</string>
+  <string name="comments">Место для описания</string>
 </resources>
