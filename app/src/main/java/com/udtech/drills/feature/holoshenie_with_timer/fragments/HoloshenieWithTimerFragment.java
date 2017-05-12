@@ -53,7 +53,7 @@ public class HoloshenieWithTimerFragment extends BaseFragment
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     mTextViewPracticeToChangeName.setText(mPractic.getDryPracticsName());
-    mCircleView.setMax(mPractic.getDryPracticsFirstSignalDelay());
+    mCircleView.setMax(mPractic.getDryPracticsFirstSignalDelay()*1000);
     mCircleView.setDonut_progress("70");
     mHoloshenieWithTimerFragmentPresenter.startTimer(mPractic.getDryPracticsFirstSignalDelay());
   }

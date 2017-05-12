@@ -17,9 +17,9 @@ import com.udtech.drills.feature.holoshenie_with_timer.views.IHoloshenieWithTime
 
   public void startTimer(Integer dryPracticsFirstSignalDelay) {
     CountDownTimer countDownTimer =
-        new CountDownTimer(dryPracticsFirstSignalDelay * 1000, 1000) {
+        new CountDownTimer(dryPracticsFirstSignalDelay * 1000, 1) {
           @Override public void onTick(long millisUntilFinished) {
-            getViewState().updateCircle(millisUntilFinished / 1000, dryPracticsFirstSignalDelay);
+            getViewState().updateCircle(millisUntilFinished, dryPracticsFirstSignalDelay*1000);
           }
 
           @Override public void onFinish() {
