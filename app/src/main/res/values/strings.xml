@@ -35,4 +35,6 @@
   <string name="between_sets">Между сэтами (секунды)</string>
   <string name="comments">Место для описания</string>
   <string name="back">Назад</string>
+  <string name="start">Старт</string>
+  <string name="stop">Стоп</string>
 </resources>

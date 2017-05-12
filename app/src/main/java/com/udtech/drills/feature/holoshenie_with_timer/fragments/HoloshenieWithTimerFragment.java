@@ -15,6 +15,7 @@ import com.udtech.drills.data.remote.fetch_user_data.Practic;
 import com.udtech.drills.feature.holoshenie.fragments.HoloshenieFragment;
 import com.udtech.drills.feature.holoshenie_with_timer.presenters.HoloshenieWithTimerFragmentPresenter;
 import com.udtech.drills.feature.holoshenie_with_timer.views.IHoloshenieWithTimerFragmentView;
+import com.udtech.drills.utils.Constants;
 import timber.log.Timber;
 
 /**
@@ -29,8 +30,11 @@ public class HoloshenieWithTimerFragment extends BaseFragment
 
   @BindView(R.id.tvPracticeToChangeName) TextView mTextViewPracticeToChangeName;
   @BindView(R.id.circle_view) DonutProgress mCircleView;
+  @BindView(R.id.tvStartStop) TextView mTextViewStartStop;
 
   private Practic mPractic;
+  private boolean isRunning;
+  private Integer mSetsCount;
 
   public static HoloshenieWithTimerFragment newInstance(Practic item) {
     Bundle args = new Bundle();
@@ -47,15 +51,14 @@ public class HoloshenieWithTimerFragment extends BaseFragment
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     mPractic = getArguments().getParcelable(PRACTIC_KEY);
-    Timber.e(mPractic.getDryPracticsName());
+    mSetsCount = mPractic.getDryPracticsSets();
+    showToastMessage("" + mSetsCount);
   }
 
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     mTextViewPracticeToChangeName.setText(mPractic.getDryPracticsName());
-    mCircleView.setMax(mPractic.getDryPracticsFirstSignalDelay()*1000);
-    mCircleView.setDonut_progress("70");
-    mHoloshenieWithTimerFragmentPresenter.startTimer(mPractic.getDryPracticsFirstSignalDelay());
+    mCircleView.setMax(mPractic.getDryPracticsFirstSignalDelay() * 1000);
   }
 
   @OnClick(R.id.tvBack) public void tvBackClick() {
@@ -71,5 +74,43 @@ public class HoloshenieWithTimerFragment extends BaseFragment
   @Override public void updateCircle(long milisUntilFinish, Integer dryPracticsFirstSignalDelay) {
     Timber.e(String.valueOf(milisUntilFinish));
     mCircleView.setDonut_progress(String.valueOf(dryPracticsFirstSignalDelay - milisUntilFinish));
+  }
+
+  @Override public void nextTimerSettings(int setTimer) {
+    if (setTimer == Constants.DELAY_TIMER) {
+      mCircleView.setMax(mPractic.getDryPracticsTimeBetweenSets() * 1000);
+      mCircleView.setUnfinishedStrokeColor(android.R.color.holo_red_light);
+    } else {
+      mCircleView.setMax(
+          Integer.valueOf(String.valueOf(Math.round(mPractic.getDryPracticsTime() * 1000))));
+      mCircleView.setUnfinishedStrokeColor(R.color.colorAccent);
+    }
+  }
+
+  @Override public void decreaseSetsCount() {
+    //mSetsCount--;
+  }
+
+  @Override public void restoreTv() {
+    mTextViewStartStop.setText(getString(R.string.start));
+  }
+
+  @OnClick(R.id.tvStartStop) public void tvStartStopClick() {
+    mHoloshenieWithTimerFragmentPresenter.setsRemain(mSetsCount);
+    mCircleView.setMax(mPractic.getDryPracticsFirstSignalDelay() * 1000);
+    mCircleView.setUnfinishedStrokeColor(android.R.color.holo_red_light);
+    isRunning = !isRunning;
+    if (isRunning) {
+      mTextViewStartStop.setText(R.string.stop);
+      //while (mSetsCount > 0 && isRunning) {
+      if (isRunning) {
+        mHoloshenieWithTimerFragmentPresenter.startTimer(mPractic.getDryPracticsFirstSignalDelay(),
+            mPractic.getDryPracticsTimeBetweenSets(),
+            Integer.valueOf(String.valueOf(Math.round(mPractic.getDryPracticsTime()))));
+      }
+      //}
+    } else {
+      mTextViewStartStop.setText(R.string.start);
+    }
   }
 }

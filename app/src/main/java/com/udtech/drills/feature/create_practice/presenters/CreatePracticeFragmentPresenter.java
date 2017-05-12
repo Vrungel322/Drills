@@ -36,7 +36,7 @@ import javax.inject.Inject;
       String comments, int boolIsRandTimeBetweenSets, int boolisRandTimeBeforeFirstSignalDelay) {
     PracticForSend practic =
         new PracticForSend(practiceName + Randomizer.randomString(7), boolIsRandTimeBetweenSets, Integer.valueOf(delay),
-            Double.valueOf(String.valueOf(System.currentTimeMillis())), comments, 1,
+            Double.valueOf(String.valueOf(System.currentTimeMillis())), comments, 2,
             Integer.valueOf(setTime), boolisRandTimeBeforeFirstSignalDelay,
             Randomizer.randomString(32), Integer.valueOf(betweenSets));
     mPracticForSends.add(practic);

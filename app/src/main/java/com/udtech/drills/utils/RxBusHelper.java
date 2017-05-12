@@ -16,4 +16,12 @@ public final class RxBusHelper {
       mPracticForSends = practics;
     }
   }
+
+  public static class ChangeTimerSettings {
+    public int mode;
+
+    public ChangeTimerSettings(int mode) {
+      this.mode = mode;
+    }
+  }
 }
