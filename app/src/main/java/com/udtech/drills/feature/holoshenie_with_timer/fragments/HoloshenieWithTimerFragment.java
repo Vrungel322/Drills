@@ -8,6 +8,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.udtech.drills.R;
 import com.udtech.drills.base.BaseFragment;
 import com.udtech.drills.data.remote.fetch_user_data.Practic;
@@ -27,6 +28,7 @@ public class HoloshenieWithTimerFragment extends BaseFragment
   @InjectPresenter HoloshenieWithTimerFragmentPresenter mHoloshenieWithTimerFragmentPresenter;
 
   @BindView(R.id.tvPracticeToChangeName) TextView mTextViewPracticeToChangeName;
+  @BindView(R.id.circle_view) DonutProgress mCircleView;
 
   private Practic mPractic;
 
@@ -51,6 +53,9 @@ public class HoloshenieWithTimerFragment extends BaseFragment
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     mTextViewPracticeToChangeName.setText(mPractic.getDryPracticsName());
+    mCircleView.setMax(mPractic.getDryPracticsFirstSignalDelay());
+    mCircleView.setDonut_progress("70");
+    mHoloshenieWithTimerFragmentPresenter.startTimer(mPractic.getDryPracticsFirstSignalDelay());
   }
 
   @OnClick(R.id.tvBack) public void tvBackClick() {
@@ -61,5 +66,10 @@ public class HoloshenieWithTimerFragment extends BaseFragment
   @OnClick(R.id.tvChange) public void tvChangeClick() {
     mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,
         HoloshenieFragment.newInstance());
+  }
+
+  @Override public void updateCircle(long milisUntilFinish, Integer dryPracticsFirstSignalDelay) {
+    Timber.e(String.valueOf(milisUntilFinish));
+    mCircleView.setDonut_progress(String.valueOf(dryPracticsFirstSignalDelay - milisUntilFinish));
   }
 }

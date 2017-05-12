@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:circleview="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark_gray"
@@ -46,8 +47,10 @@
       android:id="@+id/textView3"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginEnd="8dp"
       android:layout_marginLeft="8dp"
       android:layout_marginRight="8dp"
+      android:layout_marginStart="8dp"
       android:text="@string/holoshenie"
       android:textSize="18sp"
       app:layout_constraintBottom_toBottomOf="@+id/view2"
@@ -60,14 +63,32 @@
       android:id="@+id/tvPracticeToChangeName"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginEnd="8dp"
       android:layout_marginLeft="8dp"
       android:layout_marginRight="8dp"
+      android:layout_marginStart="8dp"
       android:layout_marginTop="24dp"
-      android:textSize="18sp"
       android:textColor="@color/white"
+      android:textSize="18sp"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/view2"
+      circleview:text="some text"
+      />
+
+  <com.github.lzyzsd.circleprogress.DonutProgress
+      android:id="@+id/circle_view"
+      android:layout_width="300dp"
+      android:layout_height="300dp"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp"
+      android:layout_marginTop="32dp"
+      app:donut_show_text="false"
+      app:donut_finished_stroke_width="20dp"
+      app:donut_unfinished_stroke_width="33dp"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tvPracticeToChangeName"
       />
 
 </android.support.constraint.ConstraintLayout>
