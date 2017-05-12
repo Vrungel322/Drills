@@ -1,7 +1,11 @@
 package com.udtech.drills.feature.holoshenie_with_timer.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.TextView;
+import butterknife.BindView;
 import butterknife.OnClick;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.udtech.drills.R;
@@ -22,6 +26,8 @@ public class HoloshenieWithTimerFragment extends BaseFragment
 
   @InjectPresenter HoloshenieWithTimerFragmentPresenter mHoloshenieWithTimerFragmentPresenter;
 
+  @BindView(R.id.tvPracticeToChangeName) TextView mTextViewPracticeToChangeName;
+
   private Practic mPractic;
 
   public static HoloshenieWithTimerFragment newInstance(Practic item) {
@@ -40,6 +46,11 @@ public class HoloshenieWithTimerFragment extends BaseFragment
     super.onCreate(savedInstanceState);
     mPractic = getArguments().getParcelable(PRACTIC_KEY);
     Timber.e(mPractic.getDryPracticsName());
+  }
+
+  @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    mTextViewPracticeToChangeName.setText(mPractic.getDryPracticsName());
   }
 
   @OnClick(R.id.tvBack) public void tvBackClick() {
