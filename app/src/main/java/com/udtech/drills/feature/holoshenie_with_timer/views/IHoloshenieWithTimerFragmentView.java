@@ -1,8 +1,12 @@
 package com.udtech.drills.feature.holoshenie_with_timer.views;
 
+import com.arellomobile.mvp.MvpView;
+import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
+import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
+
 /**
  * Created by Vrungel on 12.05.2017.
  */
-
-public interface IHoloshenieWithTimerFragmentView {
+@StateStrategyType(AddToEndSingleStrategy.class) public interface IHoloshenieWithTimerFragmentView
+    extends MvpView {
 }

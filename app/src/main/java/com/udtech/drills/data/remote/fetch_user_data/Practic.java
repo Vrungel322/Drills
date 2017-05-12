@@ -1,9 +1,11 @@
 package com.udtech.drills.data.remote.fetch_user_data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Practic {
+public class Practic implements Parcelable {
 
   @SerializedName("id") @Expose private Integer id;
   @SerializedName("dryPracticsID") @Expose private String dryPracticsID;
@@ -61,6 +63,22 @@ public class Practic {
     this.dryPracticsDescription = dryPracticsDescription;
     this.userId = userId;
   }
+
+  protected Practic(Parcel in) {
+    dryPracticsID = in.readString();
+    dryPracticsName = in.readString();
+    dryPracticsDescription = in.readString();
+  }
+
+  public static final Creator<Practic> CREATOR = new Creator<Practic>() {
+    @Override public Practic createFromParcel(Parcel in) {
+      return new Practic(in);
+    }
+
+    @Override public Practic[] newArray(int size) {
+      return new Practic[size];
+    }
+  };
 
   public Integer getId() {
     return id;
@@ -156,5 +174,15 @@ public class Practic {
 
   public void setUserId(Integer userId) {
     this.userId = userId;
+  }
+
+  @Override public int describeContents() {
+    return 0;
+  }
+
+  @Override public void writeToParcel(Parcel dest, int flags) {
+    dest.writeString(dryPracticsID);
+    dest.writeString(dryPracticsName);
+    dest.writeString(dryPracticsDescription);
   }
 }

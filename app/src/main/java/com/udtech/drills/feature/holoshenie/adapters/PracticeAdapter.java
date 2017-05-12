@@ -34,7 +34,7 @@ public class PracticeAdapter extends RecyclerView.Adapter<PracticeAdapter.Practi
 
     holder.mTextViewPracticeName.setText(mPractics.get(position).getDryPracticsName());
     holder.mTextViewPracticeTime.setText(
-        String.valueOf(mPractics.get(position).getDryPracticsTime()) + "sec");
+        String.valueOf(mPractics.get(position).getDryPracticsTime()) + " sec");
   }
 
   @Override public int getItemCount() {

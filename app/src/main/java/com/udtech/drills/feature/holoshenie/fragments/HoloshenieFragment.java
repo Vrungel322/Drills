@@ -17,6 +17,8 @@ import com.udtech.drills.feature.create_practice.fragments.CreatePracticeFragmen
 import com.udtech.drills.feature.holoshenie.adapters.PracticeAdapter;
 import com.udtech.drills.feature.holoshenie.presenters.HoloshenieFragmentPresenter;
 import com.udtech.drills.feature.holoshenie.views.IHoloshenieFragmentView;
+import com.udtech.drills.feature.holoshenie_with_timer.fragments.HoloshenieWithTimerFragment;
+import com.udtech.drills.utils.ItemClickSupport;
 import java.util.List;
 import timber.log.Timber;
 
@@ -44,6 +46,11 @@ public class HoloshenieFragment extends BaseFragment implements IHoloshenieFragm
     mPracticeAdapter = new PracticeAdapter();
     mRecyclerViewPractice.setLayoutManager(new LinearLayoutManager(getContext()));
     mRecyclerViewPractice.setAdapter(mPracticeAdapter);
+    ItemClickSupport.addTo(mRecyclerViewPractice)
+        .setOnItemClickListener((recyclerView, position, v) -> {
+          mNavigator.replaceFragmentBackStack((AppCompatActivity) getActivity(), R.id.contentContainer,
+              HoloshenieWithTimerFragment.newInstance(mPracticeAdapter.getItem(position)));
+        });
   }
 
   @Override public void fillInRecyclerView(List<Practic> practic) {
