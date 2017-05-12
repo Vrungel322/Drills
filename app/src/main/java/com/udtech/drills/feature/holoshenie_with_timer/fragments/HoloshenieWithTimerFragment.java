@@ -2,6 +2,7 @@ package com.udtech.drills.feature.holoshenie_with_timer.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -79,11 +80,13 @@ public class HoloshenieWithTimerFragment extends BaseFragment
   @Override public void nextTimerSettings(int setTimer) {
     if (setTimer == Constants.DELAY_TIMER) {
       mCircleView.setMax(mPractic.getDryPracticsTimeBetweenSets() * 1000);
-      mCircleView.setUnfinishedStrokeColor(android.R.color.holo_red_light);
+      mCircleView.setFinishedStrokeColor(
+          ContextCompat.getColor(getContext(), android.R.color.holo_red_light));
     } else {
       mCircleView.setMax(
           Integer.valueOf(String.valueOf(Math.round(mPractic.getDryPracticsTime() * 1000))));
-      mCircleView.setUnfinishedStrokeColor(R.color.colorAccent);
+      mCircleView.setFinishedStrokeColor(
+          ContextCompat.getColor(getContext(), R.color.colorAccent));
     }
   }
 
@@ -98,7 +101,8 @@ public class HoloshenieWithTimerFragment extends BaseFragment
   @OnClick(R.id.tvStartStop) public void tvStartStopClick() {
     mHoloshenieWithTimerFragmentPresenter.setsRemain(mSetsCount);
     mCircleView.setMax(mPractic.getDryPracticsFirstSignalDelay() * 1000);
-    mCircleView.setUnfinishedStrokeColor(android.R.color.holo_red_light);
+    mCircleView.setFinishedStrokeColor(
+        ContextCompat.getColor(getContext(), android.R.color.holo_red_light));
     isRunning = !isRunning;
     if (isRunning) {
       mTextViewStartStop.setText(R.string.stop);
