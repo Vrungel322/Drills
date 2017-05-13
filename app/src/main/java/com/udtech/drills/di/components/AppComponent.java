@@ -3,6 +3,7 @@ package com.udtech.drills.di.components;
 import com.udtech.drills.base.BaseActivity;
 import com.udtech.drills.base.BaseFragment;
 import com.udtech.drills.di.modules.AppModule;
+import com.udtech.drills.feature.change_practic_settings.presenters.ChangePracticFragmentPresenter;
 import com.udtech.drills.feature.content.presenters.ContentActivityPresenter;
 import com.udtech.drills.feature.content.presenters.ContentFragmentPresenter;
 import com.udtech.drills.feature.create_practice.presenters.CreatePracticeFragmentPresenter;
@@ -38,6 +39,8 @@ import javax.inject.Singleton;
   void inject(HistoryFragmentPresenter presenter);
 
   void inject(HoloshenieWithTimerFragmentPresenter presenter);
+
+  void inject(ChangePracticFragmentPresenter presenter);
 
   //activities
   void inject(BaseActivity activity);
