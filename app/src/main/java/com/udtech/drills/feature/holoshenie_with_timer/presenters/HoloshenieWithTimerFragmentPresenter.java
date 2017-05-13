@@ -85,4 +85,16 @@ import javax.inject.Inject;
   public void setsRemain(Integer dryPracticsSetsRemain) {
     mSetsRemain = dryPracticsSetsRemain;
   }
+
+  public void stopAllTimers() {
+    if (mCountDownTimerFirstSignalDelay != null){
+      mCountDownTimerFirstSignalDelay.cancel();
+    }
+    if (mCountDownTimerBetweenSets != null){
+      mCountDownTimerBetweenSets.cancel();
+    }
+    if (mCountDownTimerPractice != null){
+      mCountDownTimerPractice.cancel();
+    }
+  }
 }

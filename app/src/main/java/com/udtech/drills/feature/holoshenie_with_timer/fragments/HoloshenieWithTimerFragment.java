@@ -124,6 +124,11 @@ public class HoloshenieWithTimerFragment extends BaseFragment
       }
       //}
     } else {
+      mHoloshenieWithTimerFragmentPresenter.setsRemain(0);
+      mHoloshenieWithTimerFragmentPresenter.stopAllTimers();
+      mCircleView.setDonut_progress("0");
+      mTextViewPracticTime.setText(
+          Converters.milisToSecWithDecimal(Math.round(mPractic.getDryPracticsTime()*1000)));
       mTextViewStartStop.setText(R.string.start);
     }
   }
