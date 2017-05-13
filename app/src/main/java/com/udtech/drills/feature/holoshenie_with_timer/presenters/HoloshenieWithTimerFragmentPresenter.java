@@ -4,18 +4,26 @@ import android.os.CountDownTimer;
 import com.arellomobile.mvp.InjectViewState;
 import com.udtech.drills.App;
 import com.udtech.drills.base.BasePresenter;
+import com.udtech.drills.data.DataManager;
+import com.udtech.drills.data.local.mappers.PracticToPracticForSendMapper;
+import com.udtech.drills.data.remote.fetch_user_data.Practic;
+import com.udtech.drills.data.remote.login.User;
+import com.udtech.drills.data.remote.send_user_data.PracticForSend;
 import com.udtech.drills.feature.holoshenie_with_timer.views.IHoloshenieWithTimerFragmentView;
 import com.udtech.drills.utils.Constants;
 import com.udtech.drills.utils.RxBus;
-import com.udtech.drills.utils.RxBusHelper;
+import com.udtech.drills.utils.ThreadSchedulers;
+import java.util.ArrayList;
 import javax.inject.Inject;
+import rx.Subscription;
 
 /**
  * Created by Vrungel on 12.05.2017.
  */
 @InjectViewState public class HoloshenieWithTimerFragmentPresenter
     extends BasePresenter<IHoloshenieWithTimerFragmentView> {
-
+  @Inject DataManager mDataManager;
+  @Inject User mUser;
   @Inject RxBus mRxBus;
 
   private CountDownTimer mCountDownTimerBetweenSets;
@@ -45,11 +53,10 @@ import javax.inject.Inject;
       }
     }.start();
 
-    mCountDownTimerBetweenSets = new CountDownTimer(dryPracticsTimeBetweenSets *1000 ,1) {
+    mCountDownTimerBetweenSets = new CountDownTimer(dryPracticsTimeBetweenSets * 1000, 1) {
       @Override public void onTick(long millisUntilFinished) {
         getViewState().updateCircle(millisUntilFinished, dryPracticsTimeBetweenSets * 1000);
         getViewState().updateTextView(Constants.DELAY_TIMER, millisUntilFinished);
-
       }
 
       @Override public void onFinish() {
@@ -64,7 +71,6 @@ import javax.inject.Inject;
       @Override public void onTick(long millisUntilFinished) {
         getViewState().updateCircle(millisUntilFinished, dryPracticsTime * 1000);
         getViewState().updateTextView(Constants.SET_TIMER, millisUntilFinished);
-
       }
 
       @Override public void onFinish() {
@@ -74,8 +80,7 @@ import javax.inject.Inject;
         mSetsRemain--;
         if (mSetsRemain > 0) {
           mCountDownTimerBetweenSets.start();
-        }
-        else {
+        } else {
           getViewState().restoreTv();
         }
       }
@@ -87,14 +92,29 @@ import javax.inject.Inject;
   }
 
   public void stopAllTimers() {
-    if (mCountDownTimerFirstSignalDelay != null){
+    if (mCountDownTimerFirstSignalDelay != null) {
       mCountDownTimerFirstSignalDelay.cancel();
     }
-    if (mCountDownTimerBetweenSets != null){
+    if (mCountDownTimerBetweenSets != null) {
       mCountDownTimerBetweenSets.cancel();
     }
-    if (mCountDownTimerPractice != null){
+    if (mCountDownTimerPractice != null) {
       mCountDownTimerPractice.cancel();
     }
+  }
+
+  public void updateCurrentPractice(Practic practic, Integer setsCount) {
+    ArrayList<PracticForSend> practicForSends = new ArrayList<>();
+    practic.setDryPracticsSets(setsCount);
+    practicForSends.add(new PracticToPracticForSendMapper().transform(practic));
+    Subscription subscription =
+        mDataManager.sendUserDataPractic(mUser.getAuthKey(), practicForSends)
+            .compose(ThreadSchedulers.applySchedulers())
+            .subscribe(booleanResponse -> {
+              if (booleanResponse.code() == 200 && booleanResponse.body()){
+                getViewState().openHoloshenieListFragment();
+              }
+            });
+    addToUnsubscription(subscription);
   }
 }

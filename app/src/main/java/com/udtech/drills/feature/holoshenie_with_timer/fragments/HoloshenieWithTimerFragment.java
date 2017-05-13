@@ -70,8 +70,7 @@ public class HoloshenieWithTimerFragment extends BaseFragment
   }
 
   @OnClick(R.id.tvBack) public void tvBackClick() {
-    mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,
-        HoloshenieFragment.newInstance());
+    mHoloshenieWithTimerFragmentPresenter.updateCurrentPractice(mPractic,mSetsCount+10);
   }
 
   @OnClick(R.id.tvChange) public void tvChangeClick() {
@@ -106,6 +105,11 @@ public class HoloshenieWithTimerFragment extends BaseFragment
     } else {
       mTextViewDelayTime.setText(Converters.milisToSecWithDecimal(millisUntilFinished));
     }
+  }
+
+  @Override public void openHoloshenieListFragment() {
+    mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,
+        HoloshenieFragment.newInstance());
   }
 
   @OnClick(R.id.tvStartStop) public void tvStartStopClick() {

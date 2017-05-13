@@ -16,4 +16,6 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
   void restoreTv();
 
   void updateTextView(int setTimer, long millisUntilFinished);
+
+  void openHoloshenieListFragment();
 }
