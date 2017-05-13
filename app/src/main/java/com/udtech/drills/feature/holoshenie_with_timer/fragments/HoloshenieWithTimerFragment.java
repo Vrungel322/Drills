@@ -35,6 +35,7 @@ public class HoloshenieWithTimerFragment extends BaseFragment
   @BindView(R.id.tvStartStop) TextView mTextViewStartStop;
   @BindView(R.id.tvPracticTime) TextView mTextViewPracticTime;
   @BindView(R.id.tvDelayTime) TextView mTextViewDelayTime;
+  @BindView(R.id.tvSetsCount) TextView mTextViewSetsCount;
 
   private Practic mPractic;
   private boolean isRunning;
@@ -64,13 +65,29 @@ public class HoloshenieWithTimerFragment extends BaseFragment
     mTextViewPracticeToChangeName.setText(mPractic.getDryPracticsName());
     mCircleView.setMax(mPractic.getDryPracticsFirstSignalDelay() * 1000);
     mTextViewPracticTime.setText(
-        Converters.milisToSecWithDecimal(Math.round(mPractic.getDryPracticsTime()*1000)));
+        Converters.milisToSecWithDecimal(Math.round(mPractic.getDryPracticsTime() * 1000)));
     mTextViewDelayTime.setText(
-        Converters.milisToSecWithDecimal((mPractic.getDryPracticsFirstSignalDelay()*1000)));
+        Converters.milisToSecWithDecimal((mPractic.getDryPracticsFirstSignalDelay() * 1000)));
+
+    mTextViewSetsCount.setText(String.valueOf(mSetsCount));
   }
 
   @OnClick(R.id.tvBack) public void tvBackClick() {
-    mHoloshenieWithTimerFragmentPresenter.updateCurrentPractice(mPractic,mSetsCount+10);
+    mHoloshenieWithTimerFragmentPresenter.updateCurrentPractice(mPractic, mSetsCount);
+  }
+
+  @OnClick(R.id.bMinusSet) public void bMinusSetClick() {
+    if (mSetsCount > 1) {
+      mSetsCount--;
+      mTextViewSetsCount.setText(String.valueOf(mSetsCount));
+    } else {
+      showAlertMessage("Error!", "Sets count must be at least 1");
+    }
+  }
+
+  @OnClick(R.id.bPlusSet) public void bPlusSetClick() {
+    mSetsCount++;
+    mTextViewSetsCount.setText(String.valueOf(mSetsCount));
   }
 
   @OnClick(R.id.tvChange) public void tvChangeClick() {
@@ -132,7 +149,7 @@ public class HoloshenieWithTimerFragment extends BaseFragment
       mHoloshenieWithTimerFragmentPresenter.stopAllTimers();
       mCircleView.setDonut_progress("0");
       mTextViewPracticTime.setText(
-          Converters.milisToSecWithDecimal(Math.round(mPractic.getDryPracticsTime()*1000)));
+          Converters.milisToSecWithDecimal(Math.round(mPractic.getDryPracticsTime() * 1000)));
       mTextViewStartStop.setText(R.string.start);
     }
   }

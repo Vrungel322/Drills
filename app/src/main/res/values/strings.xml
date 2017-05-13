@@ -37,4 +37,5 @@
   <string name="back">Назад</string>
   <string name="start">Старт</string>
   <string name="stop">Стоп</string>
+  <string name="repeats">Повторы:</string>
 </resources>
