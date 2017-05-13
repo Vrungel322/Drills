@@ -47,8 +47,8 @@ public class CreatePracticeFragment extends BaseFragment implements ICreatePract
     createPracticeFragmentPresenter.sendData(mEditTextPracticName.getText().toString(),
         mEditTextSetTime.getText().toString(), mEditTextDelay.getText().toString(),
         mEditTextBetweenSets.getText().toString(), mEditTextComments.getText().toString(),
-        Converters.boolToInt(mCheckBoxRandDelay.isChecked()),
-        Converters.boolToInt(mCheckBoxRandBetweenSets.isChecked()));
+        Converters.boolToInt(mCheckBoxRandBetweenSets.isChecked()),
+        Converters.boolToInt(mCheckBoxRandDelay.isChecked()));
   }
 
   @OnClick(R.id.tvCancel) public void tvCancelClicked() {

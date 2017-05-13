@@ -34,11 +34,13 @@ import javax.inject.Inject;
     mCountDownTimerFirstSignalDelay = new CountDownTimer(dryPracticsFirstSignalDelay * 1000, 1) {
       @Override public void onTick(long millisUntilFinished) {
         getViewState().updateCircle(millisUntilFinished, dryPracticsFirstSignalDelay * 1000);
+        getViewState().updateTextView(Constants.DELAY_TIMER, millisUntilFinished);
       }
 
       @Override public void onFinish() {
         getViewState().updateCircle(0, dryPracticsFirstSignalDelay);
         getViewState().nextTimerSettings(Constants.SET_TIMER);
+        getViewState().updateTextView(Constants.DELAY_TIMER, 0);
         mCountDownTimerPractice.start();
       }
     }.start();
@@ -46,12 +48,14 @@ import javax.inject.Inject;
     mCountDownTimerBetweenSets = new CountDownTimer(dryPracticsTimeBetweenSets *1000 ,1) {
       @Override public void onTick(long millisUntilFinished) {
         getViewState().updateCircle(millisUntilFinished, dryPracticsTimeBetweenSets * 1000);
+        getViewState().updateTextView(Constants.DELAY_TIMER, millisUntilFinished);
 
       }
 
       @Override public void onFinish() {
         getViewState().updateCircle(0, dryPracticsTimeBetweenSets);
         getViewState().nextTimerSettings(Constants.SET_TIMER);
+        getViewState().updateTextView(Constants.DELAY_TIMER, 0);
         mCountDownTimerPractice.start();
       }
     };
@@ -59,11 +63,14 @@ import javax.inject.Inject;
     mCountDownTimerPractice = new CountDownTimer(dryPracticsTime * 1000, 1) {
       @Override public void onTick(long millisUntilFinished) {
         getViewState().updateCircle(millisUntilFinished, dryPracticsTime * 1000);
+        getViewState().updateTextView(Constants.SET_TIMER, millisUntilFinished);
+
       }
 
       @Override public void onFinish() {
         getViewState().updateCircle(0, dryPracticsTime);
         getViewState().nextTimerSettings(Constants.DELAY_TIMER);
+        getViewState().updateTextView(Constants.SET_TIMER, 0);
         mSetsRemain--;
         if (mSetsRemain > 0) {
           mCountDownTimerBetweenSets.start();

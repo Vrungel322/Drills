@@ -110,4 +110,10 @@ public class Converters {
   public static int boolToInt(boolean b) {
     return b ? 1 : 0;
   }
+
+  public static String milisToSecWithDecimal(long ms){
+    final float sec;
+    sec = ms / 1000.0f;
+    return String.format("%.2f \nSEC", sec);
+  }
 }

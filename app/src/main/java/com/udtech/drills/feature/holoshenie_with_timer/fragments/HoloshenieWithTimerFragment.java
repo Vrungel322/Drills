@@ -17,6 +17,7 @@ import com.udtech.drills.feature.holoshenie.fragments.HoloshenieFragment;
 import com.udtech.drills.feature.holoshenie_with_timer.presenters.HoloshenieWithTimerFragmentPresenter;
 import com.udtech.drills.feature.holoshenie_with_timer.views.IHoloshenieWithTimerFragmentView;
 import com.udtech.drills.utils.Constants;
+import com.udtech.drills.utils.Converters;
 import timber.log.Timber;
 
 /**
@@ -32,6 +33,8 @@ public class HoloshenieWithTimerFragment extends BaseFragment
   @BindView(R.id.tvPracticeToChangeName) TextView mTextViewPracticeToChangeName;
   @BindView(R.id.circle_view) DonutProgress mCircleView;
   @BindView(R.id.tvStartStop) TextView mTextViewStartStop;
+  @BindView(R.id.tvPracticTime) TextView mTextViewPracticTime;
+  @BindView(R.id.tvDelayTime) TextView mTextViewDelayTime;
 
   private Practic mPractic;
   private boolean isRunning;
@@ -60,6 +63,10 @@ public class HoloshenieWithTimerFragment extends BaseFragment
     super.onViewCreated(view, savedInstanceState);
     mTextViewPracticeToChangeName.setText(mPractic.getDryPracticsName());
     mCircleView.setMax(mPractic.getDryPracticsFirstSignalDelay() * 1000);
+    mTextViewPracticTime.setText(
+        Converters.milisToSecWithDecimal(Math.round(mPractic.getDryPracticsTime()*1000)));
+    mTextViewDelayTime.setText(
+        Converters.milisToSecWithDecimal((mPractic.getDryPracticsFirstSignalDelay()*1000)));
   }
 
   @OnClick(R.id.tvBack) public void tvBackClick() {
@@ -85,17 +92,20 @@ public class HoloshenieWithTimerFragment extends BaseFragment
     } else {
       mCircleView.setMax(
           Integer.valueOf(String.valueOf(Math.round(mPractic.getDryPracticsTime() * 1000))));
-      mCircleView.setFinishedStrokeColor(
-          ContextCompat.getColor(getContext(), R.color.colorAccent));
+      mCircleView.setFinishedStrokeColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
     }
-  }
-
-  @Override public void decreaseSetsCount() {
-    //mSetsCount--;
   }
 
   @Override public void restoreTv() {
     mTextViewStartStop.setText(getString(R.string.start));
+  }
+
+  @Override public void updateTextView(int setTimer, long millisUntilFinished) {
+    if (setTimer == Constants.SET_TIMER) {
+      mTextViewPracticTime.setText(Converters.milisToSecWithDecimal(millisUntilFinished));
+    } else {
+      mTextViewDelayTime.setText(Converters.milisToSecWithDecimal(millisUntilFinished));
+    }
   }
 
   @OnClick(R.id.tvStartStop) public void tvStartStopClick() {

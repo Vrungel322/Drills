@@ -84,7 +84,7 @@
       android:layout_marginRight="8dp"
       android:layout_marginTop="32dp"
       app:donut_finished_stroke_width="3dp"
-      app:donut_show_text="true"
+      app:donut_show_text="false"
       app:donut_unfinished_stroke_width="3dp"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
@@ -105,6 +105,38 @@
       app:layout_constraintLeft_toLeftOf="@+id/circle_view"
       app:layout_constraintRight_toRightOf="@+id/circle_view"
       app:layout_constraintTop_toTopOf="@+id/circle_view"
+      />
+  <TextView
+      android:id="@+id/tvPracticTime"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="8dp"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp"
+      android:layout_marginTop="8dp"
+      android:text="TextView"
+      android:textSize="20sp"
+      android:textColor="@color/white"
+      app:layout_constraintBottom_toTopOf="@+id/tvStartStop"
+      app:layout_constraintLeft_toLeftOf="@+id/circle_view"
+      app:layout_constraintRight_toRightOf="@+id/circle_view"
+      app:layout_constraintTop_toTopOf="@+id/circle_view"
+      />
+  <TextView
+      android:id="@+id/tvDelayTime"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="8dp"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp"
+      android:layout_marginTop="8dp"
+      android:text="TextView"
+      android:textSize="20sp"
+      android:textColor="@color/white"
+      app:layout_constraintBottom_toBottomOf="@+id/circle_view"
+      app:layout_constraintLeft_toLeftOf="@+id/circle_view"
+      app:layout_constraintRight_toRightOf="@+id/circle_view"
+      app:layout_constraintTop_toBottomOf="@+id/tvStartStop"
       />
 
 </android.support.constraint.ConstraintLayout>

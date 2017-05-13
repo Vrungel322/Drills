@@ -13,7 +13,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
   void nextTimerSettings(int setTimer);
 
-  void decreaseSetsCount();
-
   void restoreTv();
+
+  void updateTextView(int setTimer, long millisUntilFinished);
 }
