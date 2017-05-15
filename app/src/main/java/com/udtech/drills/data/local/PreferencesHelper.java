@@ -2,6 +2,7 @@ package com.udtech.drills.data.local;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import com.udtech.drills.utils.Constants;
 
 /**
  * Created by John on 26.01.2017.
@@ -28,6 +29,6 @@ public class PreferencesHelper {
   }
 
   public String isUserLogin() {
-    return mPreferences.getString(IS_IN_SYSTEM, "000");
+    return mPreferences.getString(IS_IN_SYSTEM, Constants.NULL_AUTH_KEY);
   }
 }

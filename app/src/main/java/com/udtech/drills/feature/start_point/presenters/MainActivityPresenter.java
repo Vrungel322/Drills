@@ -7,6 +7,7 @@ import com.udtech.drills.data.DataManager;
 import com.udtech.drills.data.remote.login.User;
 import com.udtech.drills.data.remote.signUp_Reset.SignUpResetBody;
 import com.udtech.drills.feature.start_point.views.IMainActivityView;
+import com.udtech.drills.utils.Constants;
 import com.udtech.drills.utils.ThreadSchedulers;
 import javax.inject.Inject;
 import rx.Subscription;
@@ -29,12 +30,12 @@ import timber.log.Timber;
     super.onFirstViewAttach();
 
     // TODO: 28.04.2017 do not forget to  checkIfUserLoggedIn(); next line and comment  getViewState().showLoginScreen();
-    checkIfUserLoggedIn();
-    //getViewState().showLoginScreen();
+    //checkIfUserLoggedIn();
+    getViewState().showLoginScreen();
   }
 
   private void checkIfUserLoggedIn() {
-    if (!mDataManager.getAuthIfLogin().equalsIgnoreCase("000")) {
+    if (!mDataManager.getAuthIfLogin().equalsIgnoreCase(Constants.NULL_AUTH_KEY)) {
       mUser.setAuthKey(mDataManager.getAuthIfLogin());
       getViewState().showContentScreen();
     } else {
