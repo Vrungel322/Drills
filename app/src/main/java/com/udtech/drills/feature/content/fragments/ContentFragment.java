@@ -15,7 +15,6 @@ import com.udtech.drills.feature.history.fragments.HistoryFragment;
 import com.udtech.drills.feature.holoshenie.fragments.HoloshenieFragment;
 import com.yqritc.scalablevideoview.ScalableVideoView;
 import java.io.IOException;
-import timber.log.Timber;
 
 public class ContentFragment extends BaseFragment implements IContentFragmentView {
 
@@ -69,5 +68,9 @@ public class ContentFragment extends BaseFragment implements IContentFragmentVie
 
   @Override public void showTotalTime(String s) {
     mTextViewAllSetsTime.setText(s);
+  }
+
+  @Override public void showMsg(String s) {
+    showAlertMessage("Message:", s);
   }
 }

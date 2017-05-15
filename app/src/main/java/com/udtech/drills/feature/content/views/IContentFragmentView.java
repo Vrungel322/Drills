@@ -13,4 +13,6 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
   void playVideo();
 
   void showTotalTime(String s);
+
+  void showMsg(String s);
 }

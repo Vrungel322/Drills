@@ -107,7 +107,8 @@ public class DataManager {
   public Observable<String> getTotalSetsTime() {
     mTotalTime = 0;
     return mPracticHelper.getAllPractics().concatMap(Observable::from).concatMap(practic -> {
-      mTotalTime = (int) (mTotalTime + Math.round(practic.getDryPracticsTime()));
+      mTotalTime = (int) (mTotalTime
+          + Math.round(practic.getDryPracticsTime()) * practic.getDryPracticsSets());
       Timber.e(String.valueOf(mTotalTime));
       return Observable.just(Converters.timeFromSeconds(String.valueOf(mTotalTime)));
     });
