@@ -77,17 +77,12 @@ import timber.log.Timber;
         .compose(ThreadSchedulers.applySchedulers()).subscribe(userResponse -> {
       if (userResponse.code() == 200) {
         getViewState().showContentActivity();
-        mDataManager.userLoggedIn();
+        mDataManager.userLoggedIn(mUser.getAuthKey());
         getViewState().hidePB();
       }
     }, Timber::e);
     addToUnsubscription(subscription);
   }
-
-  //private void fillUserDataEntityResponse(UserDataEntity body) {
-  //  mUserDataEntity.setHistory(body.getHistory());
-  //  mUserDataEntity.setPractic(body.getPractic());
-  //}
 
   private void fillUserEntity(User body) {
     mUser.setId(body.getId());

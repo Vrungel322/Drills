@@ -29,12 +29,13 @@ import timber.log.Timber;
     super.onFirstViewAttach();
 
     // TODO: 28.04.2017 do not forget to  checkIfUserLoggedIn(); next line and comment  getViewState().showLoginScreen();
-    //checkIfUserLoggedIn();
-    getViewState().showLoginScreen();
+    checkIfUserLoggedIn();
+    //getViewState().showLoginScreen();
   }
 
   private void checkIfUserLoggedIn() {
-    if (mDataManager.isUserLogin()) {
+    if (!mDataManager.getAuthIfLogin().equalsIgnoreCase("000")) {
+      mUser.setAuthKey(mDataManager.getAuthIfLogin());
       getViewState().showContentScreen();
     } else {
       getViewState().showLoginScreen();

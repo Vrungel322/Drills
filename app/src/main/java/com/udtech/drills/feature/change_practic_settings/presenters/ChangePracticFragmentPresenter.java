@@ -17,8 +17,8 @@ import rx.Subscription;
 /**
  * Created by Vrungel on 13.05.2017.
  */
-@InjectViewState
-public class ChangePracticFragmentPresenter extends BasePresenter<IChangePracticFragmentView> {
+@InjectViewState public class ChangePracticFragmentPresenter
+    extends BasePresenter<IChangePracticFragmentView> {
   @Inject DataManager mDataManager;
   @Inject User mUser;
 
@@ -29,14 +29,11 @@ public class ChangePracticFragmentPresenter extends BasePresenter<IChangePractic
   public void updateCurrentPractice(Practic practic) {
     ArrayList<PracticForSend> practicForSends = new ArrayList<>();
     practicForSends.add(new PracticToPracticForSendMapper().transform(practic));
-    //Subscription subscription =
-    //    mDataManager.sendUserDataPractic(mUser.getAuthKey(), practicForSends)
-    //        .compose(ThreadSchedulers.applySchedulers())
-    //        .subscribe(booleanResponse -> {
-    //          if (booleanResponse.code() == 200 && booleanResponse.body()){
-    //            getViewState().openHoloshenieWithtimerAfterChange();
-    //          }
-    //        });
-    //addToUnsubscription(subscription);
+    Subscription subscription = mDataManager.putPracticToDb(practicForSends)
+        .compose(ThreadSchedulers.applySchedulers())
+        .subscribe(booleanResponse -> {
+          getViewState().openHoloshenieWithtimerAfterChange();
+        });
+    addToUnsubscription(subscription);
   }
 }

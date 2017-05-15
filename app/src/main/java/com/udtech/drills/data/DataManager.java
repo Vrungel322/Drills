@@ -37,7 +37,7 @@ public class DataManager {
 
   public Observable<Response<User>> login(String login, String password) {
     // TODO: 15.05.2017 romove dropping
-    mPracticHelper.dropTableAndCreate();
+    //mPracticHelper.dropTableAndCreate();
     return mRestApi.login(Credentials.basic(login, password));
   }
 
@@ -75,11 +75,11 @@ public class DataManager {
     return mRestApi.sendUserDataPractic(json, token);
   }
 
-  public void userLoggedIn() {
-    mPref.setUserLogin();
+  public void userLoggedIn(String authKey) {
+    mPref.setUserLogin(authKey);
   }
 
-  public boolean isUserLogin() {
+  public String getAuthIfLogin() {
     return mPref.isUserLogin();
   }
 

@@ -23,11 +23,11 @@ public class PreferencesHelper {
     mPreferences.edit().clear().apply();
   }
 
-  public void setUserLogin() {
-    mPreferences.edit().putBoolean(IS_IN_SYSTEM, true).apply();
+  public void setUserLogin(String authKey) {
+    mPreferences.edit().putString(IS_IN_SYSTEM, authKey).apply();
   }
 
-  public boolean isUserLogin() {
-    return mPreferences.getBoolean(IS_IN_SYSTEM, false);
+  public String isUserLogin() {
+    return mPreferences.getString(IS_IN_SYSTEM, "000");
   }
 }

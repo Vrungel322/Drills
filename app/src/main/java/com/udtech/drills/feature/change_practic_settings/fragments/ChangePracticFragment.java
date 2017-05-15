@@ -61,8 +61,7 @@ public class ChangePracticFragment extends BaseFragment implements IChangePracti
         Integer.valueOf(mEditTextBetweenSets.getText().toString()));
     mPractic.setBoolIsRandPracticsTimeBetweenSets(
         Converters.boolToInt(mCheckBoxRandBetweenSets.isChecked()));
-    // TODO: 15.05.2017 update in bd 
-    //mChangePracticFragmentPresenter.updateCurrentPractice(mPractic);
+    mChangePracticFragmentPresenter.updateCurrentPractice(mPractic);
 
     mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,
         HoloshenieWithTimerFragment.newInstance(mPractic));
