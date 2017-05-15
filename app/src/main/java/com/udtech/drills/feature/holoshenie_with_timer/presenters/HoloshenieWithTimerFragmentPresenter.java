@@ -107,14 +107,11 @@ import rx.Subscription;
     ArrayList<PracticForSend> practicForSends = new ArrayList<>();
     practic.setDryPracticsSets(setsCount);
     practicForSends.add(new PracticToPracticForSendMapper().transform(practic));
-    //Subscription subscription =
-    //    mDataManager.sendUserDataPractic(mUser.getAuthKey(), practicForSends)
-    //        .compose(ThreadSchedulers.applySchedulers())
-    //        .subscribe(booleanResponse -> {
-    //          if (booleanResponse.code() == 200 && booleanResponse.body()){
-    //            getViewState().openHoloshenieListFragment();
-    //          }
-    //        });
-    //addToUnsubscription(subscription);
+    Subscription subscription = mDataManager.putPracticToDb(practicForSends)
+        .compose(ThreadSchedulers.applySchedulers())
+        .subscribe(booleanResponse -> {
+          getViewState().openHoloshenieListFragment();
+        });
+    addToUnsubscription(subscription);
   }
 }
