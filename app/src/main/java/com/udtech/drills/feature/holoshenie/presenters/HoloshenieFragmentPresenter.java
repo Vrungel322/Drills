@@ -4,6 +4,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.udtech.drills.App;
 import com.udtech.drills.base.BasePresenter;
 import com.udtech.drills.data.DataManager;
+import com.udtech.drills.data.remote.fetch_user_data.UserDataEntity;
 import com.udtech.drills.data.remote.login.User;
 import com.udtech.drills.data.remote.send_user_data.PracticForSend;
 import com.udtech.drills.feature.holoshenie.views.IHoloshenieFragmentView;
@@ -22,6 +23,7 @@ import timber.log.Timber;
     extends BasePresenter<IHoloshenieFragmentView> {
   @Inject DataManager mDataManager;
   @Inject User mUser;
+  @Inject UserDataEntity mUserDataEntity;
   @Inject RxBus mRxBus;
   private List<PracticForSend> mPracticForSend;
 
@@ -32,7 +34,9 @@ import timber.log.Timber;
   @Override protected void onFirstViewAttach() {
     super.onFirstViewAttach();
     getViewState().setUpUI();
-    fetchUserData();
+    //fetchUserData();
+
+    getViewState().fillInRecyclerView(mUserDataEntity.getPractic());
     getInfFromRxBusAboutPracticToSend();
   }
 
@@ -47,25 +51,27 @@ import timber.log.Timber;
   }
 
   public void sendUserDataPracticToServer() {
-    Subscription subscription = mDataManager.sendUserDataPractic(mUser.getAuthKey(), mPracticForSend)
-        .compose(ThreadSchedulers.applySchedulers())
-        .subscribe(booleanResponse -> {
-          if (booleanResponse.code() == 200 && booleanResponse.body()) {
-            Timber.e("sendDataToServer Done");
-            getViewState().openHoloshenieFragment();
-          }
-        });
+    Subscription subscription =
+        mDataManager.sendUserDataPractic(mUser.getAuthKey(), mPracticForSend)
+            .compose(ThreadSchedulers.applySchedulers())
+            .subscribe(booleanResponse -> {
+              if (booleanResponse.code() == 200 && booleanResponse.body()) {
+                Timber.e("sendDataToServer Done");
+                getViewState().openHoloshenieFragment();
+              }
+            });
     addToUnsubscription(subscription);
   }
 
-  private void fetchUserData() {
-    Subscription subscription = mDataManager.fetchUserData(mUser.getAuthKey())
-        .compose(ThreadSchedulers.applySchedulers())
-        .subscribe(userDataEntityResponse -> {
-          if (userDataEntityResponse.code() == 200) {
-            getViewState().fillInRecyclerView(userDataEntityResponse.body().getPractic());
-          }
-        });
-    addToUnsubscription(subscription);
-  }
+  //private void fetchUserData() {
+  //  Subscription subscription = mDataManager.fetchUserData(mUser.getAuthKey())
+  //      .compose(ThreadSchedulers.applySchedulers())
+  //      .subscribe(userDataEntityResponse -> {
+  //        if (userDataEntityResponse.code() == 200) {
+  //          mUserDataEntity = userDataEntityResponse.body();
+  //          getViewState().fillInRecyclerView(userDataEntityResponse.body().getPractic());
+  //        }
+  //      });
+  //  addToUnsubscription(subscription);
+  //}
 }

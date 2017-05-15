@@ -116,4 +116,8 @@ public class Converters {
     sec = ms / 1000.0f;
     return String.format("%.2f \nSEC", sec);
   }
+
+  public static Double stringToDouble(String s){
+    return Double.valueOf(s);
+  }
 }

@@ -3,6 +3,7 @@ package com.udtech.drills.di.modules;
 import android.app.Application;
 import android.content.Context;
 import com.udtech.drills.base.Navigator;
+import com.udtech.drills.data.remote.fetch_user_data.UserDataEntity;
 import com.udtech.drills.data.remote.login.User;
 import com.udtech.drills.utils.RxBus;
 import dagger.Module;
@@ -34,4 +35,6 @@ import javax.inject.Singleton;
   }
 
   @Provides @Singleton public User provideUser(){return new User();}
+
+  @Provides @Singleton public UserDataEntity provideUserDataEntity(){return new UserDataEntity();}
 }

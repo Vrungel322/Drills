@@ -14,7 +14,7 @@ import retrofit2.Retrofit;
  * Created by Vrungel on 26.01.2017.
  */
 
-@Module(includes = { RetrofitModule.class }) public class DataModule {
+@Module(includes = { RetrofitModule.class, DbModule.class }) public class DataModule {
 
   @Provides @Singleton DrillsApi provideSalonApi(Retrofit retrofit) {
     return retrofit.create(DrillsApi.class);
