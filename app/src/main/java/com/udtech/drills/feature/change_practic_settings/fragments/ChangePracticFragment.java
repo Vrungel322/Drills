@@ -1,7 +1,9 @@
 package com.udtech.drills.feature.change_practic_settings.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import butterknife.BindView;
@@ -51,6 +53,19 @@ public class ChangePracticFragment extends BaseFragment implements IChangePracti
     mPractic = getArguments().getParcelable(PRACTIC_KEY_to_change);
   }
 
+  @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    mEditTextPracticName.setText(mPractic.getDryPracticsName());
+    mEditTextSetTime.setText(String.valueOf(mPractic.getDryPracticsTime()));
+    mEditTextDelay.setText(String.valueOf(mPractic.getDryPracticsFirstSignalDelay()));
+    mCheckBoxRandDelay.setChecked(
+        Converters.intToBool(mPractic.getBoolIsRandPracticsFirstSignalDelay()));
+    mEditTextBetweenSets.setText(String.valueOf(mPractic.getDryPracticsTimeBetweenSets()));
+    mCheckBoxRandBetweenSets.setChecked(
+        Converters.intToBool(mPractic.getBoolIsRandPracticsTimeBetweenSets()));
+    mEditTextComments.setText(mPractic.getDryPracticsDescription());
+  }
+
   @OnClick(R.id.tvSave) public void tvSaveClicked() {
     mPractic.setDryPracticsName(mEditTextPracticName.getText().toString());
     mPractic.setDryPracticsTime(Double.valueOf(mEditTextSetTime.getText().toString()));
@@ -61,6 +76,7 @@ public class ChangePracticFragment extends BaseFragment implements IChangePracti
         Integer.valueOf(mEditTextBetweenSets.getText().toString()));
     mPractic.setBoolIsRandPracticsTimeBetweenSets(
         Converters.boolToInt(mCheckBoxRandBetweenSets.isChecked()));
+    mPractic.setDryPracticsDescription(mEditTextComments.getText().toString());
     mChangePracticFragmentPresenter.updateCurrentPractice(mPractic);
 
     mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,

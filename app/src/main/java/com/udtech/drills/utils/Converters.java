@@ -3,7 +3,6 @@ package com.udtech.drills.utils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
-import timber.log.Timber;
 
 /**
  * Created by Vrungel on 13.04.2017.
@@ -111,13 +110,17 @@ public class Converters {
     return b ? 1 : 0;
   }
 
-  public static String milisToSecWithDecimal(long ms){
+  public static boolean intToBool(int i) {
+    return i != 0;
+  }
+
+  public static String milisToSecWithDecimal(long ms) {
     final float sec;
     sec = ms / 1000.0f;
     return String.format("%.2f \nSEC", sec);
   }
 
-  public static Double stringToDouble(String s){
+  public static Double stringToDouble(String s) {
     return Double.valueOf(s);
   }
 }
