@@ -29,14 +29,14 @@ public class ChangePracticFragmentPresenter extends BasePresenter<IChangePractic
   public void updateCurrentPractice(Practic practic) {
     ArrayList<PracticForSend> practicForSends = new ArrayList<>();
     practicForSends.add(new PracticToPracticForSendMapper().transform(practic));
-    Subscription subscription =
-        mDataManager.sendUserDataPractic(mUser.getAuthKey(), practicForSends)
-            .compose(ThreadSchedulers.applySchedulers())
-            .subscribe(booleanResponse -> {
-              if (booleanResponse.code() == 200 && booleanResponse.body()){
-                getViewState().openHoloshenieWithtimerAfterChange();
-              }
-            });
-    addToUnsubscription(subscription);
+    //Subscription subscription =
+    //    mDataManager.sendUserDataPractic(mUser.getAuthKey(), practicForSends)
+    //        .compose(ThreadSchedulers.applySchedulers())
+    //        .subscribe(booleanResponse -> {
+    //          if (booleanResponse.code() == 200 && booleanResponse.body()){
+    //            getViewState().openHoloshenieWithtimerAfterChange();
+    //          }
+    //        });
+    //addToUnsubscription(subscription);
   }
 }

@@ -12,6 +12,7 @@ public class PracticToCantentValueMapper implements Mapper<Practic, ContentValue
   @Override public ContentValues transform(Practic obj) throws RuntimeException {
     ContentValues contentValues = new ContentValues();
     contentValues.put(Constants.Db.ID_IN_REMOTE_DB, String.valueOf(obj.getId()));
+    contentValues.put(Constants.Db.PRACTICS_ID, String.valueOf(obj.getDryPracticsID()));
     contentValues.put(Constants.Db.PRACTICS_NAME, obj.getDryPracticsName());
     contentValues.put(Constants.Db.PRACTICS_DATE, String.valueOf(obj.getDryPracticsDate()));
     contentValues.put(Constants.Db.PRACTICS_TIME, String.valueOf(obj.getDryPracticsTime()));

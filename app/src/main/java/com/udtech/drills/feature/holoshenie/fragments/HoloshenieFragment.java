@@ -60,13 +60,17 @@ public class HoloshenieFragment extends BaseFragment implements IHoloshenieFragm
   }
 
   @OnClick(R.id.tvDone) public void tvDoneClick() {
-    mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,
-        ContentFragment.newInstance());
+    mHoloshenieFragmentPresenter.sendUserDataPracticToServer();
   }
 
   @Override public void openHoloshenieFragment() {
     mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,
         HoloshenieFragment.newInstance());
+  }
+
+  @Override public void openContentFragment() {
+    mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,
+        ContentFragment.newInstance());
   }
 
   @OnClick(R.id.ivAdd) public void ivAddClick() {

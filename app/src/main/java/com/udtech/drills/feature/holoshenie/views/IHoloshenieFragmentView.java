@@ -16,4 +16,6 @@ import java.util.List;
   void fillInRecyclerView(List<Practic> practic);
 
   void openHoloshenieFragment();
+
+  void openContentFragment();
 }

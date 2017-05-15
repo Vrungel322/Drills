@@ -2,6 +2,7 @@ package com.udtech.drills.di.modules;
 
 import android.content.Context;
 import com.udtech.drills.data.DataManager;
+import com.udtech.drills.data.local.Db.PracticHelper;
 import com.udtech.drills.data.local.PreferencesHelper;
 import com.udtech.drills.data.model.DrillsApi;
 import com.udtech.drills.data.remote.RestApi;
@@ -24,12 +25,12 @@ import retrofit2.Retrofit;
     return new RestApi(api);
   }
 
-  @Provides @Singleton DataManager provideDataManager(RestApi restApi,
-      PreferencesHelper preferencesHelper) {
-    return new DataManager(restApi, preferencesHelper);
-  }
-
   @Provides @Singleton PreferencesHelper providePreferencesHelper(Context context) {
     return new PreferencesHelper(context);
+  }
+
+  @Provides @Singleton DataManager provideDataManager(RestApi restApi,
+      PreferencesHelper preferencesHelper, PracticHelper practicHelper) {
+    return new DataManager(restApi, preferencesHelper, practicHelper);
   }
 }

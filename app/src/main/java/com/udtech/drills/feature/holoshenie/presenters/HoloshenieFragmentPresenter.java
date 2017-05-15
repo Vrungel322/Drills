@@ -4,13 +4,15 @@ import com.arellomobile.mvp.InjectViewState;
 import com.udtech.drills.App;
 import com.udtech.drills.base.BasePresenter;
 import com.udtech.drills.data.DataManager;
-import com.udtech.drills.data.remote.fetch_user_data.UserDataEntity;
+import com.udtech.drills.data.local.mappers.PracticForSendToPracticMapper;
+import com.udtech.drills.data.remote.fetch_user_data.Practic;
 import com.udtech.drills.data.remote.login.User;
 import com.udtech.drills.data.remote.send_user_data.PracticForSend;
 import com.udtech.drills.feature.holoshenie.views.IHoloshenieFragmentView;
 import com.udtech.drills.utils.RxBus;
 import com.udtech.drills.utils.RxBusHelper;
 import com.udtech.drills.utils.ThreadSchedulers;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Subscription;
@@ -23,9 +25,9 @@ import timber.log.Timber;
     extends BasePresenter<IHoloshenieFragmentView> {
   @Inject DataManager mDataManager;
   @Inject User mUser;
-  @Inject UserDataEntity mUserDataEntity;
+  //@Inject UserDataEntity mUserDataEntity;
   @Inject RxBus mRxBus;
-  private List<PracticForSend> mPracticForSend;
+  private List<PracticForSend> mPracticForSend = new ArrayList<>();
 
   @Override protected void inject() {
     App.getAppComponent().inject(this);
@@ -34,30 +36,48 @@ import timber.log.Timber;
   @Override protected void onFirstViewAttach() {
     super.onFirstViewAttach();
     getViewState().setUpUI();
-    //fetchUserData();
+    fetchUserDataFromDb();
 
-    getViewState().fillInRecyclerView(mUserDataEntity.getPractic());
-    getInfFromRxBusAboutPracticToSend();
+    getInfFromRxBusAboutPracticForSendingToDb();
   }
 
-  private void getInfFromRxBusAboutPracticToSend() {
+  private void fetchUserDataFromDb() {
+    Subscription subscription = mDataManager.getPracticsFromDb()
+        .compose(ThreadSchedulers.applySchedulers())
+        .subscribe(practics -> {
+          getViewState().fillInRecyclerView(practics);
+        });
+    addToUnsubscription(subscription);
+  }
+
+  private void getInfFromRxBusAboutPracticForSendingToDb() {
     Subscription subscription = mRxBus.filteredObservable(RxBusHelper.SendDataToServer.class)
         .compose(ThreadSchedulers.applySchedulers())
         .subscribe(sendDataToServer -> {
           mPracticForSend = sendDataToServer.mPracticForSends;
-          sendUserDataPracticToServer();
+          sendUserDataPracticToDB();
+        });
+    addToUnsubscription(subscription);
+  }
+
+  private void sendUserDataPracticToDB() {
+    Subscription subscription = mDataManager.putPracticToDb(mPracticForSend)
+        .compose(ThreadSchedulers.applySchedulers())
+        .subscribe(booleanResponse -> {
+          Timber.e("sendUserDataPracticToDB Done");
+          getViewState().openHoloshenieFragment();
         });
     addToUnsubscription(subscription);
   }
 
   public void sendUserDataPracticToServer() {
     Subscription subscription =
-        mDataManager.sendUserDataPractic(mUser.getAuthKey(), mPracticForSend)
+        mDataManager.sendUserDataPractic(mUser.getAuthKey())
             .compose(ThreadSchedulers.applySchedulers())
             .subscribe(booleanResponse -> {
               if (booleanResponse.code() == 200 && booleanResponse.body()) {
                 Timber.e("sendDataToServer Done");
-                getViewState().openHoloshenieFragment();
+                getViewState().openContentFragment();
               }
             });
     addToUnsubscription(subscription);

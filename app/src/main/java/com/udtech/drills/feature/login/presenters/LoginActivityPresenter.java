@@ -23,7 +23,7 @@ import timber.log.Timber;
 
   @Inject DataManager mDataManager;
   @Inject User mUser;
-  @Inject UserDataEntity mUserDataEntity;
+  //@Inject UserDataEntity mUserDataEntity;
   private CountDownTimer mCountDownTimer;
 
   @Override protected void inject() {
@@ -59,15 +59,22 @@ import timber.log.Timber;
     Subscription subscription = mDataManager.login(login, password).concatMap(userResponse -> {
       fillUserEntity(userResponse.body());
       return Observable.just(userResponse);
-    }).concatMap(userResponse -> {
+    })
+        .concatMap(userResponse -> {
       Subscription subscription1 = mDataManager.fetchUserData(userResponse.body().getAuthKey())
           .compose(ThreadSchedulers.applySchedulers())
+          .concatMap(userDataEntityResponse -> {
+            //fillUserDataEntityResponse(userDataEntityResponse.body());
+            mDataManager.putUserDataEntityToDb(userDataEntityResponse.body())
+                .compose(ThreadSchedulers.applySchedulers());
+            return Observable.just(userDataEntityResponse);
+          })
           .subscribe(userDataEntityResponse -> {
-            fillUserDataEntityResponse(userDataEntityResponse.body());
           });
       addToUnsubscription(subscription1);
       return Observable.just(userResponse);
-    }).compose(ThreadSchedulers.applySchedulers()).subscribe(userResponse -> {
+    })
+        .compose(ThreadSchedulers.applySchedulers()).subscribe(userResponse -> {
       if (userResponse.code() == 200) {
         getViewState().showContentActivity();
         mDataManager.userLoggedIn();
@@ -77,10 +84,10 @@ import timber.log.Timber;
     addToUnsubscription(subscription);
   }
 
-  private void fillUserDataEntityResponse(UserDataEntity body) {
-    mUserDataEntity.setHistory(body.getHistory());
-    mUserDataEntity.setPractic(body.getPractic());
-  }
+  //private void fillUserDataEntityResponse(UserDataEntity body) {
+  //  mUserDataEntity.setHistory(body.getHistory());
+  //  mUserDataEntity.setPractic(body.getPractic());
+  //}
 
   private void fillUserEntity(User body) {
     mUser.setId(body.getId());

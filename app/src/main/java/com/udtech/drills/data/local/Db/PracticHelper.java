@@ -3,6 +3,7 @@ package com.udtech.drills.data.local.Db;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import com.udtech.drills.data.local.mappers.PracticToCantentValueMapper;
 import com.udtech.drills.data.remote.fetch_user_data.Practic;
 import com.udtech.drills.utils.Constants;
@@ -73,7 +74,8 @@ public class PracticHelper {
 
   public Observable<List<Practic>> getAllPractics() {
     String selectAll = "SELECT * FROM " + TABLE_NAME;
-    return select(selectAll).compose(ThreadSchedulers.applySchedulers());
+    getTableAsString(helper.getWritableDatabase(), TABLE_NAME);
+    return select(selectAll);
   }
 
   @NonNull private Observable<List<Practic>> select(String query) {
@@ -138,5 +140,25 @@ public class PracticHelper {
     String dropTable = "DROP TABLE IF EXISTS " + " " + TABLE_NAME;
     db.execSQL(dropTable);
     createTable();
+  }
+
+  public static String getTableAsString(SQLiteDatabase db, String tableName) {
+    Log.d("DB_LOG", "getTableAsString called");
+    String tableString = String.format("Table %s:\n", tableName);
+    Cursor c  = db.rawQuery("SELECT * FROM " + tableName, null);
+    if (c.moveToFirst() ){
+      String[] columnNames = c.getColumnNames();
+      do {
+        for (String name: columnNames) {
+          tableString += String.format("%s: %s\n", name,
+              c.getString(c.getColumnIndex(name)));
+        }
+        tableString += "\n";
+
+      } while (c.moveToNext());
+    }
+    Log.e("DB_LOG", tableString);
+
+    return tableString;
   }
 }
