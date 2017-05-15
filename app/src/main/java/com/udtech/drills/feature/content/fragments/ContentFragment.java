@@ -3,6 +3,7 @@ package com.udtech.drills.feature.content.fragments;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -23,6 +24,7 @@ public class ContentFragment extends BaseFragment implements IContentFragmentVie
   @BindView(R.id.evpVideo) ScalableVideoView mScalableVideoView;
   @BindView(R.id.ivHoloshenie) ImageView mImageViewHoloshenie;
   @BindView(R.id.ivHistory) ImageView mImageViewHistory;
+  @BindView(R.id.tvAllSetsTime) TextView mTextViewAllSetsTime;
 
   public static ContentFragment newInstance() {
     Bundle args = new Bundle();
@@ -63,5 +65,9 @@ public class ContentFragment extends BaseFragment implements IContentFragmentVie
       mScalableVideoView.release();
       return false;
     });
+  }
+
+  @Override public void showTotalTime(String s) {
+    mTextViewAllSetsTime.setText(s);
   }
 }

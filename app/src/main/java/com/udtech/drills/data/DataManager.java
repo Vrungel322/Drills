@@ -12,11 +12,13 @@ import com.udtech.drills.data.remote.login.User;
 import com.udtech.drills.data.remote.send_user_data.HistoryForSend;
 import com.udtech.drills.data.remote.send_user_data.PracticForSend;
 import com.udtech.drills.data.remote.signUp_Reset.SignUpResetBody;
+import com.udtech.drills.utils.Converters;
 import java.util.ArrayList;
 import java.util.List;
 import okhttp3.Credentials;
 import retrofit2.Response;
 import rx.Observable;
+import timber.log.Timber;
 
 /**
  * Created by Vrungel on 26.01.2017.
@@ -27,6 +29,7 @@ public class DataManager {
   private RestApi mRestApi;
   private PreferencesHelper mPref;
   private PracticHelper mPracticHelper;
+  private int mTotalTime;
 
   public DataManager(RestApi restApi, PreferencesHelper preferencesHelper,
       PracticHelper practicHelper) {
@@ -99,5 +102,14 @@ public class DataManager {
 
   public Observable<List<Practic>> getPracticsFromDb() {
     return mPracticHelper.getAllPractics();
+  }
+
+  public Observable<String> getTotalSetsTime() {
+    mTotalTime = 0;
+    return mPracticHelper.getAllPractics().concatMap(Observable::from).concatMap(practic -> {
+      mTotalTime = (int) (mTotalTime + Math.round(practic.getDryPracticsTime()));
+      Timber.e(String.valueOf(mTotalTime));
+      return Observable.just(Converters.timeFromSeconds(String.valueOf(mTotalTime)));
+    });
   }
 }
