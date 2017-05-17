@@ -1,6 +1,7 @@
 package com.udtech.drills.data;
 
 import com.google.gson.Gson;
+import com.udtech.drills.data.local.Db.HistoryForSendHelper;
 import com.udtech.drills.data.local.Db.PracticHelper;
 import com.udtech.drills.data.local.PreferencesHelper;
 import com.udtech.drills.data.local.mappers.PracticForSendToPracticMapper;
@@ -29,13 +30,15 @@ public class DataManager {
   private RestApi mRestApi;
   private PreferencesHelper mPref;
   private PracticHelper mPracticHelper;
+  private HistoryForSendHelper mHistoryForSendHelper;
   private int mTotalTime;
 
   public DataManager(RestApi restApi, PreferencesHelper preferencesHelper,
-      PracticHelper practicHelper) {
+      PracticHelper practicHelper, HistoryForSendHelper historyForSendHelper) {
     this.mRestApi = restApi;
     this.mPref = preferencesHelper;
     this.mPracticHelper = practicHelper;
+    this.mHistoryForSendHelper = historyForSendHelper;
   }
 
   public Observable<Response<User>> login(String login, String password) {
@@ -112,5 +115,9 @@ public class DataManager {
       Timber.e(String.valueOf(mTotalTime));
       return Observable.just(Converters.timeFromSeconds(String.valueOf(mTotalTime)));
     });
+  }
+
+  public void addHistoryToDb(HistoryForSend historyForSend) {
+    mHistoryForSendHelper.insert(historyForSend);
   }
 }

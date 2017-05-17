@@ -9,10 +9,10 @@ import java.util.List;
 
 public final class RxBusHelper {
 
-  public static class SendDataToServer {
+  public static class SendDataToDb {
     public List<PracticForSend> mPracticForSends;
 
-    public SendDataToServer(List<PracticForSend> practics) {
+    public SendDataToDb(List<PracticForSend> practics) {
       mPracticForSends = practics;
     }
   }

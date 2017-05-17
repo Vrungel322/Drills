@@ -25,6 +25,9 @@ public class Db {
   public static int getInt(Cursor cursor, String columnName) {
     return cursor.getInt(cursor.getColumnIndexOrThrow(columnName));
   }
+  public static Double getDouble(Cursor cursor, String columnName) {
+    return cursor.getDouble(cursor.getColumnIndexOrThrow(columnName));
+  }
 
   private Db() {
     throw new AssertionError("No instances.");

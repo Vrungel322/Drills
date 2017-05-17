@@ -75,6 +75,7 @@ public class HoloshenieWithTimerFragment extends BaseFragment
 
   @OnClick(R.id.tvBack) public void tvBackClick() {
     mHoloshenieWithTimerFragmentPresenter.updateCurrentPractice(mPractic, mSetsCount);
+    mHoloshenieWithTimerFragmentPresenter.addToDbHistoryByPractic(mPractic);
   }
 
   @OnClick(R.id.bMinusSet) public void bMinusSetClick() {

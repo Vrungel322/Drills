@@ -40,6 +40,6 @@ import javax.inject.Inject;
             Integer.valueOf(setTime), boolisRandTimeBeforeFirstSignalDelay,
             Randomizer.randomString(32), Integer.valueOf(betweenSets));
     mPracticForSends.add(practic);
-    mRxBus.post(new RxBusHelper.SendDataToServer(mPracticForSends));
+    mRxBus.post(new RxBusHelper.SendDataToDb(mPracticForSends));
   }
 }

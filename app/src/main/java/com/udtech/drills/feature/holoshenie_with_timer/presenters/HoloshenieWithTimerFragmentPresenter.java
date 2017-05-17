@@ -8,9 +8,12 @@ import com.udtech.drills.data.DataManager;
 import com.udtech.drills.data.local.mappers.PracticToPracticForSendMapper;
 import com.udtech.drills.data.remote.fetch_user_data.Practic;
 import com.udtech.drills.data.remote.login.User;
+import com.udtech.drills.data.remote.send_user_data.HistoryForSend;
 import com.udtech.drills.data.remote.send_user_data.PracticForSend;
 import com.udtech.drills.feature.holoshenie_with_timer.views.IHoloshenieWithTimerFragmentView;
 import com.udtech.drills.utils.Constants;
+import com.udtech.drills.utils.Converters;
+import com.udtech.drills.utils.Randomizer;
 import com.udtech.drills.utils.RxBus;
 import com.udtech.drills.utils.ThreadSchedulers;
 import java.util.ArrayList;
@@ -31,6 +34,7 @@ import rx.Subscription;
   private int whatTimerRuns = Constants.DELAY_TIMER;
   private Integer mSetsRemain;
   private CountDownTimer mCountDownTimerPractice;
+  private Integer mDoneSetsCount = 0;
 
   @Override protected void inject() {
     App.getAppComponent().inject(this);
@@ -83,6 +87,7 @@ import rx.Subscription;
         } else {
           getViewState().restoreTv();
         }
+        mDoneSetsCount++;
       }
     };
   }
@@ -113,5 +118,14 @@ import rx.Subscription;
           getViewState().openHoloshenieListFragment();
         });
     addToUnsubscription(subscription);
+  }
+
+  public void addToDbHistoryByPractic(Practic practic) {
+    HistoryForSend historyForSend =
+        new HistoryForSend(practic.getDryPracticsSets(), practic.getDryPracticsName(),
+            Converters.doubleToInteger(practic.getDryPracticsTime()), Randomizer.randomString(30),
+            Constants.OBJECT_TYPE, practic.getDryPracticsDate());
+    historyForSend.setHistoryPracticsSets(mDoneSetsCount);
+    mDataManager.addHistoryToDb(historyForSend);
   }
 }

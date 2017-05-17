@@ -123,4 +123,8 @@ public class Converters {
   public static Double stringToDouble(String s) {
     return Double.valueOf(s);
   }
+
+  public static Integer doubleToInteger(Double d){
+    return Integer.valueOf(String.valueOf(Math.round(d)));
+  }
 }

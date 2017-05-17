@@ -2,6 +2,7 @@ package com.udtech.drills.di.modules;
 
 import android.content.Context;
 import com.udtech.drills.data.local.Db.DBHelper;
+import com.udtech.drills.data.local.Db.HistoryForSendHelper;
 import com.udtech.drills.data.local.Db.PracticHelper;
 import dagger.Module;
 import dagger.Provides;
@@ -19,6 +20,10 @@ import javax.inject.Singleton;
 
   @Provides @Singleton public PracticHelper provideContactHelper(DBHelper helper) {
     return new PracticHelper(helper);
+  }
+
+  @Provides @Singleton public HistoryForSendHelper provideHistoryForSendHelper(DBHelper helper) {
+    return new HistoryForSendHelper(helper);
   }
 }
 

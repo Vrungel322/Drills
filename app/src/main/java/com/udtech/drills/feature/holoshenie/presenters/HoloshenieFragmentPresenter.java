@@ -4,8 +4,6 @@ import com.arellomobile.mvp.InjectViewState;
 import com.udtech.drills.App;
 import com.udtech.drills.base.BasePresenter;
 import com.udtech.drills.data.DataManager;
-import com.udtech.drills.data.local.mappers.PracticForSendToPracticMapper;
-import com.udtech.drills.data.remote.fetch_user_data.Practic;
 import com.udtech.drills.data.remote.login.User;
 import com.udtech.drills.data.remote.send_user_data.PracticForSend;
 import com.udtech.drills.feature.holoshenie.views.IHoloshenieFragmentView;
@@ -51,10 +49,10 @@ import timber.log.Timber;
   }
 
   private void getInfFromRxBusAboutPracticForSendingToDb() {
-    Subscription subscription = mRxBus.filteredObservable(RxBusHelper.SendDataToServer.class)
+    Subscription subscription = mRxBus.filteredObservable(RxBusHelper.SendDataToDb.class)
         .compose(ThreadSchedulers.applySchedulers())
-        .subscribe(sendDataToServer -> {
-          mPracticForSend = sendDataToServer.mPracticForSends;
+        .subscribe(sendDataToDb -> {
+          mPracticForSend = sendDataToDb.mPracticForSends;
           sendUserDataPracticToDB();
         });
     addToUnsubscription(subscription);
