@@ -2,7 +2,10 @@ package com.udtech.drills.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.TimeZone;
+import timber.log.Timber;
 
 /**
  * Created by Vrungel on 13.04.2017.
@@ -23,10 +26,9 @@ public class Converters {
     if (!date.equals("")) {
       String dateResult;
       SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault());
-      Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+      formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
       long d = Long.valueOf(date);
-      calendar.setTimeInMillis(d);
-      dateResult = formatter.format(calendar.getTime());
+      dateResult = formatter.format(new Date(d));
 
       return dateResult;
     }
@@ -37,10 +39,9 @@ public class Converters {
     if (!date.equals("")) {
       String dateResult;
       SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault());
-      Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+      formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
       long d = Long.valueOf(date) * 1000L;
-      calendar.setTimeInMillis(d);
-      dateResult = formatter.format(calendar.getTime());
+      dateResult = formatter.format(new Date(d));
 
       return dateResult;
     }
