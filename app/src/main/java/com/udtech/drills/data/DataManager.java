@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.udtech.drills.data.local.Db.HistoryForSendHelper;
 import com.udtech.drills.data.local.Db.PracticHelper;
 import com.udtech.drills.data.local.PreferencesHelper;
+import com.udtech.drills.data.local.mappers.HistoryToHistoryForSendMapper;
 import com.udtech.drills.data.local.mappers.PracticForSendToPracticMapper;
 import com.udtech.drills.data.local.mappers.PracticToPracticForSendMapper;
 import com.udtech.drills.data.remote.RestApi;
@@ -93,6 +94,10 @@ public class DataManager {
   public Observable<Boolean> putUserDataEntityToDb(UserDataEntity userDataEntity) {
     for (int i = 0; i < userDataEntity.getPractic().size(); i++) {
       mPracticHelper.insert(userDataEntity.getPractic().get(i));
+    }
+    for (int i = 0; i < userDataEntity.getHistory().size(); i++) {
+      mHistoryForSendHelper.insert(
+          new HistoryToHistoryForSendMapper().transform(userDataEntity.getHistory().get(i)));
     }
     return Observable.just(true);
   }
