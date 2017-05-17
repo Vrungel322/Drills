@@ -68,18 +68,18 @@ import timber.log.Timber;
     addToUnsubscription(subscription);
   }
 
-  public void sendUserDataPracticToServer() {
-    Subscription subscription =
-        mDataManager.sendUserDataPractic(mUser.getAuthKey())
-            .compose(ThreadSchedulers.applySchedulers())
-            .subscribe(booleanResponse -> {
-              if (booleanResponse.code() == 200 && booleanResponse.body()) {
-                Timber.e("sendDataToServer Done");
-                getViewState().openContentFragment();
-              }
-            });
-    addToUnsubscription(subscription);
-  }
+  //public void sendUserDataPracticToServer() {
+  //  Subscription subscription = mDataManager.sendUserDataPractic(mUser.getAuthKey())
+  //      .concatMap(booleanResponse -> mDataManager.sendUserDataHistory(mUser.getAuthKey()))
+  //      .compose(ThreadSchedulers.applySchedulers())
+  //      .subscribe(booleanResponse -> {
+  //        if (booleanResponse.code() == 200 && booleanResponse.body()) {
+  //          Timber.e("sendDataToServer Done");
+  //          getViewState().openContentFragment();
+  //        }
+  //      });
+  //  addToUnsubscription(subscription);
+  //}
 
   //private void fetchUserData() {
   //  Subscription subscription = mDataManager.fetchUserData(mUser.getAuthKey())

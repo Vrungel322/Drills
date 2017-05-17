@@ -39,6 +39,6 @@ public class RestApi {
   }
 
   public Observable<Response<Boolean>> sendUserDataHistory(String historyForSend, String token) {
-    return api.sendUserDataPractic(token, historyForSend);
+    return api.sendUserDataHistory(token, historyForSend);
   }
 }

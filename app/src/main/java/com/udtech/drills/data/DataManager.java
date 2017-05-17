@@ -70,15 +70,16 @@ public class DataManager {
     });
   }
 
-  public Observable<Response<Boolean>> sendUserDataHistory(String token,
-      List<PracticForSend> practicForSends) {
+  public Observable<Response<Boolean>> sendUserDataHistory(String token) {
     ArrayList<HistoryForSend> historyForSends = new ArrayList<>();
-    historyForSends.add(new HistoryForSend(1, "Dry 111111222", 3, "0RZbEJSWOZnohWyIxS8fr9F5iEYAdu",
-        "Dry Practice Drill", 1491815605.812252));
+    return mHistoryForSendHelper.getAllHistory().concatMap(historyForSends1 -> {
+      for (int i = 0; i < historyForSends1.size(); i++) {
+        historyForSends.add(historyForSends1.get(i));
+      }
+      String json = new Gson().toJson(historyForSends);
 
-    String json = new Gson().toJson(historyForSends);
-
-    return mRestApi.sendUserDataPractic(json, token);
+      return mRestApi.sendUserDataHistory(json, token);
+    });
   }
 
   public void userLoggedIn(String authKey) {

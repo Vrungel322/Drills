@@ -60,7 +60,8 @@ public class HoloshenieFragment extends BaseFragment implements IHoloshenieFragm
   }
 
   @OnClick(R.id.tvDone) public void tvDoneClick() {
-    mHoloshenieFragmentPresenter.sendUserDataPracticToServer();
+    //mHoloshenieFragmentPresenter.sendUserDataPracticToServer();
+     openContentFragment();
   }
 
   @Override public void openHoloshenieFragment() {

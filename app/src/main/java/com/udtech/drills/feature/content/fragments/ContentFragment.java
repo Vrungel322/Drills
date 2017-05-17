@@ -42,7 +42,7 @@ public class ContentFragment extends BaseFragment implements IContentFragmentVie
   }
 
   @OnClick(R.id.ivHoloshenie) public void ivHoloshenieClicked() {
-    mNavigator.addFragmentBackStack((AppCompatActivity) getActivity(), R.id.contentContainer,
+    mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,
         HoloshenieFragment.newInstance());
   }
 
