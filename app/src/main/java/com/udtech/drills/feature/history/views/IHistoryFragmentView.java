@@ -4,6 +4,7 @@ import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import com.udtech.drills.data.remote.fetch_user_data.History;
+import com.udtech.drills.data.remote.send_user_data.HistoryForSend;
 import java.util.List;
 
 /**
@@ -11,5 +12,5 @@ import java.util.List;
  */
 @StateStrategyType(AddToEndSingleStrategy.class) public interface IHistoryFragmentView
     extends MvpView {
-  void setHistoryList(List<History> history);
+  void setHistoryList(List<HistoryForSend> history);
 }

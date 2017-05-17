@@ -11,7 +11,7 @@ import butterknife.OnClick;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.udtech.drills.R;
 import com.udtech.drills.base.BaseFragment;
-import com.udtech.drills.data.remote.fetch_user_data.History;
+import com.udtech.drills.data.remote.send_user_data.HistoryForSend;
 import com.udtech.drills.feature.history.adapters.HistoryAdapter;
 import com.udtech.drills.feature.history.presenters.HistoryFragmentPresenter;
 import com.udtech.drills.feature.history.views.IHistoryFragmentView;
@@ -67,7 +67,7 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
     }
   }
 
-  @Override public void setHistoryList(List<History> history) {
+  @Override public void setHistoryList(List<HistoryForSend> history) {
     mHistoryAdapter.addListHistory(history);
   }
 }

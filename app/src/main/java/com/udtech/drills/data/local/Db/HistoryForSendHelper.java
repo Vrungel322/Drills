@@ -57,13 +57,13 @@ public class HistoryForSendHelper {
     SQLiteDatabase db = helper.getWritableDatabase();
     long id = db.insert(TABLE_NAME, null,
         new HistoryForSendToCantentValueMapper().transform(historyForSend));
-    getTableAsString(db, TABLE_NAME);
+    //getTableAsString(db, TABLE_NAME);
     return id;
   }
 
   public Observable<List<HistoryForSend>> getAllHistory() {
     String selectAll = "SELECT * FROM " + TABLE_NAME;
-    getTableAsString(helper.getWritableDatabase(), TABLE_NAME);
+    //getTableAsString(helper.getWritableDatabase(), TABLE_NAME);
     return select(selectAll);
   }
 

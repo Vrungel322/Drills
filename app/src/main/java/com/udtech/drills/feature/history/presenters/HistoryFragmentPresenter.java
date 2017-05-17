@@ -29,12 +29,10 @@ import rx.Subscription;
   }
 
   private void fetchHistoryList() {
-    Subscription subscription = mDataManager.fetchUserData(mUser.getAuthKey())
+    Subscription subscription = mDataManager.getHistoryFromDb()
         .compose(ThreadSchedulers.applySchedulers())
-        .subscribe(userDataEntityResponse -> {
-          if (userDataEntityResponse.code() == 200) {
-            getViewState().setHistoryList(userDataEntityResponse.body().getHistory());
-          }
+        .subscribe(historyForSends -> {
+            getViewState().setHistoryList(historyForSends);
         });
     addToUnsubscription(subscription);
   }

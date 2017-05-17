@@ -10,19 +10,21 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.udtech.drills.R;
 import com.udtech.drills.data.remote.fetch_user_data.History;
+import com.udtech.drills.data.remote.send_user_data.HistoryForSend;
 import com.udtech.drills.utils.Converters;
 import java.util.ArrayList;
 import java.util.List;
+import timber.log.Timber;
 
 /**
  * Created by Vrungel on 11.05.2017.
  */
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> {
-  private ArrayList<History> mHistories = new ArrayList<>();
+  private ArrayList<HistoryForSend> mHistories = new ArrayList<>();
   private boolean isCBshows = false;
 
-  public void addListHistory(List<History> historyList) {
+  public void addListHistory(List<HistoryForSend> historyList) {
     mHistories.clear();
     mHistories.addAll(historyList);
     notifyDataSetChanged();
@@ -65,6 +67,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
   }
 
   @Override public int getItemCount() {
+    Timber.e(String.valueOf(mHistories.size()));
     return mHistories.size();
   }
 
