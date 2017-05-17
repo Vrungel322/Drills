@@ -38,6 +38,7 @@ import timber.log.Timber;
 
   private void synchronizeData() {
     Subscription subscription = mDataManager.sendUserDataPractic(mUser.getAuthKey())
+        .concatMap(booleanResponse -> mDataManager.sendUserDataHistory(mUser.getAuthKey()))
         .compose(ThreadSchedulers.applySchedulers())
         .subscribe(booleanResponse -> {
           if (booleanResponse.code() == 200 && booleanResponse.body()) {
