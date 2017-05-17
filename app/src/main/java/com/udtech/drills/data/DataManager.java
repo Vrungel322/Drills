@@ -109,12 +109,14 @@ public class DataManager {
 
   public Observable<String> getTotalSetsTime() {
     mTotalTime = 0;
-    return mPracticHelper.getAllPractics().concatMap(Observable::from).concatMap(practic -> {
-      mTotalTime = (int) (mTotalTime
-          + Math.round(practic.getDryPracticsTime()) * practic.getDryPracticsSets());
-      Timber.e(String.valueOf(mTotalTime));
-      return Observable.just(Converters.timeFromSeconds(String.valueOf(mTotalTime)));
-    });
+    return mHistoryForSendHelper.getAllHistory()
+        .concatMap(Observable::from)
+        .concatMap(historyForSend -> {
+          mTotalTime = mTotalTime
+              + historyForSend.getHistoryPracticsTime() * historyForSend.getHistoryPracticsSets();
+          Timber.e(String.valueOf(mTotalTime));
+          return Observable.just(Converters.timeFromSeconds(String.valueOf(mTotalTime)));
+        });
   }
 
   public void addHistoryToDb(HistoryForSend historyForSend) {
