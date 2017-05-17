@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 import butterknife.BindView;
@@ -37,6 +38,7 @@ public class HoloshenieWithTimerFragment extends BaseFragment
   @BindView(R.id.tvPracticTime) TextView mTextViewPracticTime;
   @BindView(R.id.tvDelayTime) TextView mTextViewDelayTime;
   @BindView(R.id.tvSetsCount) TextView mTextViewSetsCount;
+  @BindView(R.id.tvPracticeDescription) TextView mTextViewPracticeDescription;
 
   private Practic mPractic;
   private boolean isRunning;
@@ -71,6 +73,8 @@ public class HoloshenieWithTimerFragment extends BaseFragment
         Converters.milisToSecWithDecimal((mPractic.getDryPracticsFirstSignalDelay() * 1000)));
 
     mTextViewSetsCount.setText(String.valueOf(mSetsCount));
+    mTextViewPracticeDescription.setMovementMethod(new ScrollingMovementMethod());
+    mTextViewPracticeDescription.setText(mPractic.getDryPracticsDescription());
   }
 
   @OnClick(R.id.tvBack) public void tvBackClick() {
