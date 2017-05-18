@@ -9,8 +9,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.udtech.drills.R;
-import com.udtech.drills.data.remote.fetch_user_data.History;
-import com.udtech.drills.data.remote.send_user_data.HistoryForSend;
+import com.udtech.drills.data.local.mappers.show_history.HistoryDay;
 import com.udtech.drills.utils.Converters;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +20,10 @@ import timber.log.Timber;
  */
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> {
-  private ArrayList<HistoryForSend> mHistories = new ArrayList<>();
+  private ArrayList<HistoryDay> mHistories = new ArrayList<>();
   private boolean isCBshows = false;
 
-  public void addListHistory(List<HistoryForSend> historyList) {
+  public void addListHistory(List<HistoryDay> historyList) {
     mHistories.clear();
     mHistories.addAll(historyList);
     notifyDataSetChanged();
@@ -55,20 +54,23 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
 
     //tv Timing
     holder.mTextViewHistoryDate.setText(Converters.fullDateWithTimeFromSeconds(
-        String.valueOf(Math.round(mHistories.get(position).getHistoryPracticsDate()))));
+        String.valueOf(mHistories.get(position).getIntTimeDay())));
 
     ///tv Total time
-    holder.mTextViewTotalTime.setText(Converters.timeFromSeconds(
-        String.valueOf(mHistories.get(position).getHistoryPracticsTime())));
+    holder.mTextViewTotalTime.setText(mHistories.get(position).getStringTimeDay());
   }
 
-  public boolean isCBEnabled(){
+  public boolean isCBEnabled() {
     return isCBshows;
   }
 
   @Override public int getItemCount() {
     Timber.e(String.valueOf(mHistories.size()));
     return mHistories.size();
+  }
+
+  public HistoryDay getHistoriItem(int position) {
+    return mHistories.get(position);
   }
 
   static class HistoryViewHolder extends RecyclerView.ViewHolder {

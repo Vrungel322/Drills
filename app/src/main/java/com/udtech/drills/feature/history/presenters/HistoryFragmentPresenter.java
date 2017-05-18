@@ -4,12 +4,14 @@ import com.arellomobile.mvp.InjectViewState;
 import com.udtech.drills.App;
 import com.udtech.drills.base.BasePresenter;
 import com.udtech.drills.data.DataManager;
+import com.udtech.drills.data.local.mappers.show_history.HistoryForSendToHistoryDayMapper;
 import com.udtech.drills.data.remote.login.User;
 import com.udtech.drills.feature.history.views.IHistoryFragmentView;
 import com.udtech.drills.utils.RxBus;
 import com.udtech.drills.utils.ThreadSchedulers;
 import javax.inject.Inject;
 import rx.Subscription;
+import timber.log.Timber;
 
 /**
  * Created by Vrungel on 11.05.2017.
@@ -32,7 +34,8 @@ import rx.Subscription;
     Subscription subscription = mDataManager.getHistoryFromDb()
         .compose(ThreadSchedulers.applySchedulers())
         .subscribe(historyForSends -> {
-            getViewState().setHistoryList(historyForSends);
+          Timber.e(String.valueOf(historyForSends.size()));
+            getViewState().setHistoryList(new HistoryForSendToHistoryDayMapper().transform(historyForSends));
         });
     addToUnsubscription(subscription);
   }

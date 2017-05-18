@@ -11,12 +11,13 @@ import butterknife.OnClick;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.udtech.drills.R;
 import com.udtech.drills.base.BaseFragment;
-import com.udtech.drills.data.remote.send_user_data.HistoryForSend;
+import com.udtech.drills.data.local.mappers.show_history.HistoryDay;
 import com.udtech.drills.feature.history.adapters.HistoryAdapter;
 import com.udtech.drills.feature.history.presenters.HistoryFragmentPresenter;
 import com.udtech.drills.feature.history.views.IHistoryFragmentView;
 import com.udtech.drills.utils.ItemClickSupport;
 import java.util.List;
+import timber.log.Timber;
 
 /**
  * Created by Vrungel on 11.05.2017.
@@ -54,20 +55,26 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
           return true;
         })
         .setOnItemClickListener((recyclerView, position, v) -> {
+          for (int i = 0; i < mHistoryAdapter.getHistoriItem(position).get(position).size();
+              i++) {
+            Timber.e(mHistoryAdapter.getHistoriItem(position)
+                .get(position)
+                .get(i)
+                .getHistoryPracticsName());
+          }
         });
   }
 
   @OnClick(R.id.tvOtmenaIzmenit) public void tvOtmenaIzmenitClicked() {
     mHistoryAdapter.enableCheckBox(!mHistoryAdapter.isCBEnabled());
-    if (mHistoryAdapter.isCBEnabled()){
+    if (mHistoryAdapter.isCBEnabled()) {
       mTextViewOtmenaIzmenit.setText(getText(R.string.cancel));
-    }
-    else {
+    } else {
       mTextViewOtmenaIzmenit.setText(getText(R.string.change));
     }
   }
 
-  @Override public void setHistoryList(List<HistoryForSend> history) {
+  @Override public void setHistoryList(List<HistoryDay> history) {
     mHistoryAdapter.addListHistory(history);
   }
 }
