@@ -17,7 +17,6 @@ import com.udtech.drills.feature.history.presenters.HistoryFragmentPresenter;
 import com.udtech.drills.feature.history.views.IHistoryFragmentView;
 import com.udtech.drills.utils.ItemClickSupport;
 import java.util.List;
-import timber.log.Timber;
 
 /**
  * Created by Vrungel on 11.05.2017.
@@ -55,13 +54,13 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
           return true;
         })
         .setOnItemClickListener((recyclerView, position, v) -> {
-          for (int i = 0; i < mHistoryAdapter.getHistoriItem(position).get(position).size();
-              i++) {
-            Timber.e(mHistoryAdapter.getHistoriItem(position)
-                .get(position)
-                .get(i)
-                .getHistoryPracticsName());
-          }
+          //for (int i = 0; i < mHistoryAdapter.getHistoriItem(position).get(position).size();
+          //    i++) {
+          //  Timber.e(mHistoryAdapter.getHistoriItem(position)
+          //      .get(position)
+          //      .get(i)
+          //      .getHistoryPracticsName());
+          //}
         });
   }
 

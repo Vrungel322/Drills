@@ -32,7 +32,7 @@ public class HistoryDay {
     return date;
   }
 
-  public String getStringData() {
+  public String getStringDate() {
     return date.toString();
   }
 

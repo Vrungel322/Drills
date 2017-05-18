@@ -47,7 +47,7 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
   }
 
   private void sortALDay() {
-    Collections.sort(alDay, ((o1, o2) -> (o1.getDate().after(o2.getDate()) ? 1 : -1)));
+    Collections.sort(alDay, ((o1, o2) -> (o1.getDate().before(o2.getDate()) ? 1 : -1)));
   }
 
   private void fillDayAndPracticeEssence() {
