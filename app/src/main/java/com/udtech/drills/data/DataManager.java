@@ -45,7 +45,7 @@ public class DataManager {
 
   public Observable<Response<User>> login(String login, String password) {
     // TODO: 15.05.2017 romove dropping
-    //mPracticHelper.dropTableAndCreate();
+    mPracticHelper.dropTableAndCreate();
     return mRestApi.login(Credentials.basic(login, password));
   }
 

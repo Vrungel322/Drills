@@ -55,11 +55,11 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
           return true;
         })
         .setOnItemClickListener((recyclerView, position, v) -> {
-          for (int i = 0; i < mHistoryAdapter.getHistoriItem(position).size();
+          for (int i = 0; i < mHistoryAdapter.getHistoriItem(position).sizeALByDay();
               i++) {
             Timber.e(mHistoryAdapter.getHistoriItem(position)
-                .get(i)
-                .getName());
+                .getALByDay(i)
+                .getPracticeName());
           }
         });
   }

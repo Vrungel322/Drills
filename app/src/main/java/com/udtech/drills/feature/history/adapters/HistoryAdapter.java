@@ -10,6 +10,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.udtech.drills.R;
 import com.udtech.drills.data.local.mappers.show_history.HistoryDay;
+import com.udtech.drills.utils.Converters;
+
 import java.util.ArrayList;
 import java.util.List;
 import timber.log.Timber;
@@ -52,10 +54,14 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     }
 
     //tv Timing
-    holder.mTextViewHistoryDate.setText(String.valueOf(mHistories.get(position).getStringDate()));
+    holder.mTextViewHistoryDate.setText(Converters
+            .fullDateWithTimeFromSeconds(mHistories.get(position).getStringDate()));
+    Timber.e(mHistories.get(position).getStringDate());
 
-    ///tv Total time
-    //holder.mTextViewTotalTime.setText(mHistories.get(position).getIntTimeDay());
+
+    //tv Total time
+    holder.mTextViewTotalTime.setText(Converters
+            .timeFromSeconds(mHistories.get(position).getStringTimeDay()));
   }
 
   public boolean isCBEnabled() {
