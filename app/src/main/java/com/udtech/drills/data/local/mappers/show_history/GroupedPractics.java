@@ -49,7 +49,7 @@ public class GroupedPractics {
     this.intTimePractice = totalTime;
   }
 
-  public int getQuantityPractice() {
+  public int getCountityPractice() {
     return alByPractice.size();
   }
 
