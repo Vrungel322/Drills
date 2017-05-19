@@ -37,16 +37,18 @@ import timber.log.Timber;
   }
 
   private void synchronizeData() {
+    getViewState().startProgressDialog();
     Subscription subscription = mDataManager.sendUserDataPractic(mUser.getAuthKey())
         .concatMap(booleanResponse -> mDataManager.sendUserDataHistory(mUser.getAuthKey()))
         .compose(ThreadSchedulers.applySchedulers())
         .subscribe(booleanResponse -> {
           if (booleanResponse.code() == 200 && booleanResponse.body()) {
             Timber.e("sendDataToServer Done");
-            getViewState().showMsg("Data Synchronized");
+            getViewState().stopProgressDialog();
           }
         }, throwable -> {
           getViewState().showMsg("No Internet");
+          getViewState().stopProgressDialog();
         });
 
     addToUnsubscription(subscription);

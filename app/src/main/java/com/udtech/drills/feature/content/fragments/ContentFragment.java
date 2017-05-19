@@ -1,7 +1,13 @@
 package com.udtech.drills.feature.content.fragments;
 
+import android.app.ProgressDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
@@ -13,6 +19,7 @@ import com.udtech.drills.feature.content.presenters.ContentFragmentPresenter;
 import com.udtech.drills.feature.content.views.IContentFragmentView;
 import com.udtech.drills.feature.history.fragments.HistoryFragment;
 import com.udtech.drills.feature.holoshenie.fragments.HoloshenieFragment;
+import com.udtech.drills.utils.DialogFactory;
 import com.yqritc.scalablevideoview.ScalableVideoView;
 import java.io.IOException;
 
@@ -25,6 +32,8 @@ public class ContentFragment extends BaseFragment implements IContentFragmentVie
   @BindView(R.id.ivHistory) ImageView mImageViewHistory;
   @BindView(R.id.tvAllSetsTime) TextView mTextViewAllSetsTime;
 
+  private ProgressDialog mProgressDialog;
+
   public static ContentFragment newInstance() {
     Bundle args = new Bundle();
     ContentFragment fragment = new ContentFragment();
@@ -34,6 +43,13 @@ public class ContentFragment extends BaseFragment implements IContentFragmentVie
 
   public ContentFragment() {
     super(R.layout.fragment_content);
+  }
+
+  @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    mProgressDialog = DialogFactory.createProgressDialog(getContext(), R.string.synchronization);
+    //mProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+    mProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getContext(), R.color.colorAccent)));
   }
 
   @Override public void onStart() {
@@ -72,5 +88,13 @@ public class ContentFragment extends BaseFragment implements IContentFragmentVie
 
   @Override public void showMsg(String s) {
     showAlertMessage("Message:", s);
+  }
+
+  @Override public void startProgressDialog() {
+    mProgressDialog.show();
+  }
+
+  @Override public void stopProgressDialog() {
+    mProgressDialog.cancel();
   }
 }

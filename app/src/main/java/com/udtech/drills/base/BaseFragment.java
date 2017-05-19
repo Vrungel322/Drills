@@ -54,6 +54,7 @@ public abstract class BaseFragment extends MvpAppCompatFragment {
     Alerter.create(getActivity())
         .setTitle(title)
         .setText(message)
+        .setDuration(700)
         .setBackgroundColor(R.color.colorAccent)
         .setOnClickListener(view -> {
         })

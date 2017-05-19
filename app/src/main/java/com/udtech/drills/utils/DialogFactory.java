@@ -41,6 +41,7 @@ public final class DialogFactory {
   public static ProgressDialog createProgressDialog(Context context, String message) {
     ProgressDialog progressDialog = new ProgressDialog(context);
     progressDialog.setMessage(message);
+    progressDialog.setIndeterminateDrawable(context.getResources().getDrawable(R.drawable.pb_color));
     return progressDialog;
   }
 
