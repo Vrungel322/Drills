@@ -20,7 +20,7 @@ import timber.log.Timber;
  * Created by Vrungel on 11.05.2017.
  */
 
-public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> {
+public class HistoryDayAdapter extends RecyclerView.Adapter<HistoryDayAdapter.HistoryViewHolder> {
   private ArrayList<HistoryDay> mHistories = new ArrayList<>();
   private boolean isCBshows = false;
 

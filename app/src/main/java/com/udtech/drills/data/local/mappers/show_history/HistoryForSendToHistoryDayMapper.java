@@ -5,14 +5,11 @@ import com.udtech.drills.data.remote.send_user_data.HistoryForSend;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import timber.log.Timber;
 
 /**
  * Created by vrungel on 18.05.17.
@@ -69,7 +66,7 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
             int timeDay = 0;
             for (int i = 0; i < hdAlDay.sizeALByDay(); i++) {
                 int timePractice = 0;
-                for (int j = 0; j < hdAlDay.getALByDay(i).sizeALByPractice(); j++) {
+                for (int j = 0; j < hdAlDay.getALByDay(i).getSetsCount(); j++) {
                     timePractice += hdAlDay.getALByDay(i).getALByPractice(j).getHistoryPracticsTime();
                     hdAlDay.getALByDay(i).setPracticeDate(hdAlDay.getALByDay(i).getALByPractice(j)
                             .getHistoryPracticsDate().longValue() / 1000);

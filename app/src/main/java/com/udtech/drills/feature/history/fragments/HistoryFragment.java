@@ -12,12 +12,12 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.udtech.drills.R;
 import com.udtech.drills.base.BaseFragment;
 import com.udtech.drills.data.local.mappers.show_history.HistoryDay;
-import com.udtech.drills.feature.history.adapters.HistoryAdapter;
+import com.udtech.drills.feature.history.adapters.HistoryDayAdapter;
+import com.udtech.drills.feature.history.adapters.PracticsGroupAdapter;
 import com.udtech.drills.feature.history.presenters.HistoryFragmentPresenter;
 import com.udtech.drills.feature.history.views.IHistoryFragmentView;
 import com.udtech.drills.utils.ItemClickSupport;
 import java.util.List;
-import timber.log.Timber;
 
 /**
  * Created by Vrungel on 11.05.2017.
@@ -30,7 +30,8 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
   @BindView(R.id.tvOtmenaIzmenit) TextView mTextViewOtmenaIzmenit;
   @BindView(R.id.rvHistory) RecyclerView mRecyclerViewHistory;
 
-  private HistoryAdapter mHistoryAdapter;
+  private HistoryDayAdapter mHistoryDayAdapter;
+  private PracticsGroupAdapter mPracticsGroupAdapter;
 
   public static HistoryFragment newInstance() {
     Bundle args = new Bundle();
@@ -45,28 +46,32 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
 
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    mHistoryAdapter = new HistoryAdapter();
+    mHistoryDayAdapter = new HistoryDayAdapter();
     mRecyclerViewHistory.setLayoutManager(new LinearLayoutManager(getContext()));
-    mRecyclerViewHistory.setAdapter(mHistoryAdapter);
+    mRecyclerViewHistory.setAdapter(mHistoryDayAdapter);
+    mPracticsGroupAdapter = new PracticsGroupAdapter();
 
     ItemClickSupport.addTo(mRecyclerViewHistory)
         .setOnItemLongClickListener((recyclerView, position, v) -> {
-          mHistoryAdapter.enableCheckBox(!mHistoryAdapter.isCBEnabled());
+          mHistoryDayAdapter.enableCheckBox(!mHistoryDayAdapter.isCBEnabled());
           return true;
         })
         .setOnItemClickListener((recyclerView, position, v) -> {
-          for (int i = 0; i < mHistoryAdapter.getHistoriItem(position).sizeALByDay();
-              i++) {
-            Timber.e(mHistoryAdapter.getHistoriItem(position)
-                .getALByDay(i)
-                .getPracticeName());
-          }
+          mPracticsGroupAdapter.addListPracticsGroup(
+              mHistoryDayAdapter.getHistoriItem(position).getGroupsOfPractics());
+          mRecyclerViewHistory.setAdapter(mPracticsGroupAdapter);
+          //for (int i = 0; i < mHistoryDayAdapter.getHistoriItem(position).sizeALByDay();
+          //    i++) {
+          //  Timber.e(mHistoryDayAdapter.getHistoriItem(position)
+          //      .getALByDay(i)
+          //      .getPracticeName());
+          //}
         });
   }
 
   @OnClick(R.id.tvOtmenaIzmenit) public void tvOtmenaIzmenitClicked() {
-    mHistoryAdapter.enableCheckBox(!mHistoryAdapter.isCBEnabled());
-    if (mHistoryAdapter.isCBEnabled()) {
+    mHistoryDayAdapter.enableCheckBox(!mHistoryDayAdapter.isCBEnabled());
+    if (mHistoryDayAdapter.isCBEnabled()) {
       mTextViewOtmenaIzmenit.setText(getText(R.string.cancel));
     } else {
       mTextViewOtmenaIzmenit.setText(getText(R.string.change));
@@ -74,6 +79,6 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
   }
 
   @Override public void setHistoryList(List<HistoryDay> history) {
-    mHistoryAdapter.addListHistory(history);
+    mHistoryDayAdapter.addListHistory(history);
   }
 }

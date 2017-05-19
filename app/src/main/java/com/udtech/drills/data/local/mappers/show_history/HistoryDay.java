@@ -66,4 +66,8 @@ public class HistoryDay {
   public int sizeALByDay() {
     return alByDay.size();
   }
+
+  public List<GroupedPractices> getGroupsOfPractics() {
+    return alByDay;
+  }
 }

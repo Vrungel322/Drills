@@ -67,7 +67,7 @@ public class GroupedPractices {
     return alByPractice.get(i);
   }
 
-  public int sizeALByPractice() {
+  public int getSetsCount() {
     return alByPractice.size();
   }
 }
