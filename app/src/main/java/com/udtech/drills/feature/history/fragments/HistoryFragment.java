@@ -21,7 +21,6 @@ import com.udtech.drills.feature.history.presenters.HistoryFragmentPresenter;
 import com.udtech.drills.feature.history.views.IHistoryFragmentView;
 import com.udtech.drills.utils.ItemClickSupport;
 import java.util.List;
-import timber.log.Timber;
 
 /**
  * Created by Vrungel on 11.05.2017.
@@ -89,17 +88,12 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
             ContentFragment.newInstance());
       }
     } else {
-      Timber.e("dell");
-      // TODO: 19.05.2017 add removing from db by historyPracticsID
-      List<String> list =
-          (new DayGroupToHistoryId()).getListIdByDay(mHistoryDayAdapter.getListToRemove());
-      for (String str : list) {
-        Timber.e(str + " / / // // // // // ");
-      }
       mHistoryFragmentPresenter.removeHistoryForSendFromDbByID(
           new DayGroupToHistoryId().getListIdByDay(mHistoryDayAdapter.getListToRemove()));
       mHistoryDayAdapter.removeItemsByListOfPos(mHistoryDayAdapter.getListToRemove());
       mHistoryDayAdapter.enableCheckBox(false);
+      mTextViewOtmenaIzmenit.setText(getText(R.string.change));
+      mTextViewDoneDelete.setText(getText(R.string.done));
     }
   }
 
