@@ -2,6 +2,7 @@ package com.udtech.drills.feature.history.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.udtech.drills.R;
 import com.udtech.drills.base.BaseFragment;
 import com.udtech.drills.data.local.mappers.show_history.HistoryDay;
+import com.udtech.drills.feature.content.fragments.ContentFragment;
 import com.udtech.drills.feature.history.adapters.HistoryDayAdapter;
 import com.udtech.drills.feature.history.adapters.PracticsGroupAdapter;
 import com.udtech.drills.feature.history.presenters.HistoryFragmentPresenter;
@@ -60,12 +62,6 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
           mPracticsGroupAdapter.addListPracticsGroup(
               mHistoryDayAdapter.getHistoriItem(position).getGroupsOfPractics());
           mRecyclerViewHistory.setAdapter(mPracticsGroupAdapter);
-          //for (int i = 0; i < mHistoryDayAdapter.getHistoriItem(position).sizeALByDay();
-          //    i++) {
-          //  Timber.e(mHistoryDayAdapter.getHistoriItem(position)
-          //      .getALByDay(i)
-          //      .getPracticeName());
-          //}
         });
   }
 
@@ -73,8 +69,21 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
     mHistoryDayAdapter.enableCheckBox(!mHistoryDayAdapter.isCBEnabled());
     if (mHistoryDayAdapter.isCBEnabled()) {
       mTextViewOtmenaIzmenit.setText(getText(R.string.cancel));
+      mTextViewDoneDelete.setText(getText(R.string.dell_all));
     } else {
       mTextViewOtmenaIzmenit.setText(getText(R.string.change));
+      mTextViewDoneDelete.setText(getText(R.string.done));
+    }
+  }
+
+  @OnClick(R.id.tvDoneDelete) public void tvDoneDeleteClicked() {
+    if (mTextViewOtmenaIzmenit.getText().equals(getText(R.string.change))) {
+      if (mRecyclerViewHistory.getAdapter() instanceof PracticsGroupAdapter) {
+        mRecyclerViewHistory.setAdapter(mHistoryDayAdapter);
+      } else {
+        mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,
+            ContentFragment.newInstance());
+      }
     }
   }
 
