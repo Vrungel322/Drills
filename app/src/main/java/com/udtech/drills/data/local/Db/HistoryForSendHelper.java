@@ -144,8 +144,15 @@ public class HistoryForSendHelper {
 
   public void dellRowFromHistoryTable(String historyId) {
     SQLiteDatabase db = helper.getWritableDatabase();
-    db.delete(TABLE_NAME, Constants.DbHistory.HISTORY_PRACTIC_ID + "=" + historyId, null);
-    getTableAsString(db, TABLE_NAME);
+    //db.delete(TABLE_NAME, Constants.DbHistory.HISTORY_PRACTIC_ID , new String[] { historyId });
+    db.execSQL("DELETE FROM "
+        + TABLE_NAME
+        + " WHERE "
+        + Constants.DbHistory.HISTORY_PRACTIC_ID
+        + "= '"
+        + historyId
+        + "'");
 
+    getTableAsString(db, TABLE_NAME);
   }
 }

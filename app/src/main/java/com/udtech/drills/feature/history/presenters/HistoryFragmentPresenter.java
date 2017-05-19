@@ -9,6 +9,7 @@ import com.udtech.drills.data.remote.login.User;
 import com.udtech.drills.feature.history.views.IHistoryFragmentView;
 import com.udtech.drills.utils.RxBus;
 import com.udtech.drills.utils.ThreadSchedulers;
+import java.util.List;
 import javax.inject.Inject;
 import rx.Subscription;
 import timber.log.Timber;
@@ -38,5 +39,11 @@ import timber.log.Timber;
             getViewState().setHistoryList(new HistoryForSendToHistoryDayMapper().transform(historyForSends));
         });
     addToUnsubscription(subscription);
+  }
+
+  public void removeHistoryForSendFromDbByID(List<String> listIdByDay) {
+    for (int i = 0; i < listIdByDay.size(); i++) {
+      mDataManager.dellRowFromHistoryTable(listIdByDay.get(i));
+    }
   }
 }

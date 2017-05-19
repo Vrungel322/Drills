@@ -91,10 +91,13 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
     } else {
       Timber.e("dell");
       // TODO: 19.05.2017 add removing from db by historyPracticsID
-      List<String> list = (new DayGroupToHistoryId()).getListIdByDay(mHistoryDayAdapter.getListToRemove());
+      List<String> list =
+          (new DayGroupToHistoryId()).getListIdByDay(mHistoryDayAdapter.getListToRemove());
       for (String str : list) {
         Timber.e(str + " / / // // // // // ");
       }
+      mHistoryFragmentPresenter.removeHistoryForSendFromDbByID(
+          new DayGroupToHistoryId().getListIdByDay(mHistoryDayAdapter.getListToRemove()));
       mHistoryDayAdapter.removeItemsByListOfPos(mHistoryDayAdapter.getListToRemove());
       mHistoryDayAdapter.enableCheckBox(false);
     }
