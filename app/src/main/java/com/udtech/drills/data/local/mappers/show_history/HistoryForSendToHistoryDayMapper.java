@@ -42,7 +42,6 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
 
     private Object getALDay(List<HistoryForSend> alHistoryForSend) {
         Map<Date, List<HistoryForSend>> mapEssenseByDate = getMapEssenseByDate(alHistoryForSend);
-        //        mapEssenseByDate.forEach((k,v) -> System.out.println("key: "+k+" value:"+v));
 
         for (List<HistoryForSend> listByDate : mapEssenseByDate.values()) {
             Map<String, List<HistoryForSend>> mapEssenseByPractice = getMapEssenseByType(listByDate);
@@ -70,15 +69,15 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
     }
 
     private void sortGroupPracticesInALDay() {
-//        for (HistoryDay historyDay : alDay) {
-//            Collections.sort(historyDay.getGroupsOfPractics(),
-//                    ((o1, o2) -> (o1.getPracticesDateLast() < o2.getPracticesDateLast() ? 1 : -1)));
-//        }
+        for (HistoryDay historyDay : alDay) {
+            Collections.sort(historyDay.getGroupsOfPractics(),
+                    ((o1, o2) -> (o1.getPracticesDateLast() < o2.getPracticesDateLast() ? 1 : -1)));
+        }
     }
 
     private void sortALDay() {
-//        Collections.sort(alDay,
-//                ((o1, o2) -> (o1.getPracticeDate() < o2.getPracticeDate() ? 1 : -1)));
+        Collections.sort(alDay,
+                ((o1, o2) -> (o1.getPracticeDate() < o2.getPracticeDate() ? 1 : -1)));
     }
 
     private void fillPracticeEssence() {
@@ -88,18 +87,10 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
                 for (int k = 0; k < alDay.get(i).getALByDay(j).getSetsCount(); k++) {
                     totalTimePractice += alDay.get(i).getALByDay(j).getALByPractice(k).getHistoryPracticsTime();
                 }
-                Timber.e(String.valueOf(alDay.get(i).getALByDay(j)
-                        .getALByPractice(alDay.get(i).getALByDay(j).getSetsCount() - 1)
-                        .getHistoryPracticsDate()
-                        .longValue() / 1000) + "-------------------");
                 alDay.get(i).getALByDay(j).setPracticeDateFirst(alDay.get(i).getALByDay(j)
                         .getALByPractice(alDay.get(i).getALByDay(j).getSetsCount() - 1)
                         .getHistoryPracticsDate()
                         .longValue() / 1000);
-                Timber.e(String.valueOf(alDay.get(i).getALByDay(j)
-                        .getALByPractice(0)
-                        .getHistoryPracticsDate()
-                        .longValue() / 1000) + "*******************");
                 alDay.get(i).getALByDay(j).setPracticeDateLast(alDay.get(i).getALByDay(j)
                         .getALByPractice(0)
                         .getHistoryPracticsDate()
@@ -118,8 +109,6 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
             for (int j = 0; j < alDay.get(i).sizeALByDay(); j++) {
                 totalTimeDay += alDay.get(i).getALByDay(j).getIntTimePractice();
             }
-            Timber.e(String.valueOf(alDay.get(i).getALByDay(0)
-                    .getPracticesDateLast()) + "++++++++++++++++++");
             alDay.get(i).setPracticeDate(alDay.get(i).getALByDay(0)
                     .getPracticesDateLast());
             alDay.get(i).setIntTimeDay(totalTimeDay);
@@ -131,7 +120,6 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
         Map<Date, List<HistoryForSend>> map = new HashMap<>();
         for (HistoryForSend essence : alHistoryForSend) {
             Date date = getDate(essence.getHistoryPracticsDate().longValue());
-            //            System.out.println(date.toString());
             if (map.containsKey(date)) {
                 map.get(date).add(essence);
             } else {
@@ -148,7 +136,6 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
         Map<String, List<HistoryForSend>> map = new HashMap<>();
         for (HistoryForSend essence : alHistoryForSend) {
             String type = essence.getHistoryPracticsName();
-            //            System.out.println(date.toString());
             if (map.containsKey(type)) {
                 map.get(type).add(essence);
             } else {

@@ -1,10 +1,6 @@
-package com.udtech.drills;
+package com.udtech.drills.data.local.mappers.show_history;
 
-import com.udtech.drills.data.local.mappers.Mapper;
-import com.udtech.drills.data.local.mappers.show_history.GroupedPractices;
-import com.udtech.drills.data.local.mappers.show_history.HistoryDay;
 import com.udtech.drills.data.remote.send_user_data.HistoryForSend;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +8,7 @@ import java.util.List;
  * Created by Dimuch on 19.05.2017.
  */
 
-public class SamNazovesh {
+public class DayGroupToHistoryId {
 
     public List<String> getListIdByDay (List<HistoryDay> historyDayList) {
         List<String> listIdByDay = new ArrayList<>();
@@ -37,4 +33,5 @@ public class SamNazovesh {
         }
         return listIdByDay;
     }
+
 }

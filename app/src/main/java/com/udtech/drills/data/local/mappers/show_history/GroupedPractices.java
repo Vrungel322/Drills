@@ -57,13 +57,11 @@ public class GroupedPractices {
   }
 
   public Long getPracticesDateLast() {
-    Timber.e(this.dPracticesDateFirst.toString() + " getPracticesDateLast");
     return dPracticesDateLast;
   }
 
   public void setPracticeDateLast(Long dPracticesDateLast) {
-    this.dPracticesDateFirst = dPracticesDateLast;
-    Timber.e(this.dPracticesDateFirst.toString() + " setPracticeDateLast");
+    this.dPracticesDateLast = dPracticesDateLast;
   }
 
   public void addHistoryForSend(HistoryForSend list) {
