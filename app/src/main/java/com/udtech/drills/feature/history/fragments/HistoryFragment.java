@@ -59,9 +59,11 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
           return true;
         })
         .setOnItemClickListener((recyclerView, position, v) -> {
-          mPracticsGroupAdapter.addListPracticsGroup(
-              mHistoryDayAdapter.getHistoriItem(position).getGroupsOfPractics());
-          mRecyclerViewHistory.setAdapter(mPracticsGroupAdapter);
+          if (mRecyclerViewHistory.getAdapter() instanceof HistoryDayAdapter) {
+            mPracticsGroupAdapter.addListPracticsGroup(
+                mHistoryDayAdapter.getHistoriItem(position).getGroupsOfPractics());
+            mRecyclerViewHistory.setAdapter(mPracticsGroupAdapter);
+          }
         });
   }
 
