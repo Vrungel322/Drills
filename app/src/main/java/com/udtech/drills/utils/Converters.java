@@ -63,6 +63,21 @@ public class Converters {
     return "";
   }
 
+  public static String hoursMinsFromSeconds(String date) {
+    if (!date.equals("")) {
+      String dateResult;
+      SimpleDateFormat formatter =
+          new SimpleDateFormat("HH:mm", java.util.Locale.getDefault());
+      Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+      long d = Long.valueOf(date) * 1000L;
+      calendar.setTimeInMillis(d);
+      dateResult = formatter.format(calendar.getTime());
+
+      return dateResult;
+    }
+    return "";
+  }
+
   public static String fullDateWithTimeFromSeconds(String date) {
     if (!date.equals("")) {
       String dateResult;

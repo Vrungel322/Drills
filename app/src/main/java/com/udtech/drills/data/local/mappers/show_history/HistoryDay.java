@@ -2,7 +2,6 @@ package com.udtech.drills.data.local.mappers.show_history;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import timber.log.Timber;
 
 /**
