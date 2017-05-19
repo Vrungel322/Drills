@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="3dp"
-    android:background="@color/dark_gray"
+    android:background="@color/gray"
     >
 
   <TextView
@@ -52,7 +52,7 @@
       android:layout_marginTop="8dp"
       android:text="tvSetsCount"
       android:textColor="@color/white"
-      android:textSize="24sp"
+      android:textSize="32sp"
       app:layout_constraintLeft_toLeftOf="@+id/tvGroupName"
       app:layout_constraintTop_toBottomOf="@+id/tvGroupName"
       />
@@ -78,7 +78,7 @@
       android:layout_marginRight="1dp"
       android:text="tvGroupTime"
       android:textColor="@color/white"
-      android:textSize="24sp"
+      android:textSize="32sp"
       app:layout_constraintBaseline_toBaselineOf="@+id/tvSetsCountInGroup"
       app:layout_constraintRight_toRightOf="@+id/tvStartPracticsTime"
       />

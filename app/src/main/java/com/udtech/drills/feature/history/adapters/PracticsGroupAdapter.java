@@ -9,6 +9,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.udtech.drills.R;
 import com.udtech.drills.data.local.mappers.show_history.GroupedPractices;
+import com.udtech.drills.utils.Converters;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,8 @@ import java.util.List;
  * Created by Vrungel on 19.05.2017.
  */
 
-public class PracticsGroupAdapter extends RecyclerView.Adapter<PracticsGroupAdapter.PracticsGroupViewHolder> {
+public class PracticsGroupAdapter
+    extends RecyclerView.Adapter<PracticsGroupAdapter.PracticsGroupViewHolder> {
   private ArrayList<GroupedPractices> mGroupedPractices = new ArrayList<>();
 
   public void addListPracticsGroup(List<GroupedPractices> groupedPractices) {
@@ -26,16 +28,17 @@ public class PracticsGroupAdapter extends RecyclerView.Adapter<PracticsGroupAdap
   }
 
   @Override public PracticsGroupViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    return new PracticsGroupAdapter.PracticsGroupViewHolder(
-        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_group_practics, parent, false));
+    return new PracticsGroupAdapter.PracticsGroupViewHolder(LayoutInflater.from(parent.getContext())
+        .inflate(R.layout.item_group_practics, parent, false));
   }
 
   @Override public void onBindViewHolder(PracticsGroupViewHolder holder, int position) {
     //holder.mTextViewStartPracticsTime.setText(mGroupedPractices.get(position).getStringTimePractice());
     holder.mTextViewGroupName.setText(mGroupedPractices.get(position).getPracticeName());
-    holder.mTextViewSetsCountInGroup.setText(String.valueOf(mGroupedPractices.get(position).getSetsCount()));
-    holder.mTextViewGroupTime.setText(mGroupedPractices.get(position).getStringTimePractice());
-
+    holder.mTextViewSetsCountInGroup.setText(
+        String.valueOf(mGroupedPractices.get(position).getSetsCount()));
+    holder.mTextViewGroupTime.setText(
+        Converters.timeFromSeconds(mGroupedPractices.get(position).getStringTimePractice()));
   }
 
   @Override public int getItemCount() {
