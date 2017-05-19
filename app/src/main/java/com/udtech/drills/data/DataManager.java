@@ -8,7 +8,6 @@ import com.udtech.drills.data.local.mappers.HistoryToHistoryForSendMapper;
 import com.udtech.drills.data.local.mappers.PracticForSendToPracticMapper;
 import com.udtech.drills.data.local.mappers.PracticToPracticForSendMapper;
 import com.udtech.drills.data.remote.RestApi;
-import com.udtech.drills.data.remote.fetch_user_data.History;
 import com.udtech.drills.data.remote.fetch_user_data.Practic;
 import com.udtech.drills.data.remote.fetch_user_data.UserDataEntity;
 import com.udtech.drills.data.remote.login.User;
@@ -132,5 +131,9 @@ public class DataManager {
 
   public void addHistoryToDb(HistoryForSend historyForSend) {
     mHistoryForSendHelper.insert(historyForSend);
+  }
+
+  public void dellRowFromHistoryTable(String historyId){
+     mHistoryForSendHelper.dellRowFromHistoryTable(historyId);
   }
 }

@@ -5,7 +5,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import com.udtech.drills.data.local.mappers.HistoryForSendToCantentValueMapper;
-import com.udtech.drills.data.remote.fetch_user_data.Practic;
 import com.udtech.drills.data.remote.send_user_data.HistoryForSend;
 import com.udtech.drills.utils.Constants;
 import java.util.ArrayList;
@@ -141,5 +140,12 @@ public class HistoryForSendHelper {
     Log.e("DB_LOG", tableString);
 
     return tableString;
+  }
+
+  public void dellRowFromHistoryTable(String historyId) {
+    SQLiteDatabase db = helper.getWritableDatabase();
+    db.delete(TABLE_NAME, Constants.DbHistory.HISTORY_PRACTIC_ID + "=" + historyId, null);
+    getTableAsString(db, TABLE_NAME);
+
   }
 }
