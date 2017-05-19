@@ -33,6 +33,7 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
 
         getALDay(alHistoryForSend);
 
+        sortHistoryForSendInALDay();
         fillDayAndPracticeEssence();
         sortALDay();
 
@@ -59,13 +60,18 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
         return alDay;
     }
 
+    private void sortHistoryForSendInALDay() {
+        for (HistoryDay historyDay : alDay) {
+            for (GroupedPractices groupedPractices : historyDay.getList()) {
+                Collections.sort(groupedPractices.getList(), ((o1, o2) ->
+                        (o1.getHistoryPracticsDate() > o2.getHistoryPracticsDate() ? 1 : -1)));
+            }
+        }
+    }
+
     private void sortALDay() {
         Collections.sort(alDay,
                 ((o1, o2) -> (o1.getPracticeDate() < o2.getPracticeDate() ? 1 : -1)));
-        for (HistoryDay historyDay : alDay) {
-            Collections.sort(historyDay.getList(),
-                    ((o1, o2) -> (o1.getPracticeDate() < o2.getPracticeDate() ? 1 : -1)));
-        }
     }
 
     private void fillDayAndPracticeEssence() {
