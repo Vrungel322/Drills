@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import timber.log.Timber;
+
 /**
  * Created by vrungel on 18.05.17.
  */
@@ -29,8 +31,10 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
 
         getALDay(alHistoryForSend);
 
-        sortHistoryForSendInALDay();
-        fillDayAndPracticeEssence();
+        sortHistoryForSendInPractices();
+        fillPracticeEssence();
+        sortGroupPracticesInALDay();
+        fillDayPractice();
         sortALDay();
 
         return alDay;
@@ -56,39 +60,69 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
         return alDay;
     }
 
-    private void sortHistoryForSendInALDay() {
+    private void sortHistoryForSendInPractices() {
         for (HistoryDay historyDay : alDay) {
             for (GroupedPractices groupedPractices : historyDay.getGroupsOfPractics()) {
                 Collections.sort(groupedPractices.getList(), ((o1, o2) ->
-                        (o1.getHistoryPracticsDate() > o2.getHistoryPracticsDate() ? 1 : -1)));
+                        (o1.getHistoryPracticsDate() < o2.getHistoryPracticsDate() ? 1 : -1)));
             }
         }
     }
 
-    private void sortALDay() {
-        Collections.sort(alDay,
-                ((o1, o2) -> (o1.getPracticeDate() < o2.getPracticeDate() ? 1 : -1)));
+    private void sortGroupPracticesInALDay() {
+//        for (HistoryDay historyDay : alDay) {
+//            Collections.sort(historyDay.getGroupsOfPractics(),
+//                    ((o1, o2) -> (o1.getPracticesDateLast() < o2.getPracticesDateLast() ? 1 : -1)));
+//        }
     }
 
-    private void fillDayAndPracticeEssence() {
-        for (HistoryDay hdAlDay : alDay) {
-            int timeDay = 0;
-            for (int i = 0; i < hdAlDay.sizeALByDay(); i++) {
-                int timePractice = 0;
-                for (int j = 0; j < hdAlDay.getALByDay(i).getSetsCount(); j++) {
-                    timePractice += hdAlDay.getALByDay(i).getALByPractice(j).getHistoryPracticsTime();
-                    hdAlDay.getALByDay(i).setPracticeDate(hdAlDay.getALByDay(i).getALByPractice(j)
-                            .getHistoryPracticsDate().longValue() / 1000);
+    private void sortALDay() {
+//        Collections.sort(alDay,
+//                ((o1, o2) -> (o1.getPracticeDate() < o2.getPracticeDate() ? 1 : -1)));
+    }
 
-                    hdAlDay.getALByDay(i).setPracticeName(hdAlDay.getALByDay(i).getALByPractice(j)
-                            .getHistoryPracticsName());
+    private void fillPracticeEssence() {
+        for (int i = 0; i < alDay.size(); i++) {
+            for (int j = 0; j < alDay.get(i).sizeALByDay(); j++) {
+                int totalTimePractice = 0;
+                for (int k = 0; k < alDay.get(i).getALByDay(j).getSetsCount(); k++) {
+                    totalTimePractice += alDay.get(i).getALByDay(j).getALByPractice(k).getHistoryPracticsTime();
                 }
-                hdAlDay.getALByDay(i).setIntTimePractice(timePractice);
-
-                timeDay += hdAlDay.getALByDay(i).getIntTimePractice();
-                hdAlDay.setPracticeDate(hdAlDay.getALByDay(i).getPracticeDate());
+                Timber.e(String.valueOf(alDay.get(i).getALByDay(j)
+                        .getALByPractice(alDay.get(i).getALByDay(j).getSetsCount() - 1)
+                        .getHistoryPracticsDate()
+                        .longValue() / 1000) + "-------------------");
+                alDay.get(i).getALByDay(j).setPracticeDateFirst(alDay.get(i).getALByDay(j)
+                        .getALByPractice(alDay.get(i).getALByDay(j).getSetsCount() - 1)
+                        .getHistoryPracticsDate()
+                        .longValue() / 1000);
+                Timber.e(String.valueOf(alDay.get(i).getALByDay(j)
+                        .getALByPractice(0)
+                        .getHistoryPracticsDate()
+                        .longValue() / 1000) + "*******************");
+                alDay.get(i).getALByDay(j).setPracticeDateLast(alDay.get(i).getALByDay(j)
+                        .getALByPractice(0)
+                        .getHistoryPracticsDate()
+                        .longValue() / 1000);
+                alDay.get(i).getALByDay(j).setPracticeName(alDay.get(i).getALByDay(j)
+                        .getALByPractice(0)
+                        .getHistoryPracticsName());
+                alDay.get(i).getALByDay(j).setIntTimePractice(totalTimePractice);
             }
-            hdAlDay.setIntTimeDay(timeDay);
+        }
+    }
+
+    private void fillDayPractice() {
+        for (int i = 0; i < alDay.size(); i++) {
+            int totalTimeDay = 0;
+            for (int j = 0; j < alDay.get(i).sizeALByDay(); j++) {
+                totalTimeDay += alDay.get(i).getALByDay(j).getIntTimePractice();
+            }
+            Timber.e(String.valueOf(alDay.get(i).getALByDay(0)
+                    .getPracticesDateLast()) + "++++++++++++++++++");
+            alDay.get(i).setPracticeDate(alDay.get(i).getALByDay(0)
+                    .getPracticesDateLast());
+            alDay.get(i).setIntTimeDay(totalTimeDay);
         }
     }
 
