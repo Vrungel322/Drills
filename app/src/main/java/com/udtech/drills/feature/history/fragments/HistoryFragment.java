@@ -12,6 +12,7 @@ import butterknife.OnClick;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.udtech.drills.R;
 import com.udtech.drills.base.BaseFragment;
+import com.udtech.drills.data.local.mappers.show_history.DayGroupToHistoryId;
 import com.udtech.drills.data.local.mappers.show_history.HistoryDay;
 import com.udtech.drills.feature.content.fragments.ContentFragment;
 import com.udtech.drills.feature.history.adapters.HistoryDayAdapter;
@@ -20,6 +21,7 @@ import com.udtech.drills.feature.history.presenters.HistoryFragmentPresenter;
 import com.udtech.drills.feature.history.views.IHistoryFragmentView;
 import com.udtech.drills.utils.ItemClickSupport;
 import java.util.List;
+import timber.log.Timber;
 
 /**
  * Created by Vrungel on 11.05.2017.
@@ -59,9 +61,11 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
           return true;
         })
         .setOnItemClickListener((recyclerView, position, v) -> {
-          mPracticsGroupAdapter.addListPracticsGroup(
-              mHistoryDayAdapter.getHistoriItem(position).getGroupsOfPractics());
-          mRecyclerViewHistory.setAdapter(mPracticsGroupAdapter);
+          if (mRecyclerViewHistory.getAdapter() instanceof HistoryDayAdapter) {
+            mPracticsGroupAdapter.addListPracticsGroup(
+                mHistoryDayAdapter.getHistoriItem(position).getGroupsOfPractics());
+            mRecyclerViewHistory.setAdapter(mPracticsGroupAdapter);
+          }
         });
   }
 
@@ -69,7 +73,7 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
     mHistoryDayAdapter.enableCheckBox(!mHistoryDayAdapter.isCBEnabled());
     if (mHistoryDayAdapter.isCBEnabled()) {
       mTextViewOtmenaIzmenit.setText(getText(R.string.cancel));
-      mTextViewDoneDelete.setText(getText(R.string.dell_all));
+      mTextViewDoneDelete.setText(getText(R.string.dell));
     } else {
       mTextViewOtmenaIzmenit.setText(getText(R.string.change));
       mTextViewDoneDelete.setText(getText(R.string.done));
@@ -84,6 +88,15 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
         mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,
             ContentFragment.newInstance());
       }
+    } else {
+      Timber.e("dell");
+      // TODO: 19.05.2017 add removing from db by historyPracticsID
+      List<String> list = (new DayGroupToHistoryId()).getListIdByDay(mHistoryDayAdapter.getListToRemove());
+      for (String str : list) {
+        Timber.e(str + " / / // // // // // ");
+      }
+      mHistoryDayAdapter.removeItemsByListOfPos(mHistoryDayAdapter.getListToRemove());
+      mHistoryDayAdapter.enableCheckBox(false);
     }
   }
 

@@ -15,4 +15,8 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
   void showTotalTime(String s);
 
   void showMsg(String s);
+
+  void startProgressDialog();
+
+  void stopProgressDialog();
 }

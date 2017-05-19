@@ -41,4 +41,6 @@
   <string name="save">Сохранить</string>
   <string name="sets">Сеты</string>
   <string name="dell_all">Удалить все</string>
+  <string name="dell">Удалить </string>
+  <string name="synchronization">Синхронизация</string>
 </resources>
