@@ -12,6 +12,7 @@ import butterknife.OnClick;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.udtech.drills.R;
 import com.udtech.drills.base.BaseFragment;
+import com.udtech.drills.data.local.mappers.show_history.DayGroupToHistoryId;
 import com.udtech.drills.data.local.mappers.show_history.HistoryDay;
 import com.udtech.drills.feature.content.fragments.ContentFragment;
 import com.udtech.drills.feature.history.adapters.HistoryDayAdapter;
@@ -89,7 +90,11 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
       }
     } else {
       Timber.e("dell");
-      // TODO: 19.05.2017 add removing from db by historyPracticsID 
+      // TODO: 19.05.2017 add removing from db by historyPracticsID
+      List<String> list = (new DayGroupToHistoryId()).getListIdByDay(mHistoryDayAdapter.getListToRemove());
+      for (String str : list) {
+        Timber.e(str + " / / // // // // // ");
+      }
       mHistoryDayAdapter.removeItemsByListOfPos(mHistoryDayAdapter.getListToRemove());
       mHistoryDayAdapter.enableCheckBox(false);
     }

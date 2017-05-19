@@ -1,11 +1,11 @@
 package com.udtech.drills.data.local.mappers.show_history;
 
 import com.udtech.drills.data.remote.send_user_data.HistoryForSend;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
+
+import timber.log.Timber;
 
 /**
  * Created by vrungel on 18.05.17.
@@ -16,7 +16,8 @@ public class GroupedPractices {
   private String practiceName;
   private int intTimePractice;
   private String sTimePractice;
-  private Long dPracticesDate;
+  private Long dPracticesDateFirst;
+  private Long dPracticesDateLast;
 
   public GroupedPractices() {
     alByPractice = new ArrayList<>();
@@ -47,16 +48,20 @@ public class GroupedPractices {
     setStringTimePractice(String.valueOf(intTimePractice));
   }
 
-  public Long getPracticeDate() {
-    return dPracticesDate;
+  public Long getPracticesDateFirst() {
+    return dPracticesDateFirst;
   }
 
-  public void setPracticeDate(Long dPracticesDate) {
-    this.dPracticesDate = dPracticesDate;
+  public void setPracticeDateFirst(Long dPracticesDateFirst) {
+    this.dPracticesDateFirst = dPracticesDateFirst;
   }
 
-  public int getCountityPractice() {
-    return alByPractice.size();
+  public Long getPracticesDateLast() {
+    return dPracticesDateLast;
+  }
+
+  public void setPracticeDateLast(Long dPracticesDateLast) {
+    this.dPracticesDateLast = dPracticesDateLast;
   }
 
   public void addHistoryForSend(HistoryForSend list) {

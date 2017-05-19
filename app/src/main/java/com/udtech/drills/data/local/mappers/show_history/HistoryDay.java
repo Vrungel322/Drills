@@ -24,7 +24,6 @@ public class HistoryDay {
   }
 
   public void setStringDate(String sDate) {
-    Timber.e(sDate + "setStringDate");
     this.sDate = sDate;
   }
 
@@ -32,7 +31,7 @@ public class HistoryDay {
     return sTimeDay;
   }
 
-  public void setStringTimeDay(String sTimeDay) {
+  private void setStringTimeDay(String sTimeDay) {
     this.sTimeDay = sTimeDay;
   }
 

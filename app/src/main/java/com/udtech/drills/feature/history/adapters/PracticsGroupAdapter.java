@@ -34,7 +34,7 @@ public class PracticsGroupAdapter
 
   @Override public void onBindViewHolder(PracticsGroupViewHolder holder, int position) {
     holder.mTextViewStartPracticsTime.setText(Converters.hoursMinsFromSeconds(
-        String.valueOf(mGroupedPractices.get(position).getPracticeDate())));
+        String.valueOf(mGroupedPractices.get(position).getPracticesDateFirst())));
     holder.mTextViewGroupName.setText(mGroupedPractices.get(position).getPracticeName());
     holder.mTextViewSetsCountInGroup.setText(
         String.valueOf(mGroupedPractices.get(position).getSetsCount()));

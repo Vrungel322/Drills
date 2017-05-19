@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import timber.log.Timber;
+
 /**
  * Created by vrungel on 18.05.17.
  */
@@ -29,8 +31,10 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
 
         getALDay(alHistoryForSend);
 
-        sortHistoryForSendInALDay();
-        fillDayAndPracticeEssence();
+        sortHistoryForSendInPractices();
+        fillPracticeEssence();
+        sortGroupPracticesInALDay();
+        fillDayPractice();
         sortALDay();
 
         return alDay;
@@ -38,7 +42,6 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
 
     private Object getALDay(List<HistoryForSend> alHistoryForSend) {
         Map<Date, List<HistoryForSend>> mapEssenseByDate = getMapEssenseByDate(alHistoryForSend);
-        //        mapEssenseByDate.forEach((k,v) -> System.out.println("key: "+k+" value:"+v));
 
         for (List<HistoryForSend> listByDate : mapEssenseByDate.values()) {
             Map<String, List<HistoryForSend>> mapEssenseByPractice = getMapEssenseByType(listByDate);
@@ -56,12 +59,19 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
         return alDay;
     }
 
-    private void sortHistoryForSendInALDay() {
+    private void sortHistoryForSendInPractices() {
         for (HistoryDay historyDay : alDay) {
             for (GroupedPractices groupedPractices : historyDay.getGroupsOfPractics()) {
                 Collections.sort(groupedPractices.getList(), ((o1, o2) ->
-                        (o1.getHistoryPracticsDate() > o2.getHistoryPracticsDate() ? 1 : -1)));
+                        (o1.getHistoryPracticsDate() < o2.getHistoryPracticsDate() ? 1 : -1)));
             }
+        }
+    }
+
+    private void sortGroupPracticesInALDay() {
+        for (HistoryDay historyDay : alDay) {
+            Collections.sort(historyDay.getGroupsOfPractics(),
+                    ((o1, o2) -> (o1.getPracticesDateLast() < o2.getPracticesDateLast() ? 1 : -1)));
         }
     }
 
@@ -70,25 +80,38 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
                 ((o1, o2) -> (o1.getPracticeDate() < o2.getPracticeDate() ? 1 : -1)));
     }
 
-    private void fillDayAndPracticeEssence() {
-        for (HistoryDay hdAlDay : alDay) {
-            int timeDay = 0;
-            for (int i = 0; i < hdAlDay.sizeALByDay(); i++) {
-                int timePractice = 0;
-                for (int j = 0; j < hdAlDay.getALByDay(i).getSetsCount(); j++) {
-                    timePractice += hdAlDay.getALByDay(i).getALByPractice(j).getHistoryPracticsTime();
-                    hdAlDay.getALByDay(i).setPracticeDate(hdAlDay.getALByDay(i).getALByPractice(j)
-                            .getHistoryPracticsDate().longValue() / 1000);
-
-                    hdAlDay.getALByDay(i).setPracticeName(hdAlDay.getALByDay(i).getALByPractice(j)
-                            .getHistoryPracticsName());
+    private void fillPracticeEssence() {
+        for (int i = 0; i < alDay.size(); i++) {
+            for (int j = 0; j < alDay.get(i).sizeALByDay(); j++) {
+                int totalTimePractice = 0;
+                for (int k = 0; k < alDay.get(i).getALByDay(j).getSetsCount(); k++) {
+                    totalTimePractice += alDay.get(i).getALByDay(j).getALByPractice(k).getHistoryPracticsTime();
                 }
-                hdAlDay.getALByDay(i).setIntTimePractice(timePractice);
-
-                timeDay += hdAlDay.getALByDay(i).getIntTimePractice();
-                hdAlDay.setPracticeDate(hdAlDay.getALByDay(i).getPracticeDate());
+                alDay.get(i).getALByDay(j).setPracticeDateFirst(alDay.get(i).getALByDay(j)
+                        .getALByPractice(alDay.get(i).getALByDay(j).getSetsCount() - 1)
+                        .getHistoryPracticsDate()
+                        .longValue() / 1000);
+                alDay.get(i).getALByDay(j).setPracticeDateLast(alDay.get(i).getALByDay(j)
+                        .getALByPractice(0)
+                        .getHistoryPracticsDate()
+                        .longValue() / 1000);
+                alDay.get(i).getALByDay(j).setPracticeName(alDay.get(i).getALByDay(j)
+                        .getALByPractice(0)
+                        .getHistoryPracticsName());
+                alDay.get(i).getALByDay(j).setIntTimePractice(totalTimePractice);
             }
-            hdAlDay.setIntTimeDay(timeDay);
+        }
+    }
+
+    private void fillDayPractice() {
+        for (int i = 0; i < alDay.size(); i++) {
+            int totalTimeDay = 0;
+            for (int j = 0; j < alDay.get(i).sizeALByDay(); j++) {
+                totalTimeDay += alDay.get(i).getALByDay(j).getIntTimePractice();
+            }
+            alDay.get(i).setPracticeDate(alDay.get(i).getALByDay(0)
+                    .getPracticesDateLast());
+            alDay.get(i).setIntTimeDay(totalTimeDay);
         }
     }
 
@@ -97,7 +120,6 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
         Map<Date, List<HistoryForSend>> map = new HashMap<>();
         for (HistoryForSend essence : alHistoryForSend) {
             Date date = getDate(essence.getHistoryPracticsDate().longValue());
-            //            System.out.println(date.toString());
             if (map.containsKey(date)) {
                 map.get(date).add(essence);
             } else {
@@ -114,7 +136,6 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
         Map<String, List<HistoryForSend>> map = new HashMap<>();
         for (HistoryForSend essence : alHistoryForSend) {
             String type = essence.getHistoryPracticsName();
-            //            System.out.println(date.toString());
             if (map.containsKey(type)) {
                 map.get(type).add(essence);
             } else {
