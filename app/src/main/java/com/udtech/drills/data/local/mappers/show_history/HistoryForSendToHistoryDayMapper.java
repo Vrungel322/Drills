@@ -1,6 +1,7 @@
 package com.udtech.drills.data.local.mappers.show_history;
 
 import com.udtech.drills.data.local.mappers.Mapper;
+import com.udtech.drills.data.remote.fetch_user_data.Practic;
 import com.udtech.drills.data.remote.send_user_data.HistoryForSend;
 
 import java.util.ArrayList;
@@ -59,9 +60,12 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
     }
 
     private void sortALDay() {
-        Collections.sort(alDay, ((o1, o2) -> (o1.getPracticeDate() < o2.getPracticeDate() ? 1 : -1)));
-//    alDay.sort((o1, o2) -> (getDate(o1.getPracticeDate())
-//            .before(getDate(o2.getPracticeDate())) ? 1 : -1));
+        Collections.sort(alDay,
+                ((o1, o2) -> (o1.getPracticeDate() < o2.getPracticeDate() ? 1 : -1)));
+        for (HistoryDay historyDay : alDay) {
+            Collections.sort(historyDay.getList(),
+                    ((o1, o2) -> (o1.getPracticeDate() < o2.getPracticeDate() ? 1 : -1)));
+        }
     }
 
     private void fillDayAndPracticeEssence() {
@@ -74,9 +78,6 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
                     hdAlDay.getALByDay(i).setPracticeDate(hdAlDay.getALByDay(i).getALByPractice(j)
                             .getHistoryPracticsDate().longValue() / 1000);
 
-//          Timber.e(String.valueOf(hdAlDay.getALByDay(i).getALByPractice(j)
-//                  .getHistoryPracticsDate().longValue() + "Practice"));
-
                     hdAlDay.getALByDay(i).setPracticeName(hdAlDay.getALByDay(i).getALByPractice(j)
                             .getHistoryPracticsName());
                 }
@@ -84,8 +85,6 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
 
                 timeDay += hdAlDay.getALByDay(i).getIntTimePractice();
                 hdAlDay.setPracticeDate(hdAlDay.getALByDay(i).getPracticeDate());
-
-//        Timber.e(String.valueOf(hdAlDay.getALByDay(i).getPracticeDate()) + "Day");
             }
             hdAlDay.setIntTimeDay(timeDay);
         }

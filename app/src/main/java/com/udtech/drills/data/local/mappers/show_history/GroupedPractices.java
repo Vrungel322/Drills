@@ -70,4 +70,8 @@ public class GroupedPractices {
   public int sizeALByPractice() {
     return alByPractice.size();
   }
+
+  public List<HistoryForSend> getList() {
+      return alByPractice;
+  }
 }
