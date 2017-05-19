@@ -1,5 +1,7 @@
 package com.udtech.drills.feature.registration.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -14,7 +16,6 @@ import com.udtech.drills.base.BaseActivity;
 import com.udtech.drills.feature.login.activities.LoginActivity;
 import com.udtech.drills.feature.registration.presenters.RegistrationActivityPresenter;
 import com.udtech.drills.feature.registration.views.IRegistrationActivityView;
-import com.udtech.drills.utils.DialogFactory;
 import com.yqritc.scalablevideoview.ScalableVideoView;
 import java.io.IOException;
 
@@ -65,8 +66,18 @@ public class RegistrationActivity extends BaseActivity implements IRegistrationA
   }
 
   @Override public void showRegistrationDialog() {
-    DialogFactory.createSimpleOkErrorDialog(this, R.string.attention,
-        R.string.registration_dialog_content).show();
+    AlertDialog.Builder alertDialog =
+        new AlertDialog.Builder(RegistrationActivity.this).setTitle(R.string.attention)
+            .setMessage(R.string.registration_dialog_content)
+            .setPositiveButton(R.string.dialog_action_ok, new DialogInterface.OnClickListener() {
+              @Override public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                mNavigator.startActivity(RegistrationActivity.this,
+                    new Intent(RegistrationActivity.this, LoginActivity.class));
+                finish();
+              }
+            });
+    alertDialog.create().show();
   }
 
   @Override public void showPB() {
