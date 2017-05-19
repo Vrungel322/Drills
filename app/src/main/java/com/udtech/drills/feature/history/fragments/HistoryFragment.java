@@ -89,6 +89,7 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
       }
     } else {
       Timber.e("dell");
+      // TODO: 19.05.2017 add removing from db by historyPracticsID 
       mHistoryDayAdapter.removeItemsByListOfPos(mHistoryDayAdapter.getListToRemove());
       mHistoryDayAdapter.enableCheckBox(false);
     }
