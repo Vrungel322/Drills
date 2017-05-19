@@ -20,6 +20,7 @@ import com.udtech.drills.feature.history.presenters.HistoryFragmentPresenter;
 import com.udtech.drills.feature.history.views.IHistoryFragmentView;
 import com.udtech.drills.utils.ItemClickSupport;
 import java.util.List;
+import timber.log.Timber;
 
 /**
  * Created by Vrungel on 11.05.2017.
@@ -71,7 +72,7 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
     mHistoryDayAdapter.enableCheckBox(!mHistoryDayAdapter.isCBEnabled());
     if (mHistoryDayAdapter.isCBEnabled()) {
       mTextViewOtmenaIzmenit.setText(getText(R.string.cancel));
-      mTextViewDoneDelete.setText(getText(R.string.dell_all));
+      mTextViewDoneDelete.setText(getText(R.string.dell));
     } else {
       mTextViewOtmenaIzmenit.setText(getText(R.string.change));
       mTextViewDoneDelete.setText(getText(R.string.done));
@@ -86,6 +87,10 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
         mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,
             ContentFragment.newInstance());
       }
+    } else {
+      Timber.e("dell");
+      mHistoryDayAdapter.removeItemsByListOfPos(mHistoryDayAdapter.getListToRemove());
+      mHistoryDayAdapter.enableCheckBox(false);
     }
   }
 
