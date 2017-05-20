@@ -19,6 +19,7 @@ public class GroupedPractices {
   private Long dPracticesDateFirst;
   private Long dPracticesDateLast;
   private boolean isChecked;
+  private int setsCount;
 
   public GroupedPractices() {
     alByPractice = new ArrayList<>();
@@ -81,8 +82,12 @@ public class GroupedPractices {
     return alByPractice.get(i);
   }
 
-  public int getSetsCount() {
-    return alByPractice.size();
+    public void setSetsCount(int setsCount) {
+        this.setsCount = setsCount;
+    }
+
+    public int getSetsCount() {
+    return setsCount;
   }
 
   public List<HistoryForSend> getList() {
