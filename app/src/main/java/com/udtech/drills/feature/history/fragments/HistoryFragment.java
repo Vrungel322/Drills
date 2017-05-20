@@ -90,7 +90,6 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
     } else {
       mHistoryFragmentPresenter.removeHistoryForSendFromDbByID(
           new DayGroupToHistoryId().getListIdByDay(mHistoryDayAdapter.getListToRemove()));
-      mHistoryDayAdapter.removeItemsByListOfPos(mHistoryDayAdapter.getListToRemove());
       mHistoryDayAdapter.enableCheckBox(false);
       mTextViewOtmenaIzmenit.setText(getText(R.string.change));
       mTextViewDoneDelete.setText(getText(R.string.done));
@@ -99,5 +98,9 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
 
   @Override public void setHistoryList(List<HistoryDay> history) {
     mHistoryDayAdapter.addListHistory(history);
+  }
+
+  @Override public void removeFromView() {
+    mHistoryDayAdapter.removeItemsByListOfPos(mHistoryDayAdapter.getListToRemove());
   }
 }

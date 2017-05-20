@@ -12,4 +12,6 @@ import java.util.List;
 @StateStrategyType(AddToEndSingleStrategy.class) public interface IHistoryFragmentView
     extends MvpView {
   void setHistoryList(List<HistoryDay> history);
+
+  void removeFromView();
 }

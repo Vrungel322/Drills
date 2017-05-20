@@ -134,8 +134,8 @@ public class DataManager {
     mHistoryForSendHelper.insert(historyForSend);
   }
 
-  public void dellRowFromHistoryTable(String historyId){
-     mHistoryForSendHelper.dellRowFromHistoryTable(historyId);
+  public Observable<Integer> dellRowFromHistoryTable(String historyId){
+     return mHistoryForSendHelper.dellRowFromHistoryTable(historyId);
   }
 
   public void logout() {

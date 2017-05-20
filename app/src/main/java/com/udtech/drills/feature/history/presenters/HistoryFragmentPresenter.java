@@ -11,6 +11,7 @@ import com.udtech.drills.utils.RxBus;
 import com.udtech.drills.utils.ThreadSchedulers;
 import java.util.List;
 import javax.inject.Inject;
+import rx.Observable;
 import rx.Subscription;
 import timber.log.Timber;
 
@@ -36,14 +37,18 @@ import timber.log.Timber;
         .compose(ThreadSchedulers.applySchedulers())
         .subscribe(historyForSends -> {
           Timber.e(String.valueOf(historyForSends.size()));
-            getViewState().setHistoryList(new HistoryForSendToHistoryDayMapper().transform(historyForSends));
+          getViewState().setHistoryList(
+              new HistoryForSendToHistoryDayMapper().transform(historyForSends));
         });
     addToUnsubscription(subscription);
   }
 
   public void removeHistoryForSendFromDbByID(List<String> listIdByDay) {
-    for (int i = 0; i < listIdByDay.size(); i++) {
-      mDataManager.dellRowFromHistoryTable(listIdByDay.get(i));
-    }
+    Subscription subscription = Observable.from(listIdByDay)
+        .compose(ThreadSchedulers.applySchedulers())
+        .concatMap(s -> mDataManager.dellRowFromHistoryTable(s)
+            .compose(ThreadSchedulers.applySchedulers()))
+        .subscribe(integer -> getViewState().removeFromView());
+    addToUnsubscription(subscription);
   }
 }
