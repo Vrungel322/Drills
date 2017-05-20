@@ -49,8 +49,9 @@ public class PracticsGroupAdapter
     //ChB
     if (isCBshows) {
       holder.mCheckBox.setVisibility(View.VISIBLE);
-      holder.mCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-        mListToRemove.add(mGroupedPractices.get(position));
+      holder.mCheckBox.setChecked(mGroupedPractices.get(position).isChecked());
+      holder.mCheckBox.setOnClickListener((v) -> {
+        mGroupedPractices.get(position).setChecked(holder.mCheckBox.isChecked());
       });
     } else {
       holder.mCheckBox.setVisibility(View.GONE);
@@ -74,8 +75,10 @@ public class PracticsGroupAdapter
   }
 
   public List<GroupedPractices> getListToRemove() {
-    for (int i = 0; i < mListToRemove.size(); i++) {
-      Timber.e(String.valueOf(mListToRemove.get(i).getPracticeName()));
+    for (int i = 0; i < mGroupedPractices.size(); i++) {
+      if (mGroupedPractices.get(i).isChecked()){
+        mListToRemove.add(mGroupedPractices.get(i));
+      }
     }
     return mListToRemove;
   }

@@ -152,7 +152,7 @@ public class HistoryForSendHelper {
           + "= '"
           + historyId
           + "'");
-      getTableAsString(db, TABLE_NAME);
+      //getTableAsString(db, TABLE_NAME);
       subscriber.onNext(200);
       subscriber.onCompleted();
     });

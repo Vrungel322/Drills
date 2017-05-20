@@ -14,6 +14,15 @@ public class HistoryDay {
   private int intTimeDay;
   private String sTimeDay;
   private Long dPracticesDate;
+  private boolean isChecked;
+
+  public boolean isChecked() {
+    return isChecked;
+  }
+
+  public void setChecked(boolean checked) {
+    isChecked = checked;
+  }
 
   public HistoryDay() {
     alByDay = new ArrayList<>();

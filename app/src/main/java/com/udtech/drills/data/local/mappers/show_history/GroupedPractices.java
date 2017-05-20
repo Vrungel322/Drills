@@ -18,9 +18,18 @@ public class GroupedPractices {
   private String sTimePractice;
   private Long dPracticesDateFirst;
   private Long dPracticesDateLast;
+  private boolean isChecked;
 
   public GroupedPractices() {
     alByPractice = new ArrayList<>();
+  }
+
+  public boolean isChecked() {
+    return isChecked;
+  }
+
+  public void setChecked(boolean checked) {
+    isChecked = checked;
   }
 
   public String getPracticeName() {

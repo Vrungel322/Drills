@@ -65,7 +65,7 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
           return true;
         })
         .setOnItemClickListener((recyclerView, position, v) -> {
-          if (mRecyclerViewHistory.getAdapter() instanceof HistoryDayAdapter) {
+          if (mRecyclerViewHistory.getAdapter() instanceof HistoryDayAdapter && !mHistoryDayAdapter.isCBEnabled()) {
             mPracticsGroupAdapter.addListPracticsGroup(
                 mHistoryDayAdapter.getHistoriItem(position).getGroupsOfPractics());
             mRecyclerViewHistory.setAdapter(mPracticsGroupAdapter);

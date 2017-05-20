@@ -48,11 +48,12 @@ public class HistoryDayAdapter extends RecyclerView.Adapter<HistoryDayAdapter.Hi
     //ChB
     if (isCBshows) {
       holder.mCheckBox.setVisibility(View.VISIBLE);
-      holder.mCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-        mListToRemove.add(mHistories.get(position));
+      holder.mCheckBox.setChecked(mHistories.get(position).isChecked());
+      holder.mCheckBox.setOnClickListener((v) -> {
+          mHistories.get(position).setChecked(holder.mCheckBox.isChecked());
+        Timber.e(String.valueOf(holder.mCheckBox.isChecked()));
       });
     } else {
-
       holder.mCheckBox.setVisibility(View.GONE);
     }
 
@@ -78,8 +79,10 @@ public class HistoryDayAdapter extends RecyclerView.Adapter<HistoryDayAdapter.Hi
   }
 
   public List<HistoryDay> getListToRemove() {
-    for (int i = 0; i < mListToRemove.size(); i++) {
-      Timber.e(String.valueOf(mListToRemove.get(i).getStringDate()));
+    for (int i = 0; i < mHistories.size(); i++) {
+      if (mHistories.get(i).isChecked()){
+        mListToRemove.add(mHistories.get(i));
+      }
     }
     return mListToRemove;
   }
