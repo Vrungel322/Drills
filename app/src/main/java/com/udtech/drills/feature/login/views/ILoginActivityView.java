@@ -25,4 +25,6 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
   void showPB();
 
   void hidePB();
+
+  void showFailLoginDialog();
 }

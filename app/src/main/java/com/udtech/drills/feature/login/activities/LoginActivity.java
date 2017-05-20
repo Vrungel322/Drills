@@ -22,10 +22,12 @@ import com.udtech.drills.feature.login.presenters.LoginActivityPresenter;
 import com.udtech.drills.feature.login.views.ILoginActivityView;
 import com.udtech.drills.feature.registration.activities.RegistrationActivity;
 import com.udtech.drills.utils.Constants;
+import com.udtech.drills.utils.DialogFactory;
 import com.yqritc.scalablevideoview.ScalableVideoView;
 import java.io.IOException;
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 import net.yslibrary.android.keyboardvisibilityevent.Unregistrar;
+import timber.log.Timber;
 
 /**
  * Created by John on 26.04.2017.
@@ -172,5 +174,10 @@ public class LoginActivity extends BaseActivity implements ILoginActivityView {
 
   @Override public void hidePB() {
     mProgressBar.setVisibility(View.GONE);
+  }
+
+  @Override public void showFailLoginDialog() {
+    DialogFactory.createSimpleOkErrorDialog(this, getText(R.string.dialog_error_title).toString(),
+        getText(R.string.not_correct_log_pas).toString()).show();
   }
 }

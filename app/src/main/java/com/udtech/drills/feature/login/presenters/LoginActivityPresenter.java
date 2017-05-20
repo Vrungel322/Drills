@@ -5,7 +5,6 @@ import com.arellomobile.mvp.InjectViewState;
 import com.udtech.drills.App;
 import com.udtech.drills.base.BasePresenter;
 import com.udtech.drills.data.DataManager;
-import com.udtech.drills.data.remote.fetch_user_data.UserDataEntity;
 import com.udtech.drills.data.remote.login.User;
 import com.udtech.drills.data.remote.signUp_Reset.SignUpResetBody;
 import com.udtech.drills.feature.login.views.ILoginActivityView;
@@ -59,8 +58,7 @@ import timber.log.Timber;
     Subscription subscription = mDataManager.login(login, password).concatMap(userResponse -> {
       fillUserEntity(userResponse.body());
       return Observable.just(userResponse);
-    })
-        .concatMap(userResponse -> {
+    }).concatMap(userResponse -> {
       Subscription subscription1 = mDataManager.fetchUserData(userResponse.body().getAuthKey())
           .compose(ThreadSchedulers.applySchedulers())
           .concatMap(userDataEntityResponse -> {
@@ -73,14 +71,16 @@ import timber.log.Timber;
           });
       addToUnsubscription(subscription1);
       return Observable.just(userResponse);
-    })
-        .compose(ThreadSchedulers.applySchedulers()).subscribe(userResponse -> {
+    }).compose(ThreadSchedulers.applySchedulers()).subscribe(userResponse -> {
       if (userResponse.code() == 200) {
         getViewState().showContentActivity();
         mDataManager.userLoggedIn(mUser.getAuthKey());
         getViewState().hidePB();
       }
-    }, Timber::e);
+    }, throwable -> {
+      getViewState().hidePB();
+      getViewState().showFailLoginDialog();
+    });
     addToUnsubscription(subscription);
   }
 
