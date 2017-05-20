@@ -19,6 +19,7 @@ import com.udtech.drills.feature.history.adapters.HistoryDayAdapter;
 import com.udtech.drills.feature.history.adapters.PracticsGroupAdapter;
 import com.udtech.drills.feature.history.presenters.HistoryFragmentPresenter;
 import com.udtech.drills.feature.history.views.IHistoryFragmentView;
+import com.udtech.drills.utils.Converters;
 import com.udtech.drills.utils.ItemClickSupport;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
 
   @BindView(R.id.tvDoneDelete) TextView mTextViewDoneDelete;
   @BindView(R.id.tvOtmenaIzmenit) TextView mTextViewOtmenaIzmenit;
+  @BindView(R.id.tvHistory) TextView mTextViewHistory;
   @BindView(R.id.rvHistory) RecyclerView mRecyclerViewHistory;
 
   private HistoryDayAdapter mHistoryDayAdapter;
@@ -65,9 +67,12 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
           return true;
         })
         .setOnItemClickListener((recyclerView, position, v) -> {
-          if (mRecyclerViewHistory.getAdapter() instanceof HistoryDayAdapter && !mHistoryDayAdapter.isCBEnabled()) {
+          if (mRecyclerViewHistory.getAdapter() instanceof HistoryDayAdapter
+              && !mHistoryDayAdapter.isCBEnabled()) {
+            mTextViewHistory.setText(Converters.fullDateWithTimeFromSeconds(
+                mHistoryDayAdapter.getHistoryItem(position).getStringDate()));
             mPracticsGroupAdapter.addListPracticsGroup(
-                mHistoryDayAdapter.getHistoriItem(position).getGroupsOfPractics());
+                mHistoryDayAdapter.getHistoryItem(position).getGroupsOfPractics());
             mRecyclerViewHistory.setAdapter(mPracticsGroupAdapter);
           }
         });
@@ -98,6 +103,7 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
   @OnClick(R.id.tvDoneDelete) public void tvDoneDeleteClicked() {
     if (mTextViewOtmenaIzmenit.getText().equals(getText(R.string.change))) {
       if (mRecyclerViewHistory.getAdapter() instanceof PracticsGroupAdapter) {
+        mTextViewHistory.setText(getText(R.string.history));
         mRecyclerViewHistory.setAdapter(mHistoryDayAdapter);
       } else {
         mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,

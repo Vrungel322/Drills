@@ -50,7 +50,7 @@ public class HistoryDayAdapter extends RecyclerView.Adapter<HistoryDayAdapter.Hi
       holder.mCheckBox.setVisibility(View.VISIBLE);
       holder.mCheckBox.setChecked(mHistories.get(position).isChecked());
       holder.mCheckBox.setOnClickListener((v) -> {
-          mHistories.get(position).setChecked(holder.mCheckBox.isChecked());
+        mHistories.get(position).setChecked(holder.mCheckBox.isChecked());
         Timber.e(String.valueOf(holder.mCheckBox.isChecked()));
       });
     } else {
@@ -74,13 +74,13 @@ public class HistoryDayAdapter extends RecyclerView.Adapter<HistoryDayAdapter.Hi
     return mHistories.size();
   }
 
-  public HistoryDay getHistoriItem(int position) {
+  public HistoryDay getHistoryItem(int position) {
     return mHistories.get(position);
   }
 
   public List<HistoryDay> getListToRemove() {
     for (int i = 0; i < mHistories.size(); i++) {
-      if (mHistories.get(i).isChecked()){
+      if (mHistories.get(i).isChecked()) {
         mListToRemove.add(mHistories.get(i));
       }
     }
