@@ -43,4 +43,5 @@
   <string name="dell_all">Удалить все</string>
   <string name="dell">Удалить </string>
   <string name="synchronization">Синхронизация</string>
+  <string name="logout">Выход</string>
 </resources>

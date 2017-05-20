@@ -1,7 +1,7 @@
 package com.udtech.drills.feature.content.fragments;
 
 import android.app.ProgressDialog;
-import android.graphics.Color;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +19,7 @@ import com.udtech.drills.feature.content.presenters.ContentFragmentPresenter;
 import com.udtech.drills.feature.content.views.IContentFragmentView;
 import com.udtech.drills.feature.history.fragments.HistoryFragment;
 import com.udtech.drills.feature.holoshenie.fragments.HoloshenieFragment;
+import com.udtech.drills.feature.login.activities.LoginActivity;
 import com.udtech.drills.utils.DialogFactory;
 import com.yqritc.scalablevideoview.ScalableVideoView;
 import java.io.IOException;
@@ -48,8 +49,9 @@ public class ContentFragment extends BaseFragment implements IContentFragmentVie
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     mProgressDialog = DialogFactory.createProgressDialog(getContext(), R.string.synchronization);
-    //mProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-    mProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getContext(), R.color.colorAccent)));
+    mProgressDialog.getWindow()
+        .setBackgroundDrawable(
+            new ColorDrawable(ContextCompat.getColor(getContext(), R.color.colorAccent)));
   }
 
   @Override public void onStart() {
@@ -65,6 +67,12 @@ public class ContentFragment extends BaseFragment implements IContentFragmentVie
   @OnClick(R.id.ivHistory) public void ivHistoryClicked() {
     mNavigator.addFragmentBackStack((AppCompatActivity) getActivity(), R.id.contentContainer,
         HistoryFragment.newInstance());
+  }
+
+  @OnClick(R.id.tvLogout) public void tvLogoutClicked() {
+    mBookingDetailFragmentPresenter.logout();
+    mNavigator.startActivity((AppCompatActivity) getActivity(),
+        new Intent(getContext(), LoginActivity.class));
   }
 
   @Override public void playVideo() {

@@ -14,6 +14,7 @@ import com.udtech.drills.data.remote.login.User;
 import com.udtech.drills.data.remote.send_user_data.HistoryForSend;
 import com.udtech.drills.data.remote.send_user_data.PracticForSend;
 import com.udtech.drills.data.remote.signUp_Reset.SignUpResetBody;
+import com.udtech.drills.utils.Constants;
 import com.udtech.drills.utils.Converters;
 import java.util.ArrayList;
 import java.util.List;
@@ -135,5 +136,11 @@ public class DataManager {
 
   public void dellRowFromHistoryTable(String historyId){
      mHistoryForSendHelper.dellRowFromHistoryTable(historyId);
+  }
+
+  public void logout() {
+    mPref.setUserLogin(Constants.NULL_AUTH_KEY);
+    mHistoryForSendHelper.dropTableAndCreate();
+    mPracticHelper.dropTableAndCreate();
   }
 }

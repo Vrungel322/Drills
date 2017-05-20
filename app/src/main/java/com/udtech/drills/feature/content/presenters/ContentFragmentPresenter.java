@@ -53,4 +53,8 @@ import timber.log.Timber;
 
     addToUnsubscription(subscription);
   }
+
+  public void logout() {
+    mDataManager.logout();
+  }
 }
