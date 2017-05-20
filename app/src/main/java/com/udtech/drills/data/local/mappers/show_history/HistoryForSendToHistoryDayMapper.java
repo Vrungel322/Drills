@@ -11,8 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import timber.log.Timber;
-
 /**
  * Created by vrungel on 18.05.17.
  */
@@ -62,7 +60,7 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
     private void sortHistoryForSendInPractices() {
         for (HistoryDay historyDay : alDay) {
             for (GroupedPractices groupedPractices : historyDay.getGroupsOfPractics()) {
-                Collections.sort(groupedPractices.getList(), ((o1, o2) ->
+                Collections.sort(groupedPractices.getListHistoryForSend(), ((o1, o2) ->
                         (o1.getHistoryPracticsDate() < o2.getHistoryPracticsDate() ? 1 : -1)));
             }
         }
@@ -85,14 +83,15 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
             for (int j = 0; j < alDay.get(i).sizeALByDay(); j++) {
                 int totalTimePractice = 0;
                 int setCount = 0;
-                for (int k = 0; k < alDay.get(i).getALByDay(j).getSetsCount(); k++) {
+                for (int k = 0; k < alDay.get(i).getALByDay(j).getListHistoryForSend().size(); k++) {
                     totalTimePractice +=
                             alDay.get(i).getALByDay(j).getALByPractice(k).getHistoryPracticsTime()
                             * alDay.get(i).getALByDay(j).getALByPractice(k).getHistoryPracticsSets();
                     setCount += alDay.get(i).getALByDay(j).getALByPractice(k).getHistoryPracticsSets();
                 }
                 alDay.get(i).getALByDay(j).setPracticeDateFirst(alDay.get(i).getALByDay(j)
-                        .getALByPractice(alDay.get(i).getALByDay(j).getSetsCount() - 1)
+                        .getALByPractice(alDay.get(i).getALByDay(j)
+                                .getListHistoryForSend().size() - 1)
                         .getHistoryPracticsDate()
                         .longValue() / 1000);
                 alDay.get(i).getALByDay(j).setPracticeDateLast(alDay.get(i).getALByDay(j)

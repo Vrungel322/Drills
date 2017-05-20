@@ -12,85 +12,85 @@ import timber.log.Timber;
  */
 
 public class GroupedPractices {
-  private List<HistoryForSend> alByPractice;
-  private String practiceName;
-  private int intTimePractice;
-  private String sTimePractice;
-  private Long dPracticesDateFirst;
-  private Long dPracticesDateLast;
-  private boolean isChecked;
-  private int setsCount;
+    private List<HistoryForSend> alByPractice;
+    private String practiceName;
+    private int intTimePractice;
+    private String sTimePractice;
+    private Long dPracticesDateFirst;
+    private Long dPracticesDateLast;
+    private boolean isChecked;
+    private int setsCount;
 
-  public GroupedPractices() {
-    alByPractice = new ArrayList<>();
-  }
+    public GroupedPractices() {
+        alByPractice = new ArrayList<>();
+    }
 
-  public boolean isChecked() {
-    return isChecked;
-  }
+    public boolean isChecked() {
+        return isChecked;
+    }
 
-  public void setChecked(boolean checked) {
-    isChecked = checked;
-  }
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
 
-  public String getPracticeName() {
-    return practiceName;
-  }
+    public String getPracticeName() {
+        return practiceName;
+    }
 
-  public void setPracticeName(String groupName) {
-    this.practiceName = groupName;
-  }
+    public void setPracticeName(String groupName) {
+        this.practiceName = groupName;
+    }
 
-  public String getStringTimePractice() {
-    return sTimePractice;
-  }
+    public String getStringTimePractice() {
+        return sTimePractice;
+    }
 
-  public void setStringTimePractice(String sTimePractice) {
-    this.sTimePractice = sTimePractice;
-  }
+    public void setStringTimePractice(String sTimePractice) {
+        this.sTimePractice = sTimePractice;
+    }
 
-  public int getIntTimePractice() {
-    return intTimePractice;
-  }
+    public int getIntTimePractice() {
+        return intTimePractice;
+    }
 
-  public void setIntTimePractice(int intTimePractice) {
-    this.intTimePractice = intTimePractice;
-    setStringTimePractice(String.valueOf(intTimePractice));
-  }
+    public void setIntTimePractice(int intTimePractice) {
+        this.intTimePractice = intTimePractice;
+        setStringTimePractice(String.valueOf(intTimePractice));
+    }
 
-  public Long getPracticesDateFirst() {
-    return dPracticesDateFirst;
-  }
+    public Long getPracticesDateFirst() {
+        return dPracticesDateFirst;
+    }
 
-  public void setPracticeDateFirst(Long dPracticesDateFirst) {
-    this.dPracticesDateFirst = dPracticesDateFirst;
-  }
+    public void setPracticeDateFirst(Long dPracticesDateFirst) {
+        this.dPracticesDateFirst = dPracticesDateFirst;
+    }
 
-  public Long getPracticesDateLast() {
-    return dPracticesDateLast;
-  }
+    public Long getPracticesDateLast() {
+        return dPracticesDateLast;
+    }
 
-  public void setPracticeDateLast(Long dPracticesDateLast) {
-    this.dPracticesDateLast = dPracticesDateLast;
-  }
+    public void setPracticeDateLast(Long dPracticesDateLast) {
+        this.dPracticesDateLast = dPracticesDateLast;
+    }
 
-  public void addHistoryForSend(HistoryForSend list) {
-    alByPractice.add(list);
-  }
+    public void addHistoryForSend(HistoryForSend list) {
+        alByPractice.add(list);
+    }
 
-  public HistoryForSend getALByPractice(int i) {
-    return alByPractice.get(i);
-  }
+    public HistoryForSend getALByPractice(int i) {
+        return alByPractice.get(i);
+    }
 
     public void setSetsCount(int setsCount) {
         this.setsCount = setsCount;
     }
 
     public int getSetsCount() {
-    return setsCount;
-  }
+        return setsCount;
+    }
 
-  public List<HistoryForSend> getList() {
-      return alByPractice;
-  }
+    public List<HistoryForSend> getListHistoryForSend() {
+        return alByPractice;
+    }
 }

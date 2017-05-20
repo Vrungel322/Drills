@@ -15,7 +15,7 @@ public class DayGroupToHistoryId {
 
         for (HistoryDay historyDay : historyDayList) {
             for (GroupedPractices groupedPractices : historyDay.getGroupsOfPractics()) {
-                for (HistoryForSend historyForSend : groupedPractices.getList()) {
+                for (HistoryForSend historyForSend : groupedPractices.getListHistoryForSend()) {
                     listIdByDay.add(historyForSend.getHistoryPracticsID());
                 }
             }
@@ -27,7 +27,7 @@ public class DayGroupToHistoryId {
         List<String> listIdByDay = new ArrayList<>();
 
         for (GroupedPractices groupedPractices : groupedPracticesList) {
-            for (HistoryForSend historyForSend : groupedPractices.getList()) {
+            for (HistoryForSend historyForSend : groupedPractices.getListHistoryForSend()) {
                 listIdByDay.add(historyForSend.getHistoryPracticsID());
             }
         }
