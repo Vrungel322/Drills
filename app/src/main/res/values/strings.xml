@@ -44,4 +44,5 @@
   <string name="dell">Удалить </string>
   <string name="synchronization">Синхронизация</string>
   <string name="logout">Выход</string>
+  <string name="total_time">Все время</string>
 </resources>
