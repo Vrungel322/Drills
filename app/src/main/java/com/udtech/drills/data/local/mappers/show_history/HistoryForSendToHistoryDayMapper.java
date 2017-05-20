@@ -85,7 +85,9 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
             for (int j = 0; j < alDay.get(i).sizeALByDay(); j++) {
                 int totalTimePractice = 0;
                 for (int k = 0; k < alDay.get(i).getALByDay(j).getSetsCount(); k++) {
-                    totalTimePractice += alDay.get(i).getALByDay(j).getALByPractice(k).getHistoryPracticsTime();
+                    totalTimePractice +=
+                            alDay.get(i).getALByDay(j).getALByPractice(k).getHistoryPracticsTime()
+                            * alDay.get(i).getALByDay(j).getALByPractice(k).getHistoryPracticsSets();
                 }
                 alDay.get(i).getALByDay(j).setPracticeDateFirst(alDay.get(i).getALByDay(j)
                         .getALByPractice(alDay.get(i).getALByDay(j).getSetsCount() - 1)
