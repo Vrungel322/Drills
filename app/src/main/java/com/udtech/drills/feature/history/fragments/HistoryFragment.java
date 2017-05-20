@@ -20,6 +20,7 @@ import com.udtech.drills.feature.history.adapters.PracticsGroupAdapter;
 import com.udtech.drills.feature.history.presenters.HistoryFragmentPresenter;
 import com.udtech.drills.feature.history.views.IHistoryFragmentView;
 import com.udtech.drills.utils.ItemClickSupport;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -128,5 +129,9 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
     } else {
       mPracticsGroupAdapter.removeItemsByListOfPos(mPracticsGroupAdapter.getListToRemove());
     }
+  }
+
+  @Override public void removeAllRowsFromHistoryList() {
+    mHistoryDayAdapter.addListHistory(new ArrayList<>());
   }
 }

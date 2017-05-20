@@ -143,4 +143,8 @@ public class DataManager {
     mHistoryForSendHelper.dropTableAndCreate();
     mPracticHelper.dropTableAndCreate();
   }
+
+  public void dropHistoryTable() {
+    mHistoryForSendHelper.dropTableAndCreate();
+  }
 }

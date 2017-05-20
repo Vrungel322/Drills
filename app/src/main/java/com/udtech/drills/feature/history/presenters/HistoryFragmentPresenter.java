@@ -44,11 +44,16 @@ import timber.log.Timber;
   }
 
   public void removeHistoryForSendFromDbByID(List<String> listIdByDay) {
-    Subscription subscription = Observable.from(listIdByDay)
-        .compose(ThreadSchedulers.applySchedulers())
-        .concatMap(s -> mDataManager.dellRowFromHistoryTable(s)
-            .compose(ThreadSchedulers.applySchedulers()))
-        .subscribe(integer -> getViewState().removeFromView());
-    addToUnsubscription(subscription);
+    if (listIdByDay.size() == 0) {
+      mDataManager.dropHistoryTable();
+      getViewState().removeAllRowsFromHistoryList();
+    } else {
+      Subscription subscription = Observable.from(listIdByDay)
+          .compose(ThreadSchedulers.applySchedulers())
+          .concatMap(s -> mDataManager.dellRowFromHistoryTable(s)
+              .compose(ThreadSchedulers.applySchedulers()))
+          .subscribe(integer -> getViewState().removeFromView());
+      addToUnsubscription(subscription);
+    }
   }
 }

@@ -124,7 +124,8 @@ import rx.Subscription;
     HistoryForSend historyForSend =
         new HistoryForSend(practic.getDryPracticsSets(), practic.getDryPracticsName(),
             Converters.doubleToInteger(practic.getDryPracticsTime()), Randomizer.randomString(30),
-            Constants.OBJECT_TYPE, practic.getDryPracticsDate());
+            Constants.OBJECT_TYPE, Converters.stringToDouble(
+            String.valueOf(System.currentTimeMillis())));
     historyForSend.setHistoryPracticsSets(mDoneSetsCount);
     mDataManager.addHistoryToDb(historyForSend);
   }

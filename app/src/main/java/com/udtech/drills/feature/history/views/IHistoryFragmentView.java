@@ -14,4 +14,6 @@ import java.util.List;
   void setHistoryList(List<HistoryDay> history);
 
   void removeFromView();
+
+  void removeAllRowsFromHistoryList();
 }
