@@ -180,4 +180,17 @@ public class LoginActivity extends BaseActivity implements ILoginActivityView {
     DialogFactory.createSimpleOkErrorDialog(this, getText(R.string.dialog_error_title).toString(),
         getText(R.string.not_correct_log_pas).toString()).show();
   }
+
+  @Override public void showLoginStuff() {
+    mButtonLogin.setText(R.string.login);
+    mEditTextPhoneEmail.setText("");
+    mEditTextPhoneEmail.setHint(getResources().getString(R.string.enter_email_password));
+    mEditTextPassword.setVisibility(View.VISIBLE);
+    mTextViewHelp.setVisibility(View.VISIBLE);
+  }
+
+  @Override public void showFailFormatOfInputtedField() {
+    DialogFactory.createSimpleOkErrorDialog(this,getText(R.string.dialog_error_title).toString(),
+        getText(R.string.fail_format_of_inputted_field).toString()).show();
+  }
 }

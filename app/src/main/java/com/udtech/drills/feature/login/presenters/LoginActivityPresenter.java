@@ -103,12 +103,17 @@ import timber.log.Timber;
   }
 
   public void resetPassword(String resetString) {
+    getViewState().showPB();
     Subscription subscription = mDataManager.resetPass(new SignUpResetBody(resetString))
         .compose(ThreadSchedulers.applySchedulers())
         .subscribe(userResponse -> {
           if (userResponse.code() == 200) {
-            getViewState().showBody(userResponse.body().toString());
+            getViewState().showLoginStuff();
           }
+          if (userResponse.code() == 422) {
+            getViewState().showFailFormatOfInputtedField();
+          }
+          getViewState().hidePB();
         }, Timber::e);
     addToUnsubscription(subscription);
   }
