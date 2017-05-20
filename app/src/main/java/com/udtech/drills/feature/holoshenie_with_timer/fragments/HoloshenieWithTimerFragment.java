@@ -6,10 +6,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.udtech.drills.R;
 import com.udtech.drills.base.BaseFragment;
@@ -38,6 +41,11 @@ public class HoloshenieWithTimerFragment extends BaseFragment
   @BindView(R.id.tvPracticTime) TextView mTextViewPracticTime;
   @BindView(R.id.tvDelayTime) TextView mTextViewDelayTime;
   @BindView(R.id.tvSetsCount) TextView mTextViewSetsCount;
+  @BindView(R.id.bMinusSet) Button mButtonMinusSet;
+  @BindView(R.id.bPlusSet) Button mButtonPlusSet;
+  @BindView(R.id.view2) View mView;
+  @BindView(R.id.tvBack) TextView mTextViewBack;
+  @BindView(R.id.tvChange) TextView mTextViewChange;
   @BindView(R.id.tvPracticeDescription) TextView mTextViewPracticeDescription;
 
   private Practic mPractic;
@@ -120,6 +128,12 @@ public class HoloshenieWithTimerFragment extends BaseFragment
 
   @Override public void restoreTv() {
     mTextViewStartStop.setText(getString(R.string.start));
+    YoYo.with(Techniques.FadeInDown).duration(1000).playOn(mButtonMinusSet);
+    YoYo.with(Techniques.FadeInDown).duration(1000).playOn(mButtonPlusSet);
+    YoYo.with(Techniques.FadeInDown).duration(1000).playOn(mView);
+    YoYo.with(Techniques.FadeInDown).duration(1000).playOn(mTextViewBack);
+    YoYo.with(Techniques.FadeInDown).duration(1000).playOn(mTextViewChange);
+
   }
 
   @Override public void updateTextView(int setTimer, long millisUntilFinished) {
@@ -143,13 +157,16 @@ public class HoloshenieWithTimerFragment extends BaseFragment
     isRunning = !isRunning;
     if (isRunning) {
       mTextViewStartStop.setText(R.string.stop);
-      //while (mSetsCount > 0 && isRunning) {
+      YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mButtonMinusSet);
+      YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mButtonPlusSet);
+      YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mView);
+      YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mTextViewBack);
+      YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mTextViewChange);
       if (isRunning) {
         mHoloshenieWithTimerFragmentPresenter.startTimer(mPractic.getDryPracticsFirstSignalDelay(),
             mPractic.getDryPracticsTimeBetweenSets(),
             Integer.valueOf(String.valueOf(Math.round(mPractic.getDryPracticsTime()))));
       }
-      //}
     } else {
       mHoloshenieWithTimerFragmentPresenter.setsRemain(0);
       mHoloshenieWithTimerFragmentPresenter.stopAllTimers();
