@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -12,6 +13,7 @@ import com.udtech.drills.data.local.mappers.show_history.GroupedPractices;
 import com.udtech.drills.utils.Converters;
 import java.util.ArrayList;
 import java.util.List;
+import timber.log.Timber;
 
 /**
  * Created by Vrungel on 19.05.2017.
@@ -20,10 +22,21 @@ import java.util.List;
 public class PracticsGroupAdapter
     extends RecyclerView.Adapter<PracticsGroupAdapter.PracticsGroupViewHolder> {
   private ArrayList<GroupedPractices> mGroupedPractices = new ArrayList<>();
+  private boolean isCBshows = false;
+  private List<GroupedPractices> mListToRemove = new ArrayList<>();
 
   public void addListPracticsGroup(List<GroupedPractices> groupedPractices) {
     mGroupedPractices.clear();
     mGroupedPractices.addAll(groupedPractices);
+    notifyDataSetChanged();
+  }
+
+  public void enableCheckBox(boolean b) {
+    if (b) {
+      isCBshows = true;
+    } else {
+      isCBshows = false;
+    }
     notifyDataSetChanged();
   }
 
@@ -33,6 +46,16 @@ public class PracticsGroupAdapter
   }
 
   @Override public void onBindViewHolder(PracticsGroupViewHolder holder, int position) {
+    //ChB
+    if (isCBshows) {
+      holder.mCheckBox.setVisibility(View.VISIBLE);
+      holder.mCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mListToRemove.add(mGroupedPractices.get(position));
+      });
+    } else {
+      holder.mCheckBox.setVisibility(View.GONE);
+    }
+
     holder.mTextViewStartPracticsTime.setText(Converters.hoursMinsFromSeconds(
         String.valueOf(mGroupedPractices.get(position).getPracticesDateFirst())));
     holder.mTextViewGroupName.setText(mGroupedPractices.get(position).getPracticeName());
@@ -46,8 +69,24 @@ public class PracticsGroupAdapter
     return mGroupedPractices.size();
   }
 
-  static class PracticsGroupViewHolder extends RecyclerView.ViewHolder {
+  public boolean isCBEnabled() {
+    return isCBshows;
+  }
 
+  public List<GroupedPractices> getListToRemove() {
+    for (int i = 0; i < mListToRemove.size(); i++) {
+      Timber.e(String.valueOf(mListToRemove.get(i).getPracticeName()));
+    }
+    return mListToRemove;
+  }
+
+  public void removeItemsByListOfPos(List<GroupedPractices> listToRemove) {
+    mGroupedPractices.removeAll(listToRemove);
+    notifyDataSetChanged();
+  }
+
+  static class PracticsGroupViewHolder extends RecyclerView.ViewHolder {
+    @BindView(R.id.checkBox) CheckBox mCheckBox;
     @BindView(R.id.tvStartPracticsTime) TextView mTextViewStartPracticsTime;
     @BindView(R.id.tvGroupName) TextView mTextViewGroupName;
     @BindView(R.id.tvSetsCountInGroup) TextView mTextViewSetsCountInGroup;

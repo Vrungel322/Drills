@@ -25,7 +25,6 @@ import timber.log.Timber;
 
   @Override protected void onFirstViewAttach() {
     super.onFirstViewAttach();
-    updateTotalTime();
     synchronizeData();
   }
 
@@ -43,6 +42,7 @@ import timber.log.Timber;
         .compose(ThreadSchedulers.applySchedulers())
         .subscribe(booleanResponse -> {
           if (booleanResponse.code() == 200 && booleanResponse.body()) {
+            updateTotalTime();
             Timber.e("sendDataToServer Done");
             getViewState().stopProgressDialog();
           }

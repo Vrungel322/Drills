@@ -23,7 +23,7 @@ public class DayGroupToHistoryId {
         return listIdByDay;
     }
 
-    public List<String> getListIdByPractice (List<GroupedPractices> groupedPracticesList) {
+    public List<String> getListIdByPracticeGroup(List<GroupedPractices> groupedPracticesList) {
         List<String> listIdByDay = new ArrayList<>();
 
         for (GroupedPractices groupedPractices : groupedPracticesList) {

@@ -56,7 +56,11 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
 
     ItemClickSupport.addTo(mRecyclerViewHistory)
         .setOnItemLongClickListener((recyclerView, position, v) -> {
-          mHistoryDayAdapter.enableCheckBox(!mHistoryDayAdapter.isCBEnabled());
+          if (mRecyclerViewHistory.getAdapter() instanceof HistoryDayAdapter) {
+            mHistoryDayAdapter.enableCheckBox(!mHistoryDayAdapter.isCBEnabled());
+          } else {
+            mPracticsGroupAdapter.enableCheckBox(!mPracticsGroupAdapter.isCBEnabled());
+          }
           return true;
         })
         .setOnItemClickListener((recyclerView, position, v) -> {
@@ -69,13 +73,24 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
   }
 
   @OnClick(R.id.tvOtmenaIzmenit) public void tvOtmenaIzmenitClicked() {
-    mHistoryDayAdapter.enableCheckBox(!mHistoryDayAdapter.isCBEnabled());
-    if (mHistoryDayAdapter.isCBEnabled()) {
-      mTextViewOtmenaIzmenit.setText(getText(R.string.cancel));
-      mTextViewDoneDelete.setText(getText(R.string.dell));
+    if (mRecyclerViewHistory.getAdapter() instanceof HistoryDayAdapter) {
+      mHistoryDayAdapter.enableCheckBox(!mHistoryDayAdapter.isCBEnabled());
+      if (mHistoryDayAdapter.isCBEnabled()) {
+        mTextViewOtmenaIzmenit.setText(getText(R.string.cancel));
+        mTextViewDoneDelete.setText(getText(R.string.dell));
+      } else {
+        mTextViewOtmenaIzmenit.setText(getText(R.string.change));
+        mTextViewDoneDelete.setText(getText(R.string.done));
+      }
     } else {
-      mTextViewOtmenaIzmenit.setText(getText(R.string.change));
-      mTextViewDoneDelete.setText(getText(R.string.done));
+      mPracticsGroupAdapter.enableCheckBox(!mPracticsGroupAdapter.isCBEnabled());
+      if (mPracticsGroupAdapter.isCBEnabled()) {
+        mTextViewOtmenaIzmenit.setText(getText(R.string.cancel));
+        mTextViewDoneDelete.setText(getText(R.string.dell));
+      } else {
+        mTextViewOtmenaIzmenit.setText(getText(R.string.change));
+        mTextViewDoneDelete.setText(getText(R.string.done));
+      }
     }
   }
 
@@ -88,11 +103,18 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
             ContentFragment.newInstance());
       }
     } else {
-      mHistoryFragmentPresenter.removeHistoryForSendFromDbByID(
-          new DayGroupToHistoryId().getListIdByDay(mHistoryDayAdapter.getListToRemove()));
-      mHistoryDayAdapter.enableCheckBox(false);
       mTextViewOtmenaIzmenit.setText(getText(R.string.change));
       mTextViewDoneDelete.setText(getText(R.string.done));
+      if (mRecyclerViewHistory.getAdapter() instanceof HistoryDayAdapter) {
+        mHistoryDayAdapter.enableCheckBox(false);
+        mHistoryFragmentPresenter.removeHistoryForSendFromDbByID(
+            new DayGroupToHistoryId().getListIdByDay(mHistoryDayAdapter.getListToRemove()));
+      } else {
+        mPracticsGroupAdapter.enableCheckBox(false);
+        mHistoryFragmentPresenter.removeHistoryForSendFromDbByID(
+            new DayGroupToHistoryId().getListIdByPracticeGroup(
+                mPracticsGroupAdapter.getListToRemove()));
+      }
     }
   }
 
@@ -101,6 +123,10 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
   }
 
   @Override public void removeFromView() {
-    mHistoryDayAdapter.removeItemsByListOfPos(mHistoryDayAdapter.getListToRemove());
+    if (mRecyclerViewHistory.getAdapter() instanceof HistoryDayAdapter) {
+      mHistoryDayAdapter.removeItemsByListOfPos(mHistoryDayAdapter.getListToRemove());
+    } else {
+      mPracticsGroupAdapter.removeItemsByListOfPos(mPracticsGroupAdapter.getListToRemove());
+    }
   }
 }

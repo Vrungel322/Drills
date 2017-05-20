@@ -124,7 +124,7 @@ public class DataManager {
         .concatMap(Observable::from)
         .concatMap(historyForSend -> {
           mTotalTime = mTotalTime
-              + historyForSend.getHistoryPracticsTime() * historyForSend.getHistoryPracticsSets();
+              + historyForSend.getHistoryPracticsTime() * historyForSend.getHistoryPracticsSets()+ historyForSend.get;
           Timber.e(String.valueOf(mTotalTime));
           return Observable.just(Converters.timeFromSeconds(String.valueOf(mTotalTime)));
         });
