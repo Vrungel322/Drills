@@ -128,12 +128,12 @@ public class HoloshenieWithTimerFragment extends BaseFragment
 
   @Override public void restoreTv() {
     mTextViewStartStop.setText(getString(R.string.start));
+    mTextViewSetsCount.setText(String.valueOf(mSetsCount));
     YoYo.with(Techniques.FadeInDown).duration(1000).playOn(mButtonMinusSet);
     YoYo.with(Techniques.FadeInDown).duration(1000).playOn(mButtonPlusSet);
     YoYo.with(Techniques.FadeInDown).duration(1000).playOn(mView);
     YoYo.with(Techniques.FadeInDown).duration(1000).playOn(mTextViewBack);
     YoYo.with(Techniques.FadeInDown).duration(1000).playOn(mTextViewChange);
-
   }
 
   @Override public void updateTextView(int setTimer, long millisUntilFinished) {
@@ -147,6 +147,10 @@ public class HoloshenieWithTimerFragment extends BaseFragment
   @Override public void openHoloshenieListFragment() {
     mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,
         HoloshenieFragment.newInstance());
+  }
+
+  @Override public void setTvRemainSets(Integer setsRemain) {
+    mTextViewSetsCount.setText(String.valueOf(setsRemain));
   }
 
   @OnClick(R.id.tvStartStop) public void tvStartStopClick() {

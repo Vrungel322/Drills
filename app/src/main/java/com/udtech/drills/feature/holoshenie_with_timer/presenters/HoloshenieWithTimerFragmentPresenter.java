@@ -84,6 +84,7 @@ import rx.Subscription;
         mSetsRemain--;
         if (mSetsRemain > 0) {
           mCountDownTimerBetweenSets.start();
+          getViewState().setTvRemainSets(mSetsRemain);
         } else {
           getViewState().restoreTv();
         }
