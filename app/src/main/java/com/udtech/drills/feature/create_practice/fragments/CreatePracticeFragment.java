@@ -12,7 +12,6 @@ import com.udtech.drills.R;
 import com.udtech.drills.base.BaseFragment;
 import com.udtech.drills.feature.create_practice.presenters.CreatePracticeFragmentPresenter;
 import com.udtech.drills.feature.create_practice.views.ICreatePracticeFragmentView;
-import com.udtech.drills.feature.holoshenie.fragments.HoloshenieFragment;
 import com.udtech.drills.utils.Converters;
 import com.udtech.drills.utils.Randomizer;
 
@@ -52,8 +51,7 @@ public class CreatePracticeFragment extends BaseFragment implements ICreatePract
   }
 
   @OnClick(R.id.tvCancel) public void tvCancelClicked() {
-    mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,
-        HoloshenieFragment.newInstance());
+    mNavigator.removeFragment((AppCompatActivity) getActivity(), this);
   }
 
   @OnClick(R.id.cbRandDelay) public void cbRandDelayCkicked() {
