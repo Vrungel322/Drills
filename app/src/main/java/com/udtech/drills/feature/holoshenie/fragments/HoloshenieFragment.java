@@ -54,13 +54,10 @@ public class HoloshenieFragment extends BaseFragment implements IHoloshenieFragm
   }
 
   @Override public void fillInRecyclerView(List<Practic> practic) {
-
-    Timber.e("" + practic.size());
     mPracticeAdapter.addListPractic(practic);
   }
 
   @OnClick(R.id.tvDone) public void tvDoneClick() {
-    //mHoloshenieFragmentPresenter.sendUserDataPracticToServer();
      openContentFragment();
   }
 
