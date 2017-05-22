@@ -18,7 +18,6 @@ import com.udtech.drills.R;
 import com.udtech.drills.base.BaseFragment;
 import com.udtech.drills.data.remote.fetch_user_data.Practic;
 import com.udtech.drills.feature.change_practic_settings.fragments.ChangePracticFragment;
-import com.udtech.drills.feature.holoshenie.fragments.HoloshenieFragment;
 import com.udtech.drills.feature.holoshenie_with_timer.presenters.HoloshenieWithTimerFragmentPresenter;
 import com.udtech.drills.feature.holoshenie_with_timer.views.IHoloshenieWithTimerFragmentView;
 import com.udtech.drills.utils.Constants;
@@ -145,8 +144,7 @@ public class HoloshenieWithTimerFragment extends BaseFragment
   }
 
   @Override public void openHoloshenieListFragment() {
-    mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,
-        HoloshenieFragment.newInstance());
+    mNavigator.removeFragment((AppCompatActivity) getActivity(),this);
   }
 
   @Override public void setTvRemainSets(Integer setsRemain) {

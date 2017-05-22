@@ -159,7 +159,16 @@ public class Navigator implements INavigator {
     }
   }
 
+  public void removeFragment(@NonNull AppCompatActivity activity, Fragment fragment) {
+    activity.getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+    activity.getSupportFragmentManager().popBackStack();
+  }
+
   @Override public boolean isEmptyBackStack(@NonNull AppCompatActivity activity) {
     return activity.getSupportFragmentManager().getBackStackEntryCount() == 0;
+  }
+
+  public int getCountBackStack(@NonNull AppCompatActivity activity) {
+    return activity.getSupportFragmentManager().getBackStackEntryCount();
   }
 }

@@ -24,4 +24,7 @@ public final class RxBusHelper {
       this.mode = mode;
     }
   }
+
+  public static class SynchronizeData {
+  }
 }

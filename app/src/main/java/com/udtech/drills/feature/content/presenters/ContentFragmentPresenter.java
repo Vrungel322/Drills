@@ -6,8 +6,11 @@ import com.udtech.drills.base.BasePresenter;
 import com.udtech.drills.data.DataManager;
 import com.udtech.drills.data.remote.login.User;
 import com.udtech.drills.feature.content.views.IContentFragmentView;
+import com.udtech.drills.utils.RxBus;
+import com.udtech.drills.utils.RxBusHelper;
 import com.udtech.drills.utils.ThreadSchedulers;
 import javax.inject.Inject;
+import rx.Observable;
 import rx.Subscription;
 import timber.log.Timber;
 
@@ -18,6 +21,7 @@ import timber.log.Timber;
 @InjectViewState public class ContentFragmentPresenter extends BasePresenter<IContentFragmentView> {
   @Inject DataManager mDataManager;
   @Inject User mUser;
+  @Inject RxBus mRxBus;
 
   @Override protected void inject() {
     App.getAppComponent().inject(this);
@@ -26,6 +30,19 @@ import timber.log.Timber;
   @Override protected void onFirstViewAttach() {
     super.onFirstViewAttach();
     synchronizeData();
+    getRxBuxInfoToSyncData();
+  }
+
+  private void getRxBuxInfoToSyncData() {
+    Subscription subscription = mRxBus.filteredObservable(RxBusHelper.SynchronizeData.class)
+        .compose(ThreadSchedulers.applySchedulers())
+        .concatMap(synchronizeData -> {
+          synchronizeData();
+          return Observable.just("");
+        })
+        .subscribe(o -> {
+        });
+    addToUnsubscription(subscription);
   }
 
   private void updateTotalTime() {
