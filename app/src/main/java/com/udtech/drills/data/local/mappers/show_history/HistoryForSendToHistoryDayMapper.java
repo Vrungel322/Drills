@@ -154,7 +154,7 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
     private Date getDate(Long dDate) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(dDate.longValue());
-        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
