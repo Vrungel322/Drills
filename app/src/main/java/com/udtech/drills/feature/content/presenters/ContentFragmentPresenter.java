@@ -7,7 +7,6 @@ import com.udtech.drills.data.DataManager;
 import com.udtech.drills.data.local.mappers.show_history.GroupingDaysIntoWeeks;
 import com.udtech.drills.data.remote.login.User;
 import com.udtech.drills.feature.content.views.IContentFragmentView;
-import com.udtech.drills.utils.Converters;
 import com.udtech.drills.utils.RxBus;
 import com.udtech.drills.utils.RxBusHelper;
 import com.udtech.drills.utils.ThreadSchedulers;
@@ -32,8 +31,8 @@ import timber.log.Timber;
 
   @Override protected void onFirstViewAttach() {
     super.onFirstViewAttach();
-    synchronizeData();
     getRxBuxInfoToSyncData();
+    synchronizeData();
   }
 
   private void getRxBuxInfoToSyncData() {
@@ -41,7 +40,6 @@ import timber.log.Timber;
         .compose(ThreadSchedulers.applySchedulers())
         .concatMap(synchronizeData -> {
           synchronizeData();
-          getDaysForCalendar();
           getTotalTimingByWeeks();
           return Observable.just("");
         })
@@ -50,22 +48,37 @@ import timber.log.Timber;
     addToUnsubscription(subscription);
   }
 
+  private void synchronizeData() {
+    getViewState().startProgressDialog();
+    Subscription subscription = mDataManager.sendUserDataPractic(mUser.getAuthKey())
+        .concatMap(booleanResponse -> mDataManager.sendUserDataHistory(mUser.getAuthKey()))
+        .compose(ThreadSchedulers.applySchedulers())
+        .subscribe(booleanResponse -> {
+          if (booleanResponse.code() == 200 && booleanResponse.body()) {
+            updateTotalTime();
+            getDaysForCalendar();
+            getTotalTimingByWeeks();
+            Timber.e("sendDataToServer Done");
+            getViewState().stopProgressDialog();
+          }
+        }, throwable -> {
+          getViewState().showMsg("No Internet");
+          getViewState().stopProgressDialog();
+        });
+
+    addToUnsubscription(subscription);
+  }
+
   private void getTotalTimingByWeeks() {
     Subscription subscription =
         mDataManager.getHistoryFromDb().compose(ThreadSchedulers.applySchedulers()).
             concatMap(historyForSendList -> {
-
               //4 weeks time total
               List<Integer> listTotalTimeOfTheWeek =
                   new GroupingDaysIntoWeeks().getListTotalTimeOfTheWeek(historyForSendList);
-
-              for (Integer totalTimeOfTheWeek : listTotalTimeOfTheWeek) {
-                Timber.e(Converters.timeFromSeconds(String.valueOf(totalTimeOfTheWeek)));
-              }
-
               return Observable.just(listTotalTimeOfTheWeek);
             }).subscribe(integerList -> {
-          // TODO: 23.05.17 fill weeks data
+          getViewState().setTotalTimesPerWeek(integerList);
         });
     addToUnsubscription(subscription);
   }
@@ -94,25 +107,6 @@ import timber.log.Timber;
     Subscription subscription = mDataManager.getTotalSetsTime()
         .compose(ThreadSchedulers.applySchedulers())
         .subscribe(s -> getViewState().showTotalTime(s));
-    addToUnsubscription(subscription);
-  }
-
-  private void synchronizeData() {
-    getViewState().startProgressDialog();
-    Subscription subscription = mDataManager.sendUserDataPractic(mUser.getAuthKey())
-        .concatMap(booleanResponse -> mDataManager.sendUserDataHistory(mUser.getAuthKey()))
-        .compose(ThreadSchedulers.applySchedulers())
-        .subscribe(booleanResponse -> {
-          if (booleanResponse.code() == 200 && booleanResponse.body()) {
-            updateTotalTime();
-            Timber.e("sendDataToServer Done");
-            getViewState().stopProgressDialog();
-          }
-        }, throwable -> {
-          getViewState().showMsg("No Internet");
-          getViewState().stopProgressDialog();
-        });
-
     addToUnsubscription(subscription);
   }
 

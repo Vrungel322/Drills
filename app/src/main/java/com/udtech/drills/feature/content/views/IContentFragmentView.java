@@ -22,4 +22,6 @@ import java.util.List;
   void stopProgressDialog();
 
   void fillCalendar(List<Integer> integerList);
+
+  void setTotalTimesPerWeek(List<Integer> integerList);
 }

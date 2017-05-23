@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,8 +18,8 @@ import butterknife.OnClick;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.udtech.drills.R;
 import com.udtech.drills.base.BaseFragment;
-import com.udtech.drills.data.local.Db.CalendarItemEntity;
 import com.udtech.drills.feature.content.adapters.CalendarAdapter;
+import com.udtech.drills.feature.content.adapters.TotalTimeAdapter;
 import com.udtech.drills.feature.content.presenters.ContentFragmentPresenter;
 import com.udtech.drills.feature.content.views.IContentFragmentView;
 import com.udtech.drills.feature.history.fragments.HistoryFragment;
@@ -27,7 +28,6 @@ import com.udtech.drills.feature.login.activities.LoginActivity;
 import com.udtech.drills.utils.DialogFactory;
 import com.yqritc.scalablevideoview.ScalableVideoView;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ContentFragment extends BaseFragment implements IContentFragmentView {
@@ -39,10 +39,11 @@ public class ContentFragment extends BaseFragment implements IContentFragmentVie
   @BindView(R.id.ivHistory) ImageView mImageViewHistory;
   @BindView(R.id.tvAllSetsTime) TextView mTextViewAllSetsTime;
   @BindView(R.id.rvCalendar) RecyclerView mRecyclerViewCalendar;
+  @BindView(R.id.rvTotalWeekTime) RecyclerView mRecyclerViewTotalWeekTime;
 
   private ProgressDialog mProgressDialog;
   private CalendarAdapter mCalendarAdapter;
-  private List<CalendarItemEntity> mCalendarItemEntities = new ArrayList<>();
+  private TotalTimeAdapter mTotalTimeAdapter;
 
   public static ContentFragment newInstance() {
     Bundle args = new Bundle();
@@ -68,12 +69,10 @@ public class ContentFragment extends BaseFragment implements IContentFragmentVie
     mCalendarAdapter = new CalendarAdapter();
     mRecyclerViewCalendar.setLayoutManager(new GridLayoutManager(getContext(), 7));
     mRecyclerViewCalendar.setAdapter(mCalendarAdapter);
+    mTotalTimeAdapter = new TotalTimeAdapter();
+    mRecyclerViewTotalWeekTime.setLayoutManager(new LinearLayoutManager(getContext()));
+    mRecyclerViewTotalWeekTime.setAdapter(mTotalTimeAdapter);
 
-    //test calendar
-    //for (int i = 0; i < 28; i++) {
-    //  mCalendarItemEntities.add(new CalendarItemEntity(i,0));
-    //}
-    //mCalendarAdapter.addListCalendarItemEntity(mCalendarItemEntities);
   }
 
   @Override public void onStart() {
@@ -131,4 +130,9 @@ public class ContentFragment extends BaseFragment implements IContentFragmentVie
   @Override public void fillCalendar(List<Integer> integerList) {
     mCalendarAdapter.addListCalendarItemEntity(integerList);
   }
+
+  @Override public void setTotalTimesPerWeek(List<Integer> integerList) {
+    mTotalTimeAdapter.addListTotalTimes(integerList);
+  }
+
 }
