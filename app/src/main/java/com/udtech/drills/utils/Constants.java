@@ -47,4 +47,8 @@ public final class Constants {
     public static final String HISTORY_PRACTIC_TYPE = "HISTORY_PRACTIC_TYPE";
     public static final String HISTORY_PRACTIC_DATE = "HISTORY_PRACTIC_DATE";
   }
+
+  public static final int STATUS_DAY_HAS_NOT_COME = 0;
+  public static final int STATUS_HAS_PRACTICE = 1;
+  public static final int STATUS_HAS_NO_PRACTICE = 2;
 }

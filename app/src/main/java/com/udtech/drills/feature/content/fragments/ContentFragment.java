@@ -70,10 +70,10 @@ public class ContentFragment extends BaseFragment implements IContentFragmentVie
     mRecyclerViewCalendar.setAdapter(mCalendarAdapter);
 
     //test calendar
-    for (int i = 0; i < 28; i++) {
-      mCalendarItemEntities.add(new CalendarItemEntity(i,0));
-    }
-    mCalendarAdapter.addListCalendarItemEntity(mCalendarItemEntities);
+    //for (int i = 0; i < 28; i++) {
+    //  mCalendarItemEntities.add(new CalendarItemEntity(i,0));
+    //}
+    //mCalendarAdapter.addListCalendarItemEntity(mCalendarItemEntities);
   }
 
   @Override public void onStart() {
@@ -126,5 +126,9 @@ public class ContentFragment extends BaseFragment implements IContentFragmentVie
 
   @Override public void stopProgressDialog() {
     mProgressDialog.cancel();
+  }
+
+  @Override public void fillCalendar(List<Integer> integerList) {
+    mCalendarAdapter.addListCalendarItemEntity(integerList);
   }
 }

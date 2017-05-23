@@ -1,14 +1,13 @@
 package com.udtech.drills.data.local.mappers.show_history;
 
 import com.udtech.drills.data.remote.send_user_data.HistoryForSend;
-
+import com.udtech.drills.utils.Constants;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import timber.log.Timber;
 
 /**
  * Created by Dimuch on 22.05.2017.
@@ -18,9 +17,6 @@ public class GroupingDaysIntoWeeks {
 
   private static final int NUMBER_OF_WEEKS = 4;
   private static final int DAYS_IN_WEEK = 7;
-  private static final int STATUS_DAY_HAS_NOT_COME = 0;
-  private static final int STATUS_HAS_PRACTICE = 1;
-  private static final int STATUS_HAS_NO_PRACTICE = 2;
 
   public List<Integer> getListStatusOfDay(List<HistoryForSend> historyForSendList) {
 
@@ -143,20 +139,20 @@ public class GroupingDaysIntoWeeks {
       if (!listHistoryDayForFourWeeks.isEmpty()) {
         if (date.before(
             resettingTime(new Date(listHistoryDayForFourWeeks.get(0).getPracticeDate() * 1000)))) {
-          listStatusOfDay.add(STATUS_HAS_NO_PRACTICE);
-          //Timber.e("add STATUS_HAS_NO_PRACTICE");
+          listStatusOfDay.add(Constants.STATUS_HAS_NO_PRACTICE);
+          //Timber.e("add Constants.STATUS_HAS_NO_PRACTICE");
         } else if (date.equals(
             resettingTime(new Date(listHistoryDayForFourWeeks.get(0).getPracticeDate() * 1000)))) {
-          listStatusOfDay.add(STATUS_HAS_PRACTICE);
-          //Timber.e("add STATUS_HAS_PRACTICE");
+          listStatusOfDay.add(Constants.STATUS_HAS_PRACTICE);
+          //Timber.e("add Constants.STATUS_HAS_PRACTICE");
           listHistoryDayForFourWeeks.remove(0);
         }
       } else {
         if (date.before(new Date(System.currentTimeMillis()))) {
-          listStatusOfDay.add(STATUS_HAS_NO_PRACTICE);
-          //Timber.e("add STATUS_HAS_NO_PRACTICE");
+          listStatusOfDay.add(Constants.STATUS_HAS_NO_PRACTICE);
+          //Timber.e("add Constants.STATUS_HAS_NO_PRACTICE");
         } else {
-          listStatusOfDay.add(STATUS_DAY_HAS_NOT_COME);
+          listStatusOfDay.add(Constants.STATUS_DAY_HAS_NOT_COME);
         }
       }
     }

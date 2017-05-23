@@ -11,11 +11,8 @@ import com.udtech.drills.utils.Converters;
 import com.udtech.drills.utils.RxBus;
 import com.udtech.drills.utils.RxBusHelper;
 import com.udtech.drills.utils.ThreadSchedulers;
-
 import java.util.List;
-
 import javax.inject.Inject;
-
 import rx.Observable;
 import rx.Subscription;
 import timber.log.Timber;
@@ -45,9 +42,30 @@ import timber.log.Timber;
         .concatMap(synchronizeData -> {
           synchronizeData();
           getDaysForCalendar();
+          getTotalTimingByWeeks();
           return Observable.just("");
         })
         .subscribe(o -> {
+        });
+    addToUnsubscription(subscription);
+  }
+
+  private void getTotalTimingByWeeks() {
+    Subscription subscription =
+        mDataManager.getHistoryFromDb().compose(ThreadSchedulers.applySchedulers()).
+            concatMap(historyForSendList -> {
+
+              //4 weeks time total
+              List<Integer> listTotalTimeOfTheWeek =
+                  new GroupingDaysIntoWeeks().getListTotalTimeOfTheWeek(historyForSendList);
+
+              for (Integer totalTimeOfTheWeek : listTotalTimeOfTheWeek) {
+                Timber.e(Converters.timeFromSeconds(String.valueOf(totalTimeOfTheWeek)));
+              }
+
+              return Observable.just(listTotalTimeOfTheWeek);
+            }).subscribe(integerList -> {
+          // TODO: 23.05.17 fill weeks data
         });
     addToUnsubscription(subscription);
   }
@@ -57,6 +75,7 @@ import timber.log.Timber;
         mDataManager.getHistoryFromDb().compose(ThreadSchedulers.applySchedulers()).
             concatMap(historyForSendList -> {
 
+              //28 day
               List<Integer> listStatusOfDay =
                   new GroupingDaysIntoWeeks().getListStatusOfDay(historyForSendList);
 
@@ -64,15 +83,9 @@ import timber.log.Timber;
                 Timber.e(status.toString());
               }
 
-              List<Integer> listTotalTimeOfTheWeek =
-                  new GroupingDaysIntoWeeks().getListTotalTimeOfTheWeek(historyForSendList);
-
-              for (Integer totalTimeOfTheWeek : listTotalTimeOfTheWeek) {
-                Timber.e(Converters.timeFromSeconds(String.valueOf(totalTimeOfTheWeek)));
-              }
-
-              return Observable.just("");
-            }).subscribe(o -> {
+              return Observable.just(listStatusOfDay);
+            }).subscribe(integerList -> {
+          getViewState().fillCalendar(integerList);
         });
     addToUnsubscription(subscription);
   }

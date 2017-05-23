@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.udtech.drills.R;
-import com.udtech.drills.data.local.Db.CalendarItemEntity;
+import com.udtech.drills.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 import timber.log.Timber;
@@ -18,9 +18,9 @@ import timber.log.Timber;
  */
 
 public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder>  {
-  private ArrayList<CalendarItemEntity> mCalendarItemEntities = new ArrayList<CalendarItemEntity>();
+  private ArrayList<Integer> mCalendarItemEntities = new ArrayList<>();
 
-  public void addListCalendarItemEntity(List<CalendarItemEntity> calendarItemEntities) {
+  public void addListCalendarItemEntity(List<Integer> calendarItemEntities) {
     mCalendarItemEntities.clear();
     mCalendarItemEntities.addAll(calendarItemEntities);
     Timber.e(String.valueOf(mCalendarItemEntities.size()));
@@ -34,7 +34,15 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
   }
 
   @Override public void onBindViewHolder(CalendarViewHolder holder, int position) {
-    holder.mImageView.setBackgroundResource(R.drawable.item_calendar_circle_yellow);
+    if (mCalendarItemEntities.get(position) == Constants.STATUS_DAY_HAS_NOT_COME){
+      holder.mImageView.setBackgroundResource(R.drawable.item_calendar_circle_transparent);
+    }
+    if (mCalendarItemEntities.get(position) == Constants.STATUS_HAS_NO_PRACTICE){
+      holder.mImageView.setBackgroundResource(R.drawable.item_calendar_circle_gray);
+    }
+    if (mCalendarItemEntities.get(position) == Constants.STATUS_HAS_PRACTICE){
+      holder.mImageView.setBackgroundResource(R.drawable.item_calendar_circle_yellow);
+    }
 
   }
 
