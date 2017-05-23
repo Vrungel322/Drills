@@ -58,7 +58,8 @@ public class HoloshenieFragment extends BaseFragment implements IHoloshenieFragm
   }
 
   @OnClick(R.id.tvDone) public void tvDoneClick() {
-     openContentFragment();
+     mHoloshenieFragmentPresenter.makePost();
+    openContentFragment();
   }
 
   @Override public void openHoloshenieFragment() {
@@ -67,8 +68,7 @@ public class HoloshenieFragment extends BaseFragment implements IHoloshenieFragm
   }
 
   @Override public void openContentFragment() {
-    mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,
-        ContentFragment.newInstance());
+    mNavigator.removeFragment((AppCompatActivity) getActivity(),this);
   }
 
   @OnClick(R.id.ivAdd) public void ivAddClick() {

@@ -68,6 +68,10 @@ import timber.log.Timber;
     addToUnsubscription(subscription);
   }
 
+  public void makePost() {
+    mRxBus.post(new RxBusHelper.SynchronizeData());
+  }
+
   //public void sendUserDataPracticToServer() {
   //  Subscription subscription = mDataManager.sendUserDataPractic(mUser.getAuthKey())
   //      .concatMap(booleanResponse -> mDataManager.sendUserDataHistory(mUser.getAuthKey()))
