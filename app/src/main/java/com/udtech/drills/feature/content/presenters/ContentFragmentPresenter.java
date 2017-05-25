@@ -91,11 +91,6 @@ import timber.log.Timber;
               //28 day
               List<Integer> listStatusOfDay =
                   new GroupingDaysIntoWeeks().getListStatusOfDay(historyForSendList);
-
-              for (Integer status : listStatusOfDay) {
-                Timber.e(status.toString());
-              }
-
               return Observable.just(listStatusOfDay);
             }).subscribe(integerList -> {
           getViewState().fillCalendar(integerList);

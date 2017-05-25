@@ -21,7 +21,6 @@ import java.util.List;
 import okhttp3.Credentials;
 import retrofit2.Response;
 import rx.Observable;
-import timber.log.Timber;
 
 /**
  * Created by Vrungel on 26.01.2017.
@@ -138,13 +137,21 @@ public class DataManager {
      return mHistoryForSendHelper.dellRowFromHistoryTable(historyId);
   }
 
+  public void dropHistoryTable() {
+    mHistoryForSendHelper.dropTableAndCreate();
+  }
+
+  public Observable<Integer> dellRowFromPracticsTable(Practic practic) {
+    return mPracticHelper.dellRowFromPracticsTable(practic.getDryPracticsID());
+  }
+
   public void logout() {
     mPref.setUserLogin(Constants.NULL_AUTH_KEY);
     mHistoryForSendHelper.dropTableAndCreate();
     mPracticHelper.dropTableAndCreate();
   }
 
-  public void dropHistoryTable() {
-    mHistoryForSendHelper.dropTableAndCreate();
+  public void dropPracticsTable() {
+    mPracticHelper.dropTableAndCreate();
   }
 }

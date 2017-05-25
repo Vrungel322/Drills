@@ -161,4 +161,20 @@ public class PracticHelper {
     return tableString;
   }
 
+  public Observable<Integer> dellRowFromPracticsTable(String practicID) {
+    return Observable.create(subscriber -> {
+      SQLiteDatabase db = helper.getWritableDatabase();
+      db.execSQL("DELETE FROM "
+          + TABLE_NAME
+          + " WHERE "
+          + Constants.DbPractics.PRACTICS_ID
+          + "= '"
+          + practicID
+          + "'");
+      //getTableAsString(db, TABLE_NAME);
+      subscriber.onNext(200);
+      subscriber.onCompleted();
+    });
+
+  }
 }

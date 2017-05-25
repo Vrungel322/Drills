@@ -4,6 +4,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.udtech.drills.App;
 import com.udtech.drills.base.BasePresenter;
 import com.udtech.drills.data.DataManager;
+import com.udtech.drills.data.remote.fetch_user_data.Practic;
 import com.udtech.drills.data.remote.login.User;
 import com.udtech.drills.data.remote.send_user_data.PracticForSend;
 import com.udtech.drills.feature.holoshenie.views.IHoloshenieFragmentView;
@@ -13,6 +14,7 @@ import com.udtech.drills.utils.ThreadSchedulers;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import rx.Observable;
 import rx.Subscription;
 import timber.log.Timber;
 
@@ -70,6 +72,22 @@ import timber.log.Timber;
 
   public void makePost() {
     mRxBus.post(new RxBusHelper.SynchronizeData());
+  }
+
+  public void dellPractics(List<Practic> listPracticsToRemove) {
+    if (listPracticsToRemove.size() == 0) {
+      mDataManager.dropPracticsTable();
+      getViewState().removeAllRowsFromPracticsList();
+    } else {
+      Timber.e(String.valueOf(listPracticsToRemove.size()));
+
+      Subscription subscription = Observable.from(listPracticsToRemove)
+          .compose(ThreadSchedulers.applySchedulers())
+          .concatMap(practic -> mDataManager.dellRowFromPracticsTable(practic)
+              .compose(ThreadSchedulers.applySchedulers()))
+          .subscribe(integer -> getViewState().removeFromView());
+      addToUnsubscription(subscription);
+    }
   }
 
   //public void sendUserDataPracticToServer() {

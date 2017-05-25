@@ -23,6 +23,8 @@ public class Practic implements Parcelable {
   @SerializedName("dryPracticsDescription") @Expose private String dryPracticsDescription;
   @SerializedName("user_id") @Expose private Integer userId;
 
+  private boolean isChecked;
+
   /**
    * No args constructor for use in serialization
    */
@@ -79,6 +81,14 @@ public class Practic implements Parcelable {
       return new Practic[size];
     }
   };
+
+  public boolean isChecked() {
+    return isChecked;
+  }
+
+  public void setChecked(boolean checked) {
+    isChecked = checked;
+  }
 
   public Integer getId() {
     return id;

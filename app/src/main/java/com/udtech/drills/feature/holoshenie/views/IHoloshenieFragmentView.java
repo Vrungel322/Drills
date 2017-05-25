@@ -18,4 +18,8 @@ import java.util.List;
   void openHoloshenieFragment();
 
   void openContentFragment();
+
+  void removeAllRowsFromPracticsList();
+
+  void removeFromView();
 }
