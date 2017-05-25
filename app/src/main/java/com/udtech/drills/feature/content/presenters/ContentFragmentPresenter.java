@@ -24,6 +24,7 @@ import timber.log.Timber;
   @Inject DataManager mDataManager;
   @Inject User mUser;
   @Inject RxBus mRxBus;
+  private String mTotalTime;
 
   @Override protected void inject() {
     App.getAppComponent().inject(this);
@@ -99,9 +100,10 @@ import timber.log.Timber;
   }
 
   private void updateTotalTime() {
-    Subscription subscription = mDataManager.getTotalSetsTime()
-        .compose(ThreadSchedulers.applySchedulers())
-        .subscribe(s -> getViewState().showTotalTime(s));
+    Subscription subscription =
+        mDataManager.getTotalSetsTime().compose(ThreadSchedulers.applySchedulers()).subscribe(s -> {
+          mTotalTime = s;
+        }, Throwable::printStackTrace, () -> getViewState().showTotalTime(mTotalTime));
     addToUnsubscription(subscription);
   }
 
