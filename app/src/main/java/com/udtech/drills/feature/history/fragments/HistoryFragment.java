@@ -58,14 +58,6 @@ public class HistoryFragment extends BaseFragment implements IHistoryFragmentVie
     mPracticsGroupAdapter = new PracticsGroupAdapter();
 
     ItemClickSupport.addTo(mRecyclerViewHistory)
-        .setOnItemLongClickListener((recyclerView, position, v) -> {
-          if (mRecyclerViewHistory.getAdapter() instanceof HistoryDayAdapter) {
-            mHistoryDayAdapter.enableCheckBox(!mHistoryDayAdapter.isCBEnabled());
-          } else {
-            mPracticsGroupAdapter.enableCheckBox(!mPracticsGroupAdapter.isCBEnabled());
-          }
-          return true;
-        })
         .setOnItemClickListener((recyclerView, position, v) -> {
           if (mRecyclerViewHistory.getAdapter() instanceof HistoryDayAdapter
               && !mHistoryDayAdapter.isCBEnabled()) {
