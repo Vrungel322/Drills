@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -19,14 +21,14 @@ import com.udtech.drills.feature.holoshenie_with_timer.fragments.HoloshenieWithT
 import com.udtech.drills.utils.ItemClickSupport;
 import java.util.ArrayList;
 import java.util.List;
-import timber.log.Timber;
 
 public class HoloshenieFragment extends BaseFragment implements IHoloshenieFragmentView {
   @InjectPresenter HoloshenieFragmentPresenter mHoloshenieFragmentPresenter;
 
   @BindView(R.id.rvPractice) RecyclerView mRecyclerViewPractice;
   @BindView(R.id.tvDone) TextView mTextViewDone;
-  @BindView(R.id.ivAdd) TextView mTextViewAdd;
+  @BindView(R.id.tvCancel) TextView mTextViewCancel;
+  @BindView(R.id.ivAdd) ImageView mImageViewAdd;
 
   private PracticeAdapter mPracticeAdapter;
 
@@ -59,7 +61,8 @@ public class HoloshenieFragment extends BaseFragment implements IHoloshenieFragm
   }
 
   private void prepearToDellete() {
-    mTextViewAdd.setText(getString(R.string.cancel));
+    mTextViewCancel.setVisibility(View.VISIBLE);
+    mImageViewAdd.setVisibility(View.GONE);
     mTextViewDone.setText(getString(R.string.dell));
   }
 
@@ -68,13 +71,19 @@ public class HoloshenieFragment extends BaseFragment implements IHoloshenieFragm
   }
 
   @OnClick(R.id.tvDone) public void tvDoneClick() {
-    if (mTextViewDone.getText().toString().equals(getString(R.string.dell))){
+    if (mTextViewDone.getText().toString().equals(getString(R.string.dell))) {
       mHoloshenieFragmentPresenter.dellPractics(mPracticeAdapter.getListToRemove());
-
-    }else {
+      afterDellItems();
+    } else {
       mHoloshenieFragmentPresenter.makePost();
       openContentFragment();
     }
+  }
+
+  private void afterDellItems() {
+    mTextViewCancel.setVisibility(View.GONE);
+    mImageViewAdd.setVisibility(View.VISIBLE);
+    mTextViewDone.setText(getString(R.string.done));
   }
 
   @Override public void openHoloshenieFragment() {
@@ -92,16 +101,17 @@ public class HoloshenieFragment extends BaseFragment implements IHoloshenieFragm
 
   @Override public void removeFromView() {
     mPracticeAdapter.removeItemsByListOfPos(mPracticeAdapter.getListToRemove());
-
   }
 
   @OnClick(R.id.ivAdd) public void ivAddClick() {
-    if (mTextViewAdd.getText().toString().equals(getString(R.string.cancel))){
+    mNavigator.addFragmentBackStack((AppCompatActivity) getActivity(), R.id.contentContainer,
+        CreatePracticeFragment.newInstance());
+  }
+
+  @OnClick(R.id.tvCancel) public void tvCancelClick() {
+    afterDellItems();
+    if (mTextViewCancel.getText().toString().equals(getString(R.string.cancel))) {
       mPracticeAdapter.enableCheckBox(!mPracticeAdapter.isCBEnabled());
-    }
-    else {
-      mNavigator.addFragmentBackStack((AppCompatActivity) getActivity(), R.id.contentContainer,
-          CreatePracticeFragment.newInstance());
     }
   }
 }
