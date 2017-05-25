@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -14,6 +13,7 @@ import com.udtech.drills.feature.create_practice.presenters.CreatePracticeFragme
 import com.udtech.drills.feature.create_practice.views.ICreatePracticeFragmentView;
 import com.udtech.drills.utils.Converters;
 import com.udtech.drills.utils.Randomizer;
+import com.udtech.drills.utils.ViewUtil;
 
 /**
  * Created by vrungel on 03.05.17.
@@ -42,7 +42,7 @@ public class CreatePracticeFragment extends BaseFragment implements ICreatePract
   }
 
   @OnClick(R.id.tvCreate) public void tvCreateClicked() {
-    Toast.makeText(getContext(), "tvCreate", Toast.LENGTH_SHORT).show();
+    ViewUtil.hideKeyboard(getActivity());
     createPracticeFragmentPresenter.sendData(mEditTextPracticName.getText().toString(),
         mEditTextSetTime.getText().toString(), mEditTextDelay.getText().toString(),
         mEditTextBetweenSets.getText().toString(), mEditTextComments.getText().toString(),
@@ -51,6 +51,7 @@ public class CreatePracticeFragment extends BaseFragment implements ICreatePract
   }
 
   @OnClick(R.id.tvCancel) public void tvCancelClicked() {
+    ViewUtil.hideKeyboard(getActivity());
     mNavigator.removeFragment((AppCompatActivity) getActivity(), this);
   }
 
