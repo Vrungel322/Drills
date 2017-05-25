@@ -40,10 +40,10 @@ import rx.Subscription;
     App.getAppComponent().inject(this);
   }
 
-  public void startTimer(Integer dryPracticsFirstSignalDelay, Integer dryPracticsTimeBetweenSets,
-      Integer dryPracticsTime) {
+  public void startTimer(Double dryPracticsFirstSignalDelay, Double dryPracticsTimeBetweenSets,
+      Double dryPracticsTime) {
 
-    mCountDownTimerFirstSignalDelay = new CountDownTimer(dryPracticsFirstSignalDelay * 1000, 1) {
+    mCountDownTimerFirstSignalDelay = new CountDownTimer( (dryPracticsFirstSignalDelay.longValue() +1) * 1000, 1) {
       @Override public void onTick(long millisUntilFinished) {
         getViewState().updateCircle(millisUntilFinished, dryPracticsFirstSignalDelay * 1000);
         getViewState().updateTextView(Constants.DELAY_TIMER, millisUntilFinished);
@@ -57,7 +57,7 @@ import rx.Subscription;
       }
     }.start();
 
-    mCountDownTimerBetweenSets = new CountDownTimer(dryPracticsTimeBetweenSets * 1000, 1) {
+    mCountDownTimerBetweenSets = new CountDownTimer((dryPracticsTimeBetweenSets.longValue()+1) * 1000, 1) {
       @Override public void onTick(long millisUntilFinished) {
         getViewState().updateCircle(millisUntilFinished, dryPracticsTimeBetweenSets * 1000);
         getViewState().updateTextView(Constants.DELAY_TIMER, millisUntilFinished);
@@ -71,7 +71,7 @@ import rx.Subscription;
       }
     };
 
-    mCountDownTimerPractice = new CountDownTimer(dryPracticsTime * 1000, 1) {
+    mCountDownTimerPractice = new CountDownTimer((dryPracticsTime.longValue()+1) * 1000, 1) {
       @Override public void onTick(long millisUntilFinished) {
         getViewState().updateCircle(millisUntilFinished, dryPracticsTime * 1000);
         getViewState().updateTextView(Constants.SET_TIMER, millisUntilFinished);

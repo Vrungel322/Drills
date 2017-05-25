@@ -44,11 +44,11 @@ public class PracticHelper {
         + Constants.DbPractics.PRACTICS_TIME
         + " TEXT,"
         + Constants.DbPractics.PRACTICS_FIRST_SIGNAL_DELAY
-        + " INTEGER,"
+        + " TEXT,"
         + Constants.DbPractics.BOOL_Is_RAND_PRACTICS_FIRST_SIGNAL_DELAY
         + " INTEGER,"
         + Constants.DbPractics.PRACTICS_TIME_BETWEEN_SETS
-        + " INTEGER,"
+        + " TEXT,"
         + Constants.DbPractics.BOOL_Is_RAND_PRACTICS_TIME_BETWEEN_SETS
         + " INTEGER,"
         + Constants.DbPractics.PRACTICS_SETS
@@ -107,10 +107,10 @@ public class PracticHelper {
     String practicsName = Db.getString(cursor, Constants.DbPractics.PRACTICS_NAME);
     String practicsDate = Db.getString(cursor, Constants.DbPractics.PRACTICS_DATE);
     String practicsTime = Db.getString(cursor, Constants.DbPractics.PRACTICS_TIME);
-    int firstSetDelay = Db.getInt(cursor, Constants.DbPractics.PRACTICS_FIRST_SIGNAL_DELAY);
+    String firstSetDelay = Db.getString(cursor, Constants.DbPractics.PRACTICS_FIRST_SIGNAL_DELAY);
     int boolIsRandPracticsFirstSignalDelay =
         Db.getInt(cursor, Constants.DbPractics.BOOL_Is_RAND_PRACTICS_FIRST_SIGNAL_DELAY);
-    int practicsTimeBetweenSets = Db.getInt(cursor, Constants.DbPractics.PRACTICS_TIME_BETWEEN_SETS);
+    String practicsTimeBetweenSets = Db.getString(cursor, Constants.DbPractics.PRACTICS_TIME_BETWEEN_SETS);
     int boolIsRandPracticsTimeBetweenSets =
         Db.getInt(cursor, Constants.DbPractics.BOOL_Is_RAND_PRACTICS_TIME_BETWEEN_SETS);
     int practicsSets = Db.getInt(cursor, Constants.DbPractics.PRACTICS_SETS);

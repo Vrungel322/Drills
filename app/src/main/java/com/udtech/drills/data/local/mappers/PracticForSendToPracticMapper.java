@@ -12,8 +12,8 @@ public class PracticForSendToPracticMapper implements Mapper<PracticForSend, Pra
   @Override public Practic transform(PracticForSend obj) throws RuntimeException {
     return new Practic(0, obj.getDryPracticsID(), obj.getDryPracticsName(),
         obj.getDryPracticsDate(), Double.valueOf(String.valueOf(obj.getDryPracticsTime())),
-        obj.getDryPracticsFirstSignalDelay(), obj.getBoolIsRandPracticsFirstSignalDelay(),
-        obj.getDryPracticsTimeBetweenSets(), obj.getBoolIsRandPracticsTimeBetweenSets(),
+        String.valueOf( obj.getDryPracticsFirstSignalDelay()), obj.getBoolIsRandPracticsFirstSignalDelay(),
+        String.valueOf( obj.getDryPracticsTimeBetweenSets()), obj.getBoolIsRandPracticsTimeBetweenSets(),
         obj.getDryPracticsSets(), obj.getDryPracticsDescription(), 1);
   }
 }

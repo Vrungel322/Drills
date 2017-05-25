@@ -12,11 +12,11 @@ public class Practic implements Parcelable {
   @SerializedName("dryPracticsName") @Expose private String dryPracticsName;
   @SerializedName("dryPracticsDate") @Expose private Double dryPracticsDate;
   @SerializedName("dryPracticsTime") @Expose private Double dryPracticsTime;
-  @SerializedName("dryPracticsFirstSignalDelay") @Expose private Integer
+  @SerializedName("dryPracticsFirstSignalDelay") @Expose private String
       dryPracticsFirstSignalDelay;
   @SerializedName("boolIsRandPracticsFirstSignalDelay") @Expose private Integer
       boolIsRandPracticsFirstSignalDelay;
-  @SerializedName("dryPracticsTimeBetweenSets") @Expose private Integer dryPracticsTimeBetweenSets;
+  @SerializedName("dryPracticsTimeBetweenSets") @Expose private String dryPracticsTimeBetweenSets;
   @SerializedName("boolIsRandPracticsTimeBetweenSets") @Expose private Integer
       boolIsRandPracticsTimeBetweenSets;
   @SerializedName("dryPracticsSets") @Expose private Integer dryPracticsSets;
@@ -32,23 +32,22 @@ public class Practic implements Parcelable {
   }
 
   /**
-   *
-   * @param dryPracticsName
-   * @param id
-   * @param boolIsRandPracticsFirstSignalDelay
-   * @param userId
-   * @param dryPracticsDescription
+   *  @param id
    * @param dryPracticsID
-   * @param dryPracticsSets
-   * @param dryPracticsFirstSignalDelay
-   * @param boolIsRandPracticsTimeBetweenSets
-   * @param dryPracticsTimeBetweenSets
-   * @param dryPracticsTime
+   * @param dryPracticsName
    * @param dryPracticsDate
+   * @param dryPracticsTime
+   * @param dryPracticsFirstSignalDelay
+   * @param boolIsRandPracticsFirstSignalDelay
+   * @param dryPracticsTimeBetweenSets
+   * @param boolIsRandPracticsTimeBetweenSets
+   * @param dryPracticsSets
+   * @param dryPracticsDescription
+   * @param userId
    */
   public Practic(Integer id, String dryPracticsID, String dryPracticsName, Double dryPracticsDate,
-      Double dryPracticsTime, Integer dryPracticsFirstSignalDelay,
-      Integer boolIsRandPracticsFirstSignalDelay, Integer dryPracticsTimeBetweenSets,
+      Double dryPracticsTime, String dryPracticsFirstSignalDelay,
+      Integer boolIsRandPracticsFirstSignalDelay, String dryPracticsTimeBetweenSets,
       Integer boolIsRandPracticsTimeBetweenSets, Integer dryPracticsSets,
       String dryPracticsDescription, Integer userId) {
     super();
@@ -130,11 +129,11 @@ public class Practic implements Parcelable {
     this.dryPracticsTime = dryPracticsTime;
   }
 
-  public Integer getDryPracticsFirstSignalDelay() {
+  public String getDryPracticsFirstSignalDelay() {
     return dryPracticsFirstSignalDelay;
   }
 
-  public void setDryPracticsFirstSignalDelay(Integer dryPracticsFirstSignalDelay) {
+  public void setDryPracticsFirstSignalDelay(String  dryPracticsFirstSignalDelay) {
     this.dryPracticsFirstSignalDelay = dryPracticsFirstSignalDelay;
   }
 
@@ -146,11 +145,11 @@ public class Practic implements Parcelable {
     this.boolIsRandPracticsFirstSignalDelay = boolIsRandPracticsFirstSignalDelay;
   }
 
-  public Integer getDryPracticsTimeBetweenSets() {
+  public String getDryPracticsTimeBetweenSets() {
     return dryPracticsTimeBetweenSets;
   }
 
-  public void setDryPracticsTimeBetweenSets(Integer dryPracticsTimeBetweenSets) {
+  public void setDryPracticsTimeBetweenSets(String dryPracticsTimeBetweenSets) {
     this.dryPracticsTimeBetweenSets = dryPracticsTimeBetweenSets;
   }
 

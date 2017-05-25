@@ -69,11 +69,10 @@ public class ChangePracticFragment extends BaseFragment implements IChangePracti
   @OnClick(R.id.tvSave) public void tvSaveClicked() {
     mPractic.setDryPracticsName(mEditTextPracticName.getText().toString());
     mPractic.setDryPracticsTime(Double.valueOf(mEditTextSetTime.getText().toString()));
-    mPractic.setDryPracticsFirstSignalDelay(Integer.valueOf(mEditTextDelay.getText().toString()));
+    mPractic.setDryPracticsFirstSignalDelay(mEditTextDelay.getText().toString());
     mPractic.setBoolIsRandPracticsFirstSignalDelay(
         Converters.boolToInt(mCheckBoxRandDelay.isChecked()));
-    mPractic.setDryPracticsTimeBetweenSets(
-        Integer.valueOf(mEditTextBetweenSets.getText().toString()));
+    mPractic.setDryPracticsTimeBetweenSets(mEditTextBetweenSets.getText().toString());
     mPractic.setBoolIsRandPracticsTimeBetweenSets(
         Converters.boolToInt(mCheckBoxRandBetweenSets.isChecked()));
     mPractic.setDryPracticsDescription(mEditTextComments.getText().toString());

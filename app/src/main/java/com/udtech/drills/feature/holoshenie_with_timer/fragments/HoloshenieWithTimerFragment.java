@@ -73,11 +73,14 @@ public class HoloshenieWithTimerFragment extends BaseFragment
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     mTextViewPracticeToChangeName.setText(mPractic.getDryPracticsName());
-    mCircleView.setMax(mPractic.getDryPracticsFirstSignalDelay() * 1000);
+    mCircleView.setMax((int) Math.round(
+        Converters.stringToDouble(mPractic.getDryPracticsFirstSignalDelay()) * 1000));
     mTextViewPracticTime.setText(
         Converters.milisToSecWithDecimal(Math.round(mPractic.getDryPracticsTime() * 1000)));
-    mTextViewDelayTime.setText(
-        Converters.milisToSecWithDecimal((mPractic.getDryPracticsFirstSignalDelay() * 1000)));
+    //mTextViewDelayTime.setText(Converters.milisToSecWithDecimal(Long.valueOf(String.valueOf(
+    //    Converters.stringToDouble(mPractic.getDryPracticsFirstSignalDelay()) * 1000))));
+    //
+     mTextViewDelayTime.setText(mPractic.getDryPracticsFirstSignalDelay());
 
     mTextViewSetsCount.setText(String.valueOf(mSetsCount));
     mTextViewPracticeDescription.setMovementMethod(new ScrollingMovementMethod());
@@ -108,14 +111,15 @@ public class HoloshenieWithTimerFragment extends BaseFragment
         ChangePracticFragment.newInstance(mPractic));
   }
 
-  @Override public void updateCircle(long milisUntilFinish, Integer dryPracticsFirstSignalDelay) {
+  @Override public void updateCircle(long milisUntilFinish, Double dryPracticsFirstSignalDelay) {
     Timber.e(String.valueOf(milisUntilFinish));
-    mCircleView.setDonut_progress(String.valueOf(dryPracticsFirstSignalDelay - milisUntilFinish));
+    mCircleView.setDonut_progress(String.valueOf(dryPracticsFirstSignalDelay.longValue() - milisUntilFinish));
   }
 
   @Override public void nextTimerSettings(int setTimer) {
     if (setTimer == Constants.DELAY_TIMER) {
-      mCircleView.setMax(mPractic.getDryPracticsTimeBetweenSets() * 1000);
+      mCircleView.setMax(
+          (int) Math.round(Converters.stringToDouble(mPractic.getDryPracticsTimeBetweenSets()) * 1000));
       mCircleView.setFinishedStrokeColor(
           ContextCompat.getColor(getContext(), android.R.color.holo_red_light));
     } else {
@@ -144,7 +148,7 @@ public class HoloshenieWithTimerFragment extends BaseFragment
   }
 
   @Override public void openHoloshenieListFragment() {
-    mNavigator.removeFragment((AppCompatActivity) getActivity(),this);
+    mNavigator.removeFragment((AppCompatActivity) getActivity(), this);
   }
 
   @Override public void setTvRemainSets(Integer setsRemain) {
@@ -153,7 +157,8 @@ public class HoloshenieWithTimerFragment extends BaseFragment
 
   @OnClick(R.id.tvStartStop) public void tvStartStopClick() {
     mHoloshenieWithTimerFragmentPresenter.setsRemain(mSetsCount);
-    mCircleView.setMax(mPractic.getDryPracticsFirstSignalDelay() * 1000);
+    mCircleView.setMax(
+        (int) Math.round(Converters.stringToDouble(mPractic.getDryPracticsFirstSignalDelay()) * 1000));
     mCircleView.setFinishedStrokeColor(
         ContextCompat.getColor(getContext(), android.R.color.holo_red_light));
     isRunning = !isRunning;
@@ -165,9 +170,9 @@ public class HoloshenieWithTimerFragment extends BaseFragment
       YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mTextViewBack);
       YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mTextViewChange);
       if (isRunning) {
-        mHoloshenieWithTimerFragmentPresenter.startTimer(mPractic.getDryPracticsFirstSignalDelay(),
-            mPractic.getDryPracticsTimeBetweenSets(),
-            Integer.valueOf(String.valueOf(Math.round(mPractic.getDryPracticsTime()))));
+        mHoloshenieWithTimerFragmentPresenter.startTimer(Double.valueOf(mPractic.getDryPracticsFirstSignalDelay()),
+            Double.valueOf(mPractic.getDryPracticsTimeBetweenSets()),
+            Double.valueOf(String.valueOf(mPractic.getDryPracticsTime())));
       }
     } else {
       mHoloshenieWithTimerFragmentPresenter.setsRemain(0);

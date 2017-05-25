@@ -35,10 +35,10 @@ import javax.inject.Inject;
   public void sendData(String practiceName, String setTime, String delay, String betweenSets,
       String comments, int boolIsRandTimeBetweenSets, int boolisRandTimeBeforeFirstSignalDelay) {
     PracticForSend practic =
-        new PracticForSend(practiceName, boolIsRandTimeBetweenSets, Integer.valueOf(delay),
+        new PracticForSend(practiceName, boolIsRandTimeBetweenSets, delay,
             Double.valueOf(String.valueOf(System.currentTimeMillis())), comments, 1,
             Integer.valueOf(setTime), boolisRandTimeBeforeFirstSignalDelay,
-            Randomizer.randomString(32), Integer.valueOf(betweenSets));
+            Randomizer.randomString(32), betweenSets);
     mPracticForSends.add(practic);
     mRxBus.post(new RxBusHelper.SendDataToDb(mPracticForSends));
   }
