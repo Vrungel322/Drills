@@ -122,15 +122,16 @@ public class HoloshenieWithTimerFragment extends BaseFragment
       mCircleView.setMax(
           (int) Math.round(Converters.stringToDouble(mPractic.getDryPracticsTimeBetweenSets()) * 1000));
       mCircleView.setFinishedStrokeColor(
-          ContextCompat.getColor(getContext(), android.R.color.holo_red_light));
+          ContextCompat.getColor(getContext(), R.color.colorAccent));
     } else {
       mCircleView.setMax(
           Integer.valueOf(String.valueOf(Math.round(mPractic.getDryPracticsTime() * 1000))));
-      mCircleView.setFinishedStrokeColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+      mCircleView.setFinishedStrokeColor(ContextCompat.getColor(getContext(), android.R.color.holo_red_light));
     }
   }
 
   @Override public void restoreTv() {
+    isRunning = !isRunning;
     mTextViewStartStop.setText(getString(R.string.start));
     mTextViewSetsCount.setText(String.valueOf(mSetsCount));
     YoYo.with(Techniques.FadeInDown).duration(1000).playOn(mButtonMinusSet);
@@ -165,7 +166,7 @@ public class HoloshenieWithTimerFragment extends BaseFragment
     mCircleView.setMax(
         (int) Math.round(Converters.stringToDouble(mPractic.getDryPracticsFirstSignalDelay()) * 1000));
     mCircleView.setFinishedStrokeColor(
-        ContextCompat.getColor(getContext(), android.R.color.holo_red_light));
+        ContextCompat.getColor(getContext(), R.color.colorAccent));
     isRunning = !isRunning;
     if (isRunning) {
       mTextViewStartStop.setText(R.string.stop);
