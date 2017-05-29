@@ -57,10 +57,8 @@ public class LoginActivity extends BaseActivity implements ILoginActivityView {
 
     mUnregistrar = KeyboardVisibilityEvent.registerEventListener(this, isOpen -> {
       if (isOpen) {
-        Toast.makeText(this, "visib", Toast.LENGTH_SHORT).show();
         mLoginActivityPresenter.cancelTimer();
       } else {
-        Toast.makeText(this, "hide", Toast.LENGTH_SHORT).show();
         mLoginActivityPresenter.startCountingTimer(Constants.DELAY_TO_INVISIBILITY);
       }
     });
