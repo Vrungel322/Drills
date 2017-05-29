@@ -19,6 +19,7 @@ import com.udtech.drills.utils.ThreadSchedulers;
 import java.util.ArrayList;
 import javax.inject.Inject;
 import rx.Subscription;
+import timber.log.Timber;
 
 /**
  * Created by Vrungel on 12.05.2017.
@@ -34,6 +35,7 @@ import rx.Subscription;
   private int whatTimerRuns = Constants.DELAY_TIMER;
   private Integer mSetsRemain;
   private CountDownTimer mCountDownTimerPractice;
+  private CountDownTimer mCountDownTimerReadySound;
   private Integer mDoneSetsCount = 0;
 
   @Override protected void inject() {
@@ -43,35 +45,48 @@ import rx.Subscription;
   public void startTimer(Double dryPracticsFirstSignalDelay, Double dryPracticsTimeBetweenSets,
       Double dryPracticsTime) {
 
-    mCountDownTimerFirstSignalDelay = new CountDownTimer( (dryPracticsFirstSignalDelay.longValue() +1) * 1000, 1) {
+    mCountDownTimerReadySound = new CountDownTimer(2000, 1) {
       @Override public void onTick(long millisUntilFinished) {
-        getViewState().updateCircle(millisUntilFinished, dryPracticsFirstSignalDelay * 1000);
-        getViewState().updateTextView(Constants.DELAY_TIMER, millisUntilFinished);
+
       }
 
       @Override public void onFinish() {
-        getViewState().updateCircle(0, dryPracticsFirstSignalDelay);
-        getViewState().nextTimerSettings(Constants.SET_TIMER);
-        getViewState().updateTextView(Constants.DELAY_TIMER, 0);
-        mCountDownTimerPractice.start();
+        mCountDownTimerFirstSignalDelay.start();
+        getViewState().playBeepSound();
       }
     }.start();
 
-    mCountDownTimerBetweenSets = new CountDownTimer((dryPracticsTimeBetweenSets.longValue()+1) * 1000, 1) {
-      @Override public void onTick(long millisUntilFinished) {
-        getViewState().updateCircle(millisUntilFinished, dryPracticsTimeBetweenSets * 1000);
-        getViewState().updateTextView(Constants.DELAY_TIMER, millisUntilFinished);
-      }
+    mCountDownTimerFirstSignalDelay =
+        new CountDownTimer((dryPracticsFirstSignalDelay.longValue() + 1) * 1000, 1) {
+          @Override public void onTick(long millisUntilFinished) {
+            getViewState().updateCircle(millisUntilFinished, dryPracticsFirstSignalDelay * 1000);
+            getViewState().updateTextView(Constants.DELAY_TIMER, millisUntilFinished);
+          }
 
-      @Override public void onFinish() {
-        getViewState().updateCircle(0, dryPracticsTimeBetweenSets);
-        getViewState().nextTimerSettings(Constants.SET_TIMER);
-        getViewState().updateTextView(Constants.DELAY_TIMER, 0);
-        mCountDownTimerPractice.start();
-      }
-    };
+          @Override public void onFinish() {
+            getViewState().updateCircle(0, dryPracticsFirstSignalDelay);
+            getViewState().nextTimerSettings(Constants.SET_TIMER);
+            getViewState().updateTextView(Constants.DELAY_TIMER, 0);
+            mCountDownTimerPractice.start();
+          }
+        };
 
-    mCountDownTimerPractice = new CountDownTimer((dryPracticsTime.longValue()+1) * 1000, 1) {
+    mCountDownTimerBetweenSets =
+        new CountDownTimer((dryPracticsTimeBetweenSets.longValue() + 1) * 1000, 1) {
+          @Override public void onTick(long millisUntilFinished) {
+            getViewState().updateCircle(millisUntilFinished, dryPracticsTimeBetweenSets * 1000);
+            getViewState().updateTextView(Constants.DELAY_TIMER, millisUntilFinished);
+          }
+
+          @Override public void onFinish() {
+            getViewState().updateCircle(0, dryPracticsTimeBetweenSets);
+            getViewState().nextTimerSettings(Constants.SET_TIMER);
+            getViewState().updateTextView(Constants.DELAY_TIMER, 0);
+            mCountDownTimerPractice.start();
+          }
+        };
+
+    mCountDownTimerPractice = new CountDownTimer((dryPracticsTime.longValue() + 1) * 1000, 1) {
       @Override public void onTick(long millisUntilFinished) {
         getViewState().updateCircle(millisUntilFinished, dryPracticsTime * 1000);
         getViewState().updateTextView(Constants.SET_TIMER, millisUntilFinished);
@@ -125,8 +140,8 @@ import rx.Subscription;
     HistoryForSend historyForSend =
         new HistoryForSend(practic.getDryPracticsSets(), practic.getDryPracticsName(),
             Converters.doubleToInteger(practic.getDryPracticsTime()), Randomizer.randomString(30),
-            Constants.OBJECT_TYPE, Converters.stringToDouble(
-            String.valueOf(System.currentTimeMillis())));
+            Constants.OBJECT_TYPE,
+            Converters.stringToDouble(String.valueOf(System.currentTimeMillis())));
     historyForSend.setHistoryPracticsSets(mDoneSetsCount);
     mDataManager.addHistoryToDb(historyForSend);
   }

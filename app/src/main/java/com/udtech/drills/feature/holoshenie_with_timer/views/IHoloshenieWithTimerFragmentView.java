@@ -20,4 +20,8 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
   void openHoloshenieListFragment();
 
   void setTvRemainSets(Integer setsRemain);
+
+  void playReadySound();
+
+  void playBeepSound();
 }
