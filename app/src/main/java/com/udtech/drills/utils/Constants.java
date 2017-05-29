@@ -8,8 +8,8 @@ public final class Constants {
   public static final String NULL_AUTH_KEY = "000";
 
   public class Remote {
-    private static final String DOMEN = "the-gun.club";
-//    private static final String DOMEN = "the-gun-club.udtech.co";
+    //private static final String DOMEN = "the-gun.club";
+    private static final String DOMEN = "the-gun-club.udtech.co";
     public static final String BASE_URL = "http://" + DOMEN + "/";
   }
 

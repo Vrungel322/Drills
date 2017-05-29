@@ -37,7 +37,7 @@ import javax.inject.Inject;
     PracticForSend practic =
         new PracticForSend(practiceName, boolIsRandTimeBetweenSets, delay,
             Double.valueOf(String.valueOf(System.currentTimeMillis())), comments, 1,
-            Integer.valueOf(setTime), boolisRandTimeBeforeFirstSignalDelay,
+            setTime, boolisRandTimeBeforeFirstSignalDelay,
             Randomizer.randomString(32), betweenSets);
     mPracticForSends.add(practic);
     mRxBus.post(new RxBusHelper.SendDataToDb(mPracticForSends));

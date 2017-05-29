@@ -13,6 +13,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.udtech.drills.R;
 import com.udtech.drills.base.BaseFragment;
 import com.udtech.drills.data.remote.fetch_user_data.Practic;
+import com.udtech.drills.feature.content.fragments.ContentFragment;
 import com.udtech.drills.feature.create_practice.fragments.CreatePracticeFragment;
 import com.udtech.drills.feature.holoshenie.adapters.PracticeAdapter;
 import com.udtech.drills.feature.holoshenie.presenters.HoloshenieFragmentPresenter;
@@ -92,7 +93,14 @@ public class HoloshenieFragment extends BaseFragment implements IHoloshenieFragm
   }
 
   @Override public void openContentFragment() {
-    mNavigator.removeFragment((AppCompatActivity) getActivity(), this);
+    //mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,
+    //    ContentFragment.newInstance());
+    //
+     mNavigator.removeFragment((AppCompatActivity) getActivity(), this);
+    mNavigator.addFragment((AppCompatActivity) getActivity(), R.id.contentContainer,
+        ContentFragment.newInstance());
+
+
   }
 
   @Override public void removeAllRowsFromPracticsList() {

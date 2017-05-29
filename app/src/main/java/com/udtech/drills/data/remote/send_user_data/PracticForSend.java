@@ -13,7 +13,7 @@ public class PracticForSend {
   @SerializedName("dryPracticsDate") @Expose private Double dryPracticsDate;
   @SerializedName("dryPracticsDescription") @Expose private String dryPracticsDescription;
   @SerializedName("dryPracticsSets") @Expose private Integer dryPracticsSets;
-  @SerializedName("dryPracticsTime") @Expose private Integer dryPracticsTime;
+  @SerializedName("dryPracticsTime") @Expose private String  dryPracticsTime;
   @SerializedName("boolIsRandPracticsFirstSignalDelay") @Expose private Integer
       boolIsRandPracticsFirstSignalDelay;
   @SerializedName("dryPracticsID") @Expose private String dryPracticsID;
@@ -24,7 +24,7 @@ public class PracticForSend {
 
   public PracticForSend(String dryPracticsName, Integer boolIsRandPracticsTimeBetweenSets,
       String dryPracticsFirstSignalDelay, Double dryPracticsDate, String dryPracticsDescription,
-      Integer dryPracticsSets, Integer dryPracticsTime, Integer boolIsRandPracticsFirstSignalDelay,
+      Integer dryPracticsSets, String  dryPracticsTime, Integer boolIsRandPracticsFirstSignalDelay,
       String dryPracticsID, String dryPracticsTimeBetweenSets) {
     super();
     this.dryPracticsName = dryPracticsName;
@@ -87,11 +87,11 @@ public class PracticForSend {
     this.dryPracticsSets = dryPracticsSets;
   }
 
-  public Integer getDryPracticsTime() {
+  public String getDryPracticsTime() {
     return dryPracticsTime;
   }
 
-  public void setDryPracticsTime(Integer dryPracticsTime) {
+  public void setDryPracticsTime(String dryPracticsTime) {
     this.dryPracticsTime = dryPracticsTime;
   }
 

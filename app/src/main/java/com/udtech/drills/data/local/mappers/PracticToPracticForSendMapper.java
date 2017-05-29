@@ -8,16 +8,11 @@ import com.udtech.drills.data.remote.send_user_data.PracticForSend;
  */
 
 public class PracticToPracticForSendMapper implements Mapper<Practic, PracticForSend> {
-  @Override public  PracticForSend transform(Practic obj) throws RuntimeException {
-    return new PracticForSend(obj.getDryPracticsName(),
-        obj.getBoolIsRandPracticsTimeBetweenSets(),
-        obj.getDryPracticsFirstSignalDelay(),
-        obj.getDryPracticsDate(),
-        obj.getDryPracticsDescription(),
-        obj.getDryPracticsSets(),
-        Integer.valueOf(String.valueOf(Math.round(obj.getDryPracticsTime()))),
-        obj.getBoolIsRandPracticsFirstSignalDelay(),
-        obj.getDryPracticsID(),
-        obj.getDryPracticsTimeBetweenSets());
+  @Override public PracticForSend transform(Practic obj) throws RuntimeException {
+    return new PracticForSend(obj.getDryPracticsName(), obj.getBoolIsRandPracticsTimeBetweenSets(),
+        obj.getDryPracticsFirstSignalDelay(), obj.getDryPracticsDate(),
+        obj.getDryPracticsDescription(), obj.getDryPracticsSets(),
+        String.valueOf(obj.getDryPracticsTime()), obj.getBoolIsRandPracticsFirstSignalDelay(),
+        obj.getDryPracticsID(), obj.getDryPracticsTimeBetweenSets());
   }
 }
