@@ -7,6 +7,7 @@ import com.udtech.drills.data.DataManager;
 import com.udtech.drills.data.local.mappers.show_history.GroupingDaysIntoWeeks;
 import com.udtech.drills.data.remote.login.User;
 import com.udtech.drills.feature.content.views.IContentFragmentView;
+import com.udtech.drills.utils.Converters;
 import com.udtech.drills.utils.RxBus;
 import com.udtech.drills.utils.RxBusHelper;
 import com.udtech.drills.utils.ThreadSchedulers;
@@ -24,7 +25,7 @@ import timber.log.Timber;
   @Inject DataManager mDataManager;
   @Inject User mUser;
   @Inject RxBus mRxBus;
-  private String mTotalTime;
+  private Integer mTotalTime;
 
   @Override protected void inject() {
     App.getAppComponent().inject(this);
@@ -100,10 +101,19 @@ import timber.log.Timber;
   }
 
   private void updateTotalTime() {
-    Subscription subscription =
-        mDataManager.getTotalSetsTime().compose(ThreadSchedulers.applySchedulers()).subscribe(s -> {
-          mTotalTime = s;
-        }, Throwable::printStackTrace, () -> getViewState().showTotalTime(mTotalTime));
+    mTotalTime = 0;
+    Subscription subscription = mDataManager.getHistoryFromDb()
+        .compose(ThreadSchedulers.applySchedulers())
+        .concatMap(historyForSendList -> {
+          //4 weeks time total
+          List<Integer> listTotalTimeOfTheWeek =
+              new GroupingDaysIntoWeeks().getListTotalTimeOfTheWeek(historyForSendList);
+          return Observable.from(listTotalTimeOfTheWeek);
+        })
+        .concatMap(integer -> Observable.just(mTotalTime += integer))
+        .subscribe(mTotalTime -> {
+          getViewState().showTotalTime(Converters.timeFromSeconds(String.valueOf(mTotalTime)));
+        });
     addToUnsubscription(subscription);
   }
 
