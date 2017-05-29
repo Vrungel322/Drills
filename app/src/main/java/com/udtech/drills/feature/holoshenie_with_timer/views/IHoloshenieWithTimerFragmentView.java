@@ -9,7 +9,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
  */
 @StateStrategyType(AddToEndSingleStrategy.class) public interface IHoloshenieWithTimerFragmentView
     extends MvpView {
-  void updateCircle(long milisUntilFinish, Double dryPracticsFirstSignalDelay);
+  void updateCircle(long milisUntilFinish, long dryPracticsFirstSignalDelay);
 
   void nextTimerSettings(int setTimer);
 

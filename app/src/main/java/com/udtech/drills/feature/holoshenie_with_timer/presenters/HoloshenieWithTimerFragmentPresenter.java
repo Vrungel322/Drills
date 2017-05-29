@@ -42,8 +42,8 @@ import timber.log.Timber;
     App.getAppComponent().inject(this);
   }
 
-  public void startTimer(Double dryPracticsFirstSignalDelay, Double dryPracticsTimeBetweenSets,
-      Double dryPracticsTime) {
+  public void startTimer(long dryPracticsFirstSignalDelay, long dryPracticsTimeBetweenSets,
+      long dryPracticsTime) {
 
     mCountDownTimerReadySound = new CountDownTimer(2000, 1) {
       @Override public void onTick(long millisUntilFinished) {
@@ -57,7 +57,7 @@ import timber.log.Timber;
     }.start();
 
     mCountDownTimerFirstSignalDelay =
-        new CountDownTimer((dryPracticsFirstSignalDelay.longValue() + 1) * 1000, 1) {
+        new CountDownTimer(dryPracticsFirstSignalDelay, 1) {
           @Override public void onTick(long millisUntilFinished) {
             getViewState().updateCircle(millisUntilFinished, dryPracticsFirstSignalDelay * 1000);
             getViewState().updateTextView(Constants.DELAY_TIMER, millisUntilFinished);
@@ -72,7 +72,7 @@ import timber.log.Timber;
         };
 
     mCountDownTimerBetweenSets =
-        new CountDownTimer((dryPracticsTimeBetweenSets.longValue() + 1) * 1000, 1) {
+        new CountDownTimer(dryPracticsTimeBetweenSets, 1) {
           @Override public void onTick(long millisUntilFinished) {
             getViewState().updateCircle(millisUntilFinished, dryPracticsTimeBetweenSets * 1000);
             getViewState().updateTextView(Constants.DELAY_TIMER, millisUntilFinished);
@@ -86,7 +86,7 @@ import timber.log.Timber;
           }
         };
 
-    mCountDownTimerPractice = new CountDownTimer((dryPracticsTime.longValue() + 1) * 1000, 1) {
+    mCountDownTimerPractice = new CountDownTimer(dryPracticsTime, 1) {
       @Override public void onTick(long millisUntilFinished) {
         getViewState().updateCircle(millisUntilFinished, dryPracticsTime * 1000);
         getViewState().updateTextView(Constants.SET_TIMER, millisUntilFinished);

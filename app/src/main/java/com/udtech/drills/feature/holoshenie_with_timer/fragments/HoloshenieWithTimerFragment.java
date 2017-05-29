@@ -112,10 +112,9 @@ public class HoloshenieWithTimerFragment extends BaseFragment
         ChangePracticFragment.newInstance(mPractic));
   }
 
-  @Override public void updateCircle(long milisUntilFinish, Double dryPracticsFirstSignalDelay) {
+  @Override public void updateCircle(long milisUntilFinish, long dryPracticsFirstSignalDelay) {
     Timber.e(String.valueOf(milisUntilFinish));
-    mCircleView.setDonut_progress(
-        String.valueOf(dryPracticsFirstSignalDelay.longValue() - milisUntilFinish));
+    mCircleView.setDonut_progress(String.valueOf(dryPracticsFirstSignalDelay - milisUntilFinish));
   }
 
   @Override public void nextTimerSettings(int setTimer) {
@@ -135,6 +134,7 @@ public class HoloshenieWithTimerFragment extends BaseFragment
     isRunning = !isRunning;
     mTextViewStartStop.setText(getString(R.string.start));
     mTextViewSetsCount.setText(String.valueOf(mSetsCount));
+    mCircleView.setDonut_progress("0");
     YoYo.with(Techniques.FadeInDown).duration(1000).playOn(mButtonMinusSet);
     YoYo.with(Techniques.FadeInDown).duration(1000).playOn(mButtonPlusSet);
     YoYo.with(Techniques.FadeInDown).duration(1000).playOn(mView);
@@ -169,7 +169,7 @@ public class HoloshenieWithTimerFragment extends BaseFragment
   }
 
   @OnClick(R.id.tvStartStop) public void tvStartStopClick() {
-    if (mTextViewStartStop.getText().toString().equalsIgnoreCase(getString(R.string.start))){
+    if (mTextViewStartStop.getText().toString().equalsIgnoreCase(getString(R.string.start))) {
       playReadySound();
     }
     mHoloshenieWithTimerFragmentPresenter.setsRemain(mSetsCount);
@@ -185,10 +185,14 @@ public class HoloshenieWithTimerFragment extends BaseFragment
       YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mTextViewBack);
       YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mTextViewChange);
       if (isRunning) {
-        mHoloshenieWithTimerFragmentPresenter.startTimer(
-            Double.valueOf(mPractic.getDryPracticsFirstSignalDelay()),
-            Double.valueOf(mPractic.getDryPracticsTimeBetweenSets()),
-            Double.valueOf(String.valueOf(mPractic.getDryPracticsTime())));
+        mHoloshenieWithTimerFragmentPresenter.startTimer(Long.parseLong(String.valueOf(
+            Math.round(Double.parseDouble(mPractic.getDryPracticsFirstSignalDelay()) * 1000))),
+            Long.parseLong(String.valueOf(
+                Math.round(Double.parseDouble(mPractic.getDryPracticsTimeBetweenSets()) * 1000))),
+            Long.parseLong(String.valueOf(Math.round(
+                mPractic.getDryPracticsTime().longValue() * 1000
+                    + (mPractic.getDryPracticsTime() - mPractic.getDryPracticsTime().longValue())
+                    * 1000))));
       }
     } else {
       mHoloshenieWithTimerFragmentPresenter.setsRemain(0);
