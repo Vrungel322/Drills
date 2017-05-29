@@ -29,8 +29,8 @@ public class CreatePracticeFragment extends BaseFragment implements ICreatePract
   @BindView(R.id.etBetweenSets) EditText mEditTextBetweenSets;
   @BindView(R.id.cbRandBetweenSets) CheckBox mCheckBoxRandBetweenSets;
   @BindView(R.id.etComments) EditText mEditTextComments;
-  private String delay = "23";
-  private String delaySets = "22";
+  private String delay = "3";
+  private String delaySets = "3";
 
   public static CreatePracticeFragment newInstance() {
     Bundle args = new Bundle();
@@ -58,28 +58,12 @@ public class CreatePracticeFragment extends BaseFragment implements ICreatePract
   }
 
   @OnClick(R.id.cbRandDelay) public void cbRandDelayCkicked() {
-    if (mCheckBoxRandDelay.isChecked()) {
 
-      if (mEditTextDelay.getText().toString().contains("3..")) {
-        delay = String.valueOf(Randomizer.getRandomNumberInRange(3, Integer.parseInt("22")));
-      } else {
-        delay = String.valueOf(Randomizer.getRandomNumberInRange(3,
-            Integer.parseInt(mEditTextDelay.getText().toString())));
-      }
-      mEditTextDelay.setText("3.." + delay);
-    }
+    mEditTextDelay.setText(String.valueOf(Randomizer.getRandomNumberInRange(3, 70)));
   }
 
   @OnClick(R.id.cbRandBetweenSets) public void cbRandBetweenSetsCkicked() {
-    if (mCheckBoxRandBetweenSets.isChecked()) {
 
-      if (mEditTextBetweenSets.getText().toString().contains("3..")) {
-        delaySets = String.valueOf(Randomizer.getRandomNumberInRange(3, Integer.parseInt("23")));
-      } else {
-        delaySets = String.valueOf(Randomizer.getRandomNumberInRange(3,
-            Integer.parseInt(mEditTextBetweenSets.getText().toString())));
-      }
-      mEditTextBetweenSets.setText("3.." + delaySets);
-    }
+    mEditTextBetweenSets.setText(String.valueOf(Randomizer.getRandomNumberInRange(3, 70)));
   }
 }
