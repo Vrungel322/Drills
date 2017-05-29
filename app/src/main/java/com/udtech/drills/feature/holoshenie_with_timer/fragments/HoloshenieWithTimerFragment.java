@@ -159,7 +159,7 @@ public class HoloshenieWithTimerFragment extends BaseFragment
 
   @OnClick(R.id.tvStartStop) public void tvStartStopClick() {
 
-    final MediaPlayer mp = MediaPlayer.create(getContext(), R.raw.sound_notification);
+    final MediaPlayer mp = MediaPlayer.create(getContext(), R.raw.beep);
     mp.start();
 
     mHoloshenieWithTimerFragmentPresenter.setsRemain(mSetsCount);
