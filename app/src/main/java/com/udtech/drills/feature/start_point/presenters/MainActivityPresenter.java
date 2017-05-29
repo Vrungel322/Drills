@@ -30,8 +30,8 @@ import timber.log.Timber;
     super.onFirstViewAttach();
 
     // TODO: 28.04.2017 do not forget to  checkIfUserLoggedIn(); next line and comment  getViewState().showLoginScreen();
-    //checkIfUserLoggedIn();
-    getViewState().showLoginScreen();
+    checkIfUserLoggedIn();
+    //getViewState().showLoginScreen();
   }
 
   private void checkIfUserLoggedIn() {
