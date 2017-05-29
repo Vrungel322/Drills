@@ -143,6 +143,8 @@ import timber.log.Timber;
             Constants.OBJECT_TYPE,
             Converters.stringToDouble(String.valueOf(System.currentTimeMillis())));
     historyForSend.setHistoryPracticsSets(mDoneSetsCount);
-    mDataManager.addHistoryToDb(historyForSend);
+    if (historyForSend.getHistoryPracticsSets() != 0){
+      mDataManager.addHistoryToDb(historyForSend);
+    }
   }
 }
