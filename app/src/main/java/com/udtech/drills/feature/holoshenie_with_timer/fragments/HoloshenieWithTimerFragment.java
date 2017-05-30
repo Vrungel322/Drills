@@ -78,9 +78,6 @@ public class HoloshenieWithTimerFragment extends BaseFragment
         Converters.stringToDouble(mPractic.getDryPracticsFirstSignalDelay()) * 1000));
     mTextViewPracticTime.setText(
         Converters.milisToSecWithDecimal(Math.round(mPractic.getDryPracticsTime() * 1000)));
-    //mTextViewDelayTime.setText(Converters.milisToSecWithDecimal(Long.valueOf(String.valueOf(
-    //    Converters.stringToDouble(mPractic.getDryPracticsFirstSignalDelay()) * 1000))));
-    //
     mTextViewDelayTime.setText(mPractic.getDryPracticsFirstSignalDelay());
 
     mTextViewSetsCount.setText(String.valueOf(mSetsCount));
@@ -135,6 +132,10 @@ public class HoloshenieWithTimerFragment extends BaseFragment
     mTextViewStartStop.setText(getString(R.string.start));
     mTextViewSetsCount.setText(String.valueOf(mSetsCount));
     mCircleView.setDonut_progress("0");
+    mTextViewPracticTime.setText(
+        Converters.milisToSecWithDecimal(Math.round(mPractic.getDryPracticsTime() * 1000)));
+
+    mTextViewDelayTime.setText(mPractic.getDryPracticsFirstSignalDelay());
     YoYo.with(Techniques.FadeInDown).duration(1000).playOn(mButtonMinusSet);
     YoYo.with(Techniques.FadeInDown).duration(1000).playOn(mButtonPlusSet);
     YoYo.with(Techniques.FadeInDown).duration(1000).playOn(mView);
@@ -171,36 +172,42 @@ public class HoloshenieWithTimerFragment extends BaseFragment
   @OnClick(R.id.tvStartStop) public void tvStartStopClick() {
     if (mTextViewStartStop.getText().toString().equalsIgnoreCase(getString(R.string.start))) {
       playReadySound();
-    }
-    mHoloshenieWithTimerFragmentPresenter.setsRemain(mSetsCount);
-    mCircleView.setMax((int) Math.round(
-        Converters.stringToDouble(mPractic.getDryPracticsFirstSignalDelay()) * 1000));
-    mCircleView.setFinishedStrokeColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
-    isRunning = !isRunning;
-    if (isRunning) {
-      mTextViewStartStop.setText(R.string.stop);
-      YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mButtonMinusSet);
-      YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mButtonPlusSet);
-      YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mView);
-      YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mTextViewBack);
-      YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mTextViewChange);
+
+      mHoloshenieWithTimerFragmentPresenter.setsRemain(mSetsCount);
+      mCircleView.setMax((int) Math.round(
+          Converters.stringToDouble(mPractic.getDryPracticsFirstSignalDelay()) * 1000));
+      mCircleView.setFinishedStrokeColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+      isRunning = !isRunning;
       if (isRunning) {
-        mHoloshenieWithTimerFragmentPresenter.startTimer(Long.parseLong(String.valueOf(
-            Math.round(Double.parseDouble(mPractic.getDryPracticsFirstSignalDelay()) * 1000))),
-            Long.parseLong(String.valueOf(
-                Math.round(Double.parseDouble(mPractic.getDryPracticsTimeBetweenSets()) * 1000))),
-            Long.parseLong(String.valueOf(Math.round(
-                mPractic.getDryPracticsTime().longValue() * 1000
-                    + (mPractic.getDryPracticsTime() - mPractic.getDryPracticsTime().longValue())
-                    * 1000))));
+        mTextViewStartStop.setText(R.string.stop);
+        YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mButtonMinusSet);
+        YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mButtonPlusSet);
+        YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mView);
+        YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mTextViewBack);
+        YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mTextViewChange);
+        if (isRunning) {
+          mHoloshenieWithTimerFragmentPresenter.startTimer(Long.parseLong(String.valueOf(
+              Math.round(Double.parseDouble(mPractic.getDryPracticsFirstSignalDelay()) * 1000))),
+              Long.parseLong(String.valueOf(
+                  Math.round(Double.parseDouble(mPractic.getDryPracticsTimeBetweenSets()) * 1000))),
+              Long.parseLong(String.valueOf(Math.round(
+                  mPractic.getDryPracticsTime().longValue() * 1000
+                      + (mPractic.getDryPracticsTime() - mPractic.getDryPracticsTime().longValue())
+                      * 1000))));
+        }
+      } else {
+        mHoloshenieWithTimerFragmentPresenter.setsRemain(0);
+        mHoloshenieWithTimerFragmentPresenter.stopAllTimers();
+        mCircleView.setDonut_progress("0");
+        mTextViewPracticTime.setText(
+            Converters.milisToSecWithDecimal(Math.round(mPractic.getDryPracticsTime() * 1000)));
+        mTextViewStartStop.setText(R.string.start);
       }
-    } else {
-      mHoloshenieWithTimerFragmentPresenter.setsRemain(0);
+    }
+
+    else {
+      restoreTv();
       mHoloshenieWithTimerFragmentPresenter.stopAllTimers();
-      mCircleView.setDonut_progress("0");
-      mTextViewPracticTime.setText(
-          Converters.milisToSecWithDecimal(Math.round(mPractic.getDryPracticsTime() * 1000)));
-      mTextViewStartStop.setText(R.string.start);
     }
   }
 }

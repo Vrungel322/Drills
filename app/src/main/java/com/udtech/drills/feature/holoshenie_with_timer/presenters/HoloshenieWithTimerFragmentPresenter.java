@@ -19,7 +19,6 @@ import com.udtech.drills.utils.ThreadSchedulers;
 import java.util.ArrayList;
 import javax.inject.Inject;
 import rx.Subscription;
-import timber.log.Timber;
 
 /**
  * Created by Vrungel on 12.05.2017.
@@ -121,6 +120,9 @@ import timber.log.Timber;
     }
     if (mCountDownTimerPractice != null) {
       mCountDownTimerPractice.cancel();
+    }
+    if (mCountDownTimerReadySound != null){
+      mCountDownTimerReadySound.cancel();
     }
   }
 
