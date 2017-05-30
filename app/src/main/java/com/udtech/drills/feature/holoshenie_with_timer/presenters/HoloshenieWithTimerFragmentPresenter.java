@@ -44,7 +44,7 @@ import rx.Subscription;
   public void startTimer(long dryPracticsFirstSignalDelay, long dryPracticsTimeBetweenSets,
       long dryPracticsTime) {
 
-    mCountDownTimerReadySound = new CountDownTimer(2000, 1) {
+    mCountDownTimerReadySound = new CountDownTimer(1500, 1) {
       @Override public void onTick(long millisUntilFinished) {
 
       }
