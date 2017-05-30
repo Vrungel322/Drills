@@ -50,25 +50,30 @@ import rx.Subscription;
       }
 
       @Override public void onFinish() {
-        mCountDownTimerFirstSignalDelay.start();
-        getViewState().playBeepSound();
+        //mCountDownTimerFirstSignalDelay.start();
+        //getViewState().playBeepSound();
       }
-    }.start();
+    };
 
     mCountDownTimerFirstSignalDelay =
         new CountDownTimer(dryPracticsFirstSignalDelay, 1) {
           @Override public void onTick(long millisUntilFinished) {
             getViewState().updateCircle(millisUntilFinished, dryPracticsFirstSignalDelay * 1000);
             getViewState().updateTextView(Constants.DELAY_TIMER, millisUntilFinished);
+
+            if (millisUntilFinished>1490 && millisUntilFinished<1530){
+              getViewState().playReadySound();
+            }
           }
 
           @Override public void onFinish() {
             getViewState().updateCircle(0, dryPracticsFirstSignalDelay);
             getViewState().nextTimerSettings(Constants.SET_TIMER);
             getViewState().updateTextView(Constants.DELAY_TIMER, 0);
+            getViewState().playBeepSound();
             mCountDownTimerPractice.start();
           }
-        };
+        }.start();
 
     mCountDownTimerBetweenSets =
         new CountDownTimer(dryPracticsTimeBetweenSets, 1) {

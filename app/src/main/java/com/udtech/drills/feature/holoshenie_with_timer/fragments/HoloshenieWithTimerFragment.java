@@ -171,7 +171,7 @@ public class HoloshenieWithTimerFragment extends BaseFragment
 
   @OnClick(R.id.tvStartStop) public void tvStartStopClick() {
     if (mTextViewStartStop.getText().toString().equalsIgnoreCase(getString(R.string.start))) {
-      playReadySound();
+      //playReadySound();
 
       mHoloshenieWithTimerFragmentPresenter.setsRemain(mSetsCount);
       mCircleView.setMax((int) Math.round(
