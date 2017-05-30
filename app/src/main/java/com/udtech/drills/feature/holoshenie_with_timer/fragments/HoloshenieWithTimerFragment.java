@@ -105,7 +105,7 @@ public class HoloshenieWithTimerFragment extends BaseFragment
   }
 
   @OnClick(R.id.tvChange) public void tvChangeClick() {
-    mNavigator.replaceFragmentBackStack((AppCompatActivity) getActivity(), R.id.contentContainer,
+    mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,
         ChangePracticFragment.newInstance(mPractic));
   }
 
