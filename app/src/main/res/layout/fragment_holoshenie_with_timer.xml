@@ -87,6 +87,7 @@
       android:layout_marginTop="16dp"
       app:donut_finished_stroke_width="3dp"
       app:donut_show_text="false"
+      android:rotation="270"
       app:donut_unfinished_stroke_width="3dp"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
