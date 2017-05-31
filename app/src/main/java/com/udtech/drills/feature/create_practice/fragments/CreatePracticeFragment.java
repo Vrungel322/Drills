@@ -29,8 +29,6 @@ public class CreatePracticeFragment extends BaseFragment implements ICreatePract
   @BindView(R.id.etBetweenSets) EditText mEditTextBetweenSets;
   @BindView(R.id.cbRandBetweenSets) CheckBox mCheckBoxRandBetweenSets;
   @BindView(R.id.etComments) EditText mEditTextComments;
-  private String delay = "3";
-  private String delaySets = "3";
 
   public static CreatePracticeFragment newInstance() {
     Bundle args = new Bundle();
@@ -46,8 +44,8 @@ public class CreatePracticeFragment extends BaseFragment implements ICreatePract
   @OnClick(R.id.tvCreate) public void tvCreateClicked() {
     ViewUtil.hideKeyboard(getActivity());
     createPracticeFragmentPresenter.sendData(mEditTextPracticName.getText().toString(),
-        mEditTextSetTime.getText().toString(), delay, delaySets,
-        mEditTextComments.getText().toString(),
+        mEditTextSetTime.getText().toString(), mEditTextDelay.getText().toString(),
+        mEditTextBetweenSets.getText().toString(), mEditTextComments.getText().toString(),
         Converters.boolToInt(mCheckBoxRandBetweenSets.isChecked()),
         Converters.boolToInt(mCheckBoxRandDelay.isChecked()));
   }
@@ -58,12 +56,24 @@ public class CreatePracticeFragment extends BaseFragment implements ICreatePract
   }
 
   @OnClick(R.id.cbRandDelay) public void cbRandDelayCkicked() {
-
-    mEditTextDelay.setText(String.valueOf(Randomizer.getRandomNumberInRange(3, 70)));
+    if (mCheckBoxRandDelay.isChecked()) {
+      if (mEditTextDelay.getText().toString().isEmpty()) {
+        showToastMessage("Invalid input");
+      } else {
+        mEditTextDelay.setText(String.valueOf(Randomizer.getRandomNumberInRange(3,
+            Integer.parseInt(mEditTextDelay.getText().toString()))));
+      }
+    }
   }
 
   @OnClick(R.id.cbRandBetweenSets) public void cbRandBetweenSetsCkicked() {
-
-    mEditTextBetweenSets.setText(String.valueOf(Randomizer.getRandomNumberInRange(3, 70)));
+    if (mCheckBoxRandBetweenSets.isChecked()) {
+      if (mEditTextBetweenSets.getText().toString().isEmpty()) {
+        showToastMessage("Invalid input");
+      } else {
+        mEditTextBetweenSets.setText(String.valueOf(Randomizer.getRandomNumberInRange(3,
+            Integer.parseInt(mEditTextBetweenSets.getText().toString()))));
+      }
+    }
   }
 }

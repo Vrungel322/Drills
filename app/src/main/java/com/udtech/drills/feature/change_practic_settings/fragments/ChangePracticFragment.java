@@ -88,11 +88,25 @@ public class ChangePracticFragment extends BaseFragment implements IChangePracti
   }
 
   @OnClick(R.id.cbRandDelay) public void cbRandDelayCkicked() {
-    mEditTextDelay.setText(String.valueOf(Randomizer.getRandomNumberInRange(3, 70)));
+    if (mCheckBoxRandDelay.isChecked()) {
+      if (mEditTextDelay.getText().toString().isEmpty()) {
+        showToastMessage("Invalid input");
+      } else {
+        mEditTextDelay.setText(String.valueOf(Randomizer.getRandomNumberInRange(3,
+            Integer.parseInt(mEditTextDelay.getText().toString()))));
+      }
+    }
   }
 
   @OnClick(R.id.cbRandBetweenSets) public void cbRandBetweenSetsCkicked() {
-    mEditTextBetweenSets.setText(String.valueOf(Randomizer.getRandomNumberInRange(3, 70)));
+    if (mCheckBoxRandBetweenSets.isChecked()) {
+      if (mEditTextBetweenSets.getText().toString().isEmpty()) {
+        showToastMessage("Invalid input");
+      } else {
+        mEditTextBetweenSets.setText(String.valueOf(Randomizer.getRandomNumberInRange(3,
+            Integer.parseInt(mEditTextBetweenSets.getText().toString()))));
+      }
+    }
   }
 
   @Override public void openHoloshenieWithtimerAfterChange() {
