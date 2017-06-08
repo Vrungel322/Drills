@@ -23,6 +23,7 @@ import com.udtech.drills.feature.holoshenie_with_timer.presenters.HoloshenieWith
 import com.udtech.drills.feature.holoshenie_with_timer.views.IHoloshenieWithTimerFragmentView;
 import com.udtech.drills.utils.Constants;
 import com.udtech.drills.utils.Converters;
+import com.udtech.drills.utils.Randomizer;
 import timber.log.Timber;
 
 /**
@@ -110,7 +111,7 @@ public class HoloshenieWithTimerFragment extends BaseFragment
   }
 
   @Override public void updateCircle(long milisUntilFinish, long dryPracticsFirstSignalDelay) {
-    Timber.e(String.valueOf(milisUntilFinish));
+    //Timber.e(String.valueOf(milisUntilFinish));
     mCircleView.setDonut_progress(String.valueOf(dryPracticsFirstSignalDelay - milisUntilFinish));
   }
 
@@ -186,6 +187,16 @@ public class HoloshenieWithTimerFragment extends BaseFragment
         YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mTextViewBack);
         YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mTextViewChange);
         if (isRunning) {
+          if (mPractic.getBoolIsRandPracticsFirstSignalDelay()==1){
+            mPractic.setDryPracticsFirstSignalDelay(
+                String.valueOf(Randomizer.getRandomNumberInRange(3,20)));
+          }
+          if (mPractic.getBoolIsRandPracticsTimeBetweenSets()==1){
+            mPractic.setDryPracticsTimeBetweenSets(
+                String.valueOf(Randomizer.getRandomNumberInRange(3,20)));
+          }
+          Timber.e("" + mPractic.getDryPracticsFirstSignalDelay());
+          Timber.e("" + mPractic.getDryPracticsTimeBetweenSets());
           mHoloshenieWithTimerFragmentPresenter.startTimer(Long.parseLong(String.valueOf(
               Math.round(Double.parseDouble(mPractic.getDryPracticsFirstSignalDelay()) * 1000))),
               Long.parseLong(String.valueOf(

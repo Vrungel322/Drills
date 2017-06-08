@@ -19,7 +19,7 @@ public class Randomizer {
     return sb.toString();
   }
 
-  public static int getRandomNumberInRange(int min, int max) {
+  public static Integer getRandomNumberInRange(int min, int max) {
 
     if (min == max) return max;
 
