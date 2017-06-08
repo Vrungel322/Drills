@@ -80,12 +80,17 @@ import rx.Subscription;
           @Override public void onTick(long millisUntilFinished) {
             getViewState().updateCircle(millisUntilFinished, dryPracticsTimeBetweenSets * 1000);
             getViewState().updateTextView(Constants.DELAY_TIMER, millisUntilFinished);
+
+            if (millisUntilFinished>1490 && millisUntilFinished<1530){
+              getViewState().playReadySound();
+            }
           }
 
           @Override public void onFinish() {
             getViewState().updateCircle(0, dryPracticsTimeBetweenSets);
             getViewState().nextTimerSettings(Constants.SET_TIMER);
             getViewState().updateTextView(Constants.DELAY_TIMER, 0);
+            getViewState().playBeepSound();
             mCountDownTimerPractice.start();
           }
         };
@@ -100,6 +105,7 @@ import rx.Subscription;
         getViewState().updateCircle(0, dryPracticsTime);
         getViewState().nextTimerSettings(Constants.DELAY_TIMER);
         getViewState().updateTextView(Constants.SET_TIMER, 0);
+        getViewState().playBeepSound();
         mSetsRemain--;
         if (mSetsRemain > 0) {
           mCountDownTimerBetweenSets.start();
