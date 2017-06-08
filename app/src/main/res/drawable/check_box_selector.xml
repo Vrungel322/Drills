@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:drawable="@drawable/alerter_ic_face"
-      android:state_checked="false"/>
-  <item android:drawable="@drawable/alerter_ic_notifications"
-      android:state_checked="true"/>
-  <item android:drawable="@drawable/alerter_ic_face"/>
+  <item android:drawable="@drawable/ic_random_button" android:state_checked="false" />
+  <item android:drawable="@drawable/ic_random_button_selected" android:state_checked="true" />
+  <item android:drawable="@drawable/ic_random_button" />
 </selector>
