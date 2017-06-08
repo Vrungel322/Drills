@@ -16,6 +16,7 @@
       android:layout_marginLeft="16dp"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintBaseline_toBaselineOf="@+id/tvHistoryDate"
+      android:button="@drawable/check_box_item_selection"
       />
   <TextView
       android:id="@+id/tvHistoryDate"
