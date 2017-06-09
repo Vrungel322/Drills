@@ -47,4 +47,5 @@
   <string name="total_time">Все время</string>
   <string name="not_correct_log_pas">Пароль или логин введены неверно</string>
   <string name="fail_format_of_inputted_field">Телефон или email введены в неверном формате</string>
+  <string name="wrong_delay_data">Задержка должна быть больше или равно 3 секунд</string>
 </resources>

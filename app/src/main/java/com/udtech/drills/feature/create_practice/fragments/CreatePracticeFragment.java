@@ -42,12 +42,18 @@ public class CreatePracticeFragment extends BaseFragment implements ICreatePract
   }
 
   @OnClick(R.id.tvCreate) public void tvCreateClicked() {
-    ViewUtil.hideKeyboard(getActivity());
-    createPracticeFragmentPresenter.sendData(mEditTextPracticName.getText().toString(),
-        mEditTextSetTime.getText().toString(), mEditTextDelay.getText().toString(),
-        mEditTextBetweenSets.getText().toString(), mEditTextComments.getText().toString(),
-        Converters.boolToInt(mCheckBoxRandBetweenSets.isChecked()),
-        Converters.boolToInt(mCheckBoxRandDelay.isChecked()));
+    if (Integer.parseInt(mEditTextDelay.getText().toString()) > 2
+        || Integer.parseInt(mEditTextBetweenSets.getText().toString()) > 2) {
+      ViewUtil.hideKeyboard(getActivity());
+
+      createPracticeFragmentPresenter.sendData(mEditTextPracticName.getText().toString(),
+          mEditTextSetTime.getText().toString(), mEditTextDelay.getText().toString(),
+          mEditTextBetweenSets.getText().toString(), mEditTextComments.getText().toString(),
+          Converters.boolToInt(mCheckBoxRandBetweenSets.isChecked()),
+          Converters.boolToInt(mCheckBoxRandDelay.isChecked()));
+    } else {
+      showAlertMessage(getString(R.string.dialog_error_title), getString(R.string.wrong_delay_data));
+    }
   }
 
   @OnClick(R.id.tvCancel) public void tvCancelClicked() {

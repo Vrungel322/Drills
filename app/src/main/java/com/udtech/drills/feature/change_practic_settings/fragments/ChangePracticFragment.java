@@ -67,19 +67,26 @@ public class ChangePracticFragment extends BaseFragment implements IChangePracti
   }
 
   @OnClick(R.id.tvSave) public void tvSaveClicked() {
-    mPractic.setDryPracticsName(mEditTextPracticName.getText().toString());
-    mPractic.setDryPracticsTime(Double.valueOf(mEditTextSetTime.getText().toString()));
-    mPractic.setDryPracticsFirstSignalDelay(mEditTextDelay.getText().toString());
-    mPractic.setBoolIsRandPracticsFirstSignalDelay(
-        Converters.boolToInt(mCheckBoxRandDelay.isChecked()));
-    mPractic.setDryPracticsTimeBetweenSets(mEditTextBetweenSets.getText().toString());
-    mPractic.setBoolIsRandPracticsTimeBetweenSets(
-        Converters.boolToInt(mCheckBoxRandBetweenSets.isChecked()));
-    mPractic.setDryPracticsDescription(mEditTextComments.getText().toString());
-    mChangePracticFragmentPresenter.updateCurrentPractice(mPractic);
+    if (Integer.parseInt(mEditTextDelay.getText().toString()) > 2
+        || Integer.parseInt(mEditTextBetweenSets.getText().toString()) > 2) {
+      
+      mPractic.setDryPracticsName(mEditTextPracticName.getText().toString());
+      mPractic.setDryPracticsTime(Double.valueOf(mEditTextSetTime.getText().toString()));
+      mPractic.setDryPracticsFirstSignalDelay(mEditTextDelay.getText().toString());
+      mPractic.setBoolIsRandPracticsFirstSignalDelay(
+          Converters.boolToInt(mCheckBoxRandDelay.isChecked()));
+      mPractic.setDryPracticsTimeBetweenSets(mEditTextBetweenSets.getText().toString());
+      mPractic.setBoolIsRandPracticsTimeBetweenSets(
+          Converters.boolToInt(mCheckBoxRandBetweenSets.isChecked()));
+      mPractic.setDryPracticsDescription(mEditTextComments.getText().toString());
+      mChangePracticFragmentPresenter.updateCurrentPractice(mPractic);
 
-    mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,
-        HoloshenieWithTimerFragment.newInstance(mPractic));
+      mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,
+          HoloshenieWithTimerFragment.newInstance(mPractic));
+    } else {
+      showAlertMessage(getString(R.string.dialog_error_title),
+          getString(R.string.wrong_delay_data));
+    }
   }
 
   @OnClick(R.id.tvCancel) public void tvCancelClicked() {
