@@ -25,7 +25,7 @@ import timber.log.Timber;
   @Inject DataManager mDataManager;
   @Inject User mUser;
   @Inject RxBus mRxBus;
-  private Integer mTotalTime;
+  private Double mTotalTime;
 
   @Override protected void inject() {
     App.getAppComponent().inject(this);
@@ -76,7 +76,7 @@ import timber.log.Timber;
         mDataManager.getHistoryFromDb().compose(ThreadSchedulers.applySchedulers()).
             concatMap(historyForSendList -> {
               //4 weeks time total
-              List<Integer> listTotalTimeOfTheWeek =
+              List<Double> listTotalTimeOfTheWeek =
                   new GroupingDaysIntoWeeks().getListTotalTimeOfTheWeek(historyForSendList);
               return Observable.just(listTotalTimeOfTheWeek);
             }).subscribe(integerList -> {
@@ -101,12 +101,12 @@ import timber.log.Timber;
   }
 
   private void updateTotalTime() {
-    mTotalTime = 0;
+    mTotalTime = Double.valueOf("0");
     Subscription subscription = mDataManager.getHistoryFromDb()
         .compose(ThreadSchedulers.applySchedulers())
         .concatMap(historyForSendList -> {
           //4 weeks time total
-          List<Integer> listTotalTimeOfTheWeek =
+          List<Double> listTotalTimeOfTheWeek =
               new GroupingDaysIntoWeeks().getListTotalTimeOfTheWeek(historyForSendList);
           return Observable.from(listTotalTimeOfTheWeek);
         })

@@ -28,6 +28,7 @@ import com.udtech.drills.feature.login.activities.LoginActivity;
 import com.udtech.drills.utils.DialogFactory;
 import com.yqritc.scalablevideoview.ScalableVideoView;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContentFragment extends BaseFragment implements IContentFragmentView {
@@ -72,7 +73,6 @@ public class ContentFragment extends BaseFragment implements IContentFragmentVie
     mTotalTimeAdapter = new TotalTimeAdapter();
     mRecyclerViewTotalWeekTime.setLayoutManager(new LinearLayoutManager(getContext()));
     mRecyclerViewTotalWeekTime.setAdapter(mTotalTimeAdapter);
-
   }
 
   @Override public void onStart() {
@@ -131,8 +131,11 @@ public class ContentFragment extends BaseFragment implements IContentFragmentVie
     mCalendarAdapter.addListCalendarItemEntity(integerList);
   }
 
-  @Override public void setTotalTimesPerWeek(List<Integer> integerList) {
-    mTotalTimeAdapter.addListTotalTimes(integerList);
+  @Override public void setTotalTimesPerWeek(List<Double> doubleList) {
+    List<Integer> integers = new ArrayList<>();
+    for (Double dd : doubleList) {
+      integers.add(dd.intValue());
+    }
+    mTotalTimeAdapter.addListTotalTimes(integers);
   }
-
 }

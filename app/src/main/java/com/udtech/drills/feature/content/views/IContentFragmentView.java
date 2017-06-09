@@ -23,5 +23,5 @@ import java.util.List;
 
   void fillCalendar(List<Integer> integerList);
 
-  void setTotalTimesPerWeek(List<Integer> integerList);
+  void setTotalTimesPerWeek(List<Double> integerList);
 }

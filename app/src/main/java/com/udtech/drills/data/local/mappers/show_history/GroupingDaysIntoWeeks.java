@@ -47,7 +47,7 @@ public class GroupingDaysIntoWeeks {
     return fillListStatusOfDay(listHistoryDayPerFourWeeks, listAllDatePerFourWeeks);
   }
 
-  public List<Integer> getListTotalTimeOfTheWeek(List<HistoryForSend> historyForSendList) {
+  public List<Double> getListTotalTimeOfTheWeek(List<HistoryForSend> historyForSendList) {
 
     List<HistoryDay> historyDayList =
         new HistoryForSendToHistoryDayMapper().transform(historyForSendList);
@@ -160,16 +160,16 @@ public class GroupingDaysIntoWeeks {
     return listStatusOfDay;
   }
 
-  private List<Integer> fillListTotalTimeOfTheWeek(List<HistoryDay> listHistoryDayPerFourWeeks,
+  private List<Double> fillListTotalTimeOfTheWeek(List<HistoryDay> listHistoryDayPerFourWeeks,
       List<List<Date>> listFourWeeks) {
-    List<Integer> listTotalTimeOfTheWeek = new ArrayList<>();
+    List<Double> listTotalTimeOfTheWeek = new ArrayList<>();
 
     for (List<Date> listDateInOneWeek : listFourWeeks) {
-      int totalTimePerOneWeek = 0;
+      double totalTimePerOneWeek = 0;
       for (Date date : listDateInOneWeek) {
         for (HistoryDay historyDay : listHistoryDayPerFourWeeks) {
           if (date.equals(resettingTime(new Date(historyDay.getPracticeDate() * 1000)))) {
-            totalTimePerOneWeek += historyDay.getIntTimeDay();
+            totalTimePerOneWeek += historyDay.getDoubleTimeDay();
           }
         }
       }

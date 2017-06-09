@@ -2,7 +2,6 @@ package com.udtech.drills.data.local.mappers.show_history;
 
 import java.util.ArrayList;
 import java.util.List;
-import timber.log.Timber;
 
 /**
  * Created by vrungel on 18.05.17.
@@ -11,7 +10,7 @@ import timber.log.Timber;
 public class HistoryDay {
   private List<GroupedPractices> alByDay;
   private String sDate;
-  private int intTimeDay;
+  private double doubleTimeDay;
   private String sTimeDay;
   private Long dPracticesDate;
   private boolean isChecked;
@@ -44,13 +43,13 @@ public class HistoryDay {
     this.sTimeDay = sTimeDay;
   }
 
-  public int getIntTimeDay() {
-    return intTimeDay;
+  public double getDoubleTimeDay() {
+    return doubleTimeDay;
   }
 
-  public void setIntTimeDay(int intTimeDay) {
-    this.intTimeDay = intTimeDay;
-    setStringTimeDay(String.valueOf(intTimeDay));
+  public void setDoubleTimeDay(double doubleTimeDay) {
+    this.doubleTimeDay = doubleTimeDay;
+    setStringTimeDay(String.valueOf(doubleTimeDay));
   }
 
   public Long getPracticeDate() {

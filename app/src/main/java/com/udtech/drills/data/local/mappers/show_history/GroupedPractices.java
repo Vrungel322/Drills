@@ -5,8 +5,6 @@ import com.udtech.drills.data.remote.send_user_data.HistoryForSend;
 import java.util.ArrayList;
 import java.util.List;
 
-import timber.log.Timber;
-
 /**
  * Created by vrungel on 18.05.17.
  */
@@ -14,7 +12,7 @@ import timber.log.Timber;
 public class GroupedPractices {
     private List<HistoryForSend> alByPractice;
     private String practiceName;
-    private int intTimePractice;
+    private double doubleTimePractice;
     private String sTimePractice;
     private Long dPracticesDateFirst;
     private Long dPracticesDateLast;
@@ -49,13 +47,13 @@ public class GroupedPractices {
         this.sTimePractice = sTimePractice;
     }
 
-    public int getIntTimePractice() {
-        return intTimePractice;
+    public double getDoubleTimePractice() {
+        return doubleTimePractice;
     }
 
-    public void setIntTimePractice(int intTimePractice) {
-        this.intTimePractice = intTimePractice;
-        setStringTimePractice(String.valueOf(intTimePractice));
+    public void setDoubleTimePractice(double doubleTimePractice) {
+        this.doubleTimePractice = doubleTimePractice;
+        setStringTimePractice(String.valueOf(doubleTimePractice));
     }
 
     public Long getPracticesDateFirst() {

@@ -81,7 +81,7 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
     private void fillPracticeEssence() {
         for (int i = 0; i < alDay.size(); i++) {
             for (int j = 0; j < alDay.get(i).sizeALByDay(); j++) {
-                int totalTimePractice = 0;
+                double totalTimePractice = 0;
                 int setCount = 0;
                 for (int k = 0; k < alDay.get(i).getALByDay(j).getListHistoryForSend().size(); k++) {
                     totalTimePractice +=
@@ -101,7 +101,7 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
                 alDay.get(i).getALByDay(j).setPracticeName(alDay.get(i).getALByDay(j)
                         .getALByPractice(0)
                         .getHistoryPracticsName());
-                alDay.get(i).getALByDay(j).setIntTimePractice(totalTimePractice);
+                alDay.get(i).getALByDay(j).setDoubleTimePractice(totalTimePractice);
                 alDay.get(i).getALByDay(j).setSetsCount(setCount);
             }
         }
@@ -109,13 +109,13 @@ public class HistoryForSendToHistoryDayMapper implements Mapper<List<HistoryForS
 
     private void fillDayPractice() {
         for (int i = 0; i < alDay.size(); i++) {
-            int totalTimeDay = 0;
+            double totalTimeDay = 0;
             for (int j = 0; j < alDay.get(i).sizeALByDay(); j++) {
-                totalTimeDay += alDay.get(i).getALByDay(j).getIntTimePractice();
+                totalTimeDay += alDay.get(i).getALByDay(j).getDoubleTimePractice();
             }
             alDay.get(i).setPracticeDate(alDay.get(i).getALByDay(0)
                     .getPracticesDateLast());
-            alDay.get(i).setIntTimeDay(totalTimeDay);
+            alDay.get(i).setDoubleTimeDay(totalTimeDay);
         }
     }
 
