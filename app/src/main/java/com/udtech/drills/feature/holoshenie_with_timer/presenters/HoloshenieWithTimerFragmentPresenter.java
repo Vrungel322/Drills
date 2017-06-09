@@ -152,7 +152,7 @@ import rx.Subscription;
   public void addToDbHistoryByPractic(Practic practic) {
     HistoryForSend historyForSend =
         new HistoryForSend(practic.getDryPracticsSets(), practic.getDryPracticsName(),
-            Converters.doubleToInteger(practic.getDryPracticsTime()), Randomizer.randomString(30),
+            String.valueOf(practic.getDryPracticsTime()), Randomizer.randomString(30),
             Constants.OBJECT_TYPE,
             Converters.stringToDouble(String.valueOf(System.currentTimeMillis())));
     historyForSend.setHistoryPracticsSets(mDoneSetsCount);

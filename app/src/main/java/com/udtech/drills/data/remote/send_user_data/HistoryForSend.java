@@ -7,7 +7,7 @@ public class HistoryForSend {
 
   @SerializedName("historyPracticsSets") @Expose private Integer historyPracticsSets;
   @SerializedName("historyPracticsName") @Expose private String historyPracticsName;
-  @SerializedName("historyPracticsTime") @Expose private Integer historyPracticsTime;
+  @SerializedName("historyPracticsTime") @Expose private String historyPracticsTime;
   @SerializedName("historyPracticsID") @Expose private String historyPracticsID;
   @SerializedName("objectType") @Expose private String objectType;
   @SerializedName("historyPracticsDate") @Expose private Double historyPracticsDate;
@@ -28,7 +28,7 @@ public class HistoryForSend {
    * @param historyPracticsName
    */
   public HistoryForSend(Integer historyPracticsSets, String historyPracticsName,
-      Integer historyPracticsTime, String historyPracticsID, String objectType,
+      String historyPracticsTime, String historyPracticsID, String objectType,
       Double historyPracticsDate) {
     super();
     this.historyPracticsSets = historyPracticsSets;
@@ -55,11 +55,11 @@ public class HistoryForSend {
     this.historyPracticsName = historyPracticsName;
   }
 
-  public Integer getHistoryPracticsTime() {
+  public String  getHistoryPracticsTime() {
     return historyPracticsTime;
   }
 
-  public void setHistoryPracticsTime(Integer historyPracticsTime) {
+  public void setHistoryPracticsTime(String historyPracticsTime) {
     this.historyPracticsTime = historyPracticsTime;
   }
 

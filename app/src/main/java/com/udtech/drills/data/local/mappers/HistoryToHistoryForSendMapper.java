@@ -10,7 +10,7 @@ import com.udtech.drills.data.remote.send_user_data.HistoryForSend;
 public class HistoryToHistoryForSendMapper implements Mapper<History, HistoryForSend> {
   @Override public HistoryForSend transform(History obj) throws RuntimeException {
     return new HistoryForSend(obj.getHistoryPracticsSets(), obj.getHistoryPracticsName(),
-        obj.getHistoryPracticsTime(), obj.getHistoryPracticsID(), obj.getObjectType(),
+        String.valueOf(obj.getHistoryPracticsTime()), obj.getHistoryPracticsID(), obj.getObjectType(),
         obj.getHistoryPracticsDate());
   }
 }

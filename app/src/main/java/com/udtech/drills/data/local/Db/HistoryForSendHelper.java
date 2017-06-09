@@ -39,7 +39,7 @@ public class HistoryForSendHelper {
         + Constants.DbHistory.HISTORY_PRACTIC_SETS
         + " INTEGER,"
         + Constants.DbHistory.HISTORY_PRACTIC_TIME
-        + " INTEGER,"
+        + " TEXT,"
         + Constants.DbHistory.HISTORY_PRACTIC_TYPE
         + " TEXT,"
         + Constants.DbHistory.HISTORY_PRACTIC_DATE
@@ -94,7 +94,7 @@ public class HistoryForSendHelper {
     String historyId = Db.getString(cursor, Constants.DbHistory.HISTORY_PRACTIC_ID);
     String historyName = Db.getString(cursor, Constants.DbHistory.HISTORY_PRACTIC_NAME);
     Integer historySets = Db.getInt(cursor, Constants.DbHistory.HISTORY_PRACTIC_SETS);
-    Integer historyTime = Db.getInt(cursor, Constants.DbHistory.HISTORY_PRACTIC_TIME);
+    String historyTime = Db.getString(cursor, Constants.DbHistory.HISTORY_PRACTIC_TIME);
     String historyType = Db.getString(cursor, Constants.DbHistory.HISTORY_PRACTIC_TYPE);
     Double practicsDate = Db.getDouble(cursor, Constants.DbHistory.HISTORY_PRACTIC_DATE);
 

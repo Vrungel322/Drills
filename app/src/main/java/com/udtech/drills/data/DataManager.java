@@ -32,7 +32,7 @@ public class DataManager {
   private PreferencesHelper mPref;
   private PracticHelper mPracticHelper;
   private HistoryForSendHelper mHistoryForSendHelper;
-  private int mTotalTime;
+  private Double mTotalTime;
 
   public DataManager(RestApi restApi, PreferencesHelper preferencesHelper,
       PracticHelper practicHelper, HistoryForSendHelper historyForSendHelper) {
@@ -118,12 +118,12 @@ public class DataManager {
   }
 
   public Observable<String> getTotalSetsTime() {
-    mTotalTime = 0;
+    mTotalTime = new Double("0");
     return mHistoryForSendHelper.getAllHistory()
         .concatMap(Observable::from)
         .concatMap(historyForSend -> {
           mTotalTime = mTotalTime
-              + historyForSend.getHistoryPracticsTime() * historyForSend.getHistoryPracticsSets();
+              + Double.parseDouble(historyForSend.getHistoryPracticsTime()) * historyForSend.getHistoryPracticsSets();
           //Timber.e(String.valueOf(mTotalTime));
           return Observable.just(Converters.timeFromSeconds(String.valueOf(mTotalTime)));
         });
