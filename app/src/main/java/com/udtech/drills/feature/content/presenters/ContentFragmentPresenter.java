@@ -5,6 +5,8 @@ import com.udtech.drills.App;
 import com.udtech.drills.base.BasePresenter;
 import com.udtech.drills.data.DataManager;
 import com.udtech.drills.data.local.mappers.show_history.GroupingDaysIntoWeeks;
+import com.udtech.drills.data.local.mappers.show_history.HistoryDay;
+import com.udtech.drills.data.local.mappers.show_history.HistoryForSendToHistoryDayMapper;
 import com.udtech.drills.data.remote.login.User;
 import com.udtech.drills.feature.content.views.IContentFragmentView;
 import com.udtech.drills.utils.Converters;
@@ -106,11 +108,11 @@ import timber.log.Timber;
         .compose(ThreadSchedulers.applySchedulers())
         .concatMap(historyForSendList -> {
           //4 weeks time total
-          List<Double> listTotalTimeOfTheWeek =
-              new GroupingDaysIntoWeeks().getListTotalTimeOfTheWeek(historyForSendList);
+          List<HistoryDay> listTotalTimeOfTheWeek =
+              new HistoryForSendToHistoryDayMapper().transform(historyForSendList);
           return Observable.from(listTotalTimeOfTheWeek);
         })
-        .concatMap(integer -> Observable.just(mTotalTime += integer))
+        .concatMap(historyDay -> Observable.just(mTotalTime += historyDay.getDoubleTimeDay()))
         .subscribe(mTotalTime -> {
           getViewState().showTotalTime(Converters.timeFromSeconds(String.valueOf(mTotalTime.longValue())));
         });
