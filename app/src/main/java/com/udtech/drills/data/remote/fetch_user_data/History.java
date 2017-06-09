@@ -11,7 +11,7 @@ public class History {
   @SerializedName("objectType") @Expose private String objectType;
   @SerializedName("historyPracticsName") @Expose private String historyPracticsName;
   @SerializedName("historyPracticsDate") @Expose private Double historyPracticsDate;
-  @SerializedName("historyPracticsTime") @Expose private Integer historyPracticsTime;
+  @SerializedName("historyPracticsTime") @Expose private Double historyPracticsTime;
   @SerializedName("historyPracticsSets") @Expose private Integer historyPracticsSets;
 
   /**
@@ -32,7 +32,7 @@ public class History {
    * @param historyPracticsName
    */
   public History(Integer id, Integer userId, String historyPracticsID, String objectType,
-      String historyPracticsName, Double historyPracticsDate, Integer historyPracticsTime,
+      String historyPracticsName, Double historyPracticsDate, Double historyPracticsTime,
       Integer historyPracticsSets) {
     super();
     this.id = id;
@@ -93,11 +93,11 @@ public class History {
     this.historyPracticsDate = historyPracticsDate;
   }
 
-  public Integer getHistoryPracticsTime() {
+  public Double getHistoryPracticsTime() {
     return historyPracticsTime;
   }
 
-  public void setHistoryPracticsTime(Integer historyPracticsTime) {
+  public void setHistoryPracticsTime(Double historyPracticsTime) {
     this.historyPracticsTime = historyPracticsTime;
   }
 
