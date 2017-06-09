@@ -62,7 +62,7 @@ public class HistoryForSendHelper {
 
   public Observable<List<HistoryForSend>> getAllHistory() {
     String selectAll = "SELECT * FROM " + TABLE_NAME;
-    //getTableAsString(helper.getWritableDatabase(), TABLE_NAME);
+    getTableAsString(helper.getWritableDatabase(), TABLE_NAME);
     return select(selectAll);
   }
 
