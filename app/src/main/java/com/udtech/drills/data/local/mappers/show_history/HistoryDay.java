@@ -10,6 +10,7 @@ import java.util.List;
 public class HistoryDay {
   private List<GroupedPractices> alByDay;
   private String sDate;
+  // TODO: 09.06.2017 sum this time, vmesto time per 4 weeks
   private double doubleTimeDay;
   private String sTimeDay;
   private Long dPracticesDate;

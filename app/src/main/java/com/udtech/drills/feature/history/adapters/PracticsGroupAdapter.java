@@ -13,6 +13,7 @@ import com.udtech.drills.data.local.mappers.show_history.GroupedPractices;
 import com.udtech.drills.utils.Converters;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.DoubleAccumulator;
 import timber.log.Timber;
 
 /**
@@ -62,8 +63,8 @@ public class PracticsGroupAdapter
     holder.mTextViewGroupName.setText(mGroupedPractices.get(position).getPracticeName());
     holder.mTextViewSetsCountInGroup.setText(
         String.valueOf(mGroupedPractices.get(position).getSetsCount()));
-    holder.mTextViewGroupTime.setText(
-        Converters.timeFromSeconds(mGroupedPractices.get(position).getStringTimePractice()));
+    Double dd = Double.parseDouble(mGroupedPractices.get(position).getStringTimePractice());
+    holder.mTextViewGroupTime.setText(Converters.timeFromSeconds(String.valueOf(dd.longValue())));
   }
 
   @Override public int getItemCount() {
@@ -76,7 +77,7 @@ public class PracticsGroupAdapter
 
   public List<GroupedPractices> getListToRemove() {
     for (int i = 0; i < mGroupedPractices.size(); i++) {
-      if (mGroupedPractices.get(i).isChecked()){
+      if (mGroupedPractices.get(i).isChecked()) {
         mListToRemove.add(mGroupedPractices.get(i));
       }
     }

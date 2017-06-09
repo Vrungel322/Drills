@@ -112,7 +112,7 @@ import timber.log.Timber;
         })
         .concatMap(integer -> Observable.just(mTotalTime += integer))
         .subscribe(mTotalTime -> {
-          getViewState().showTotalTime(Converters.timeFromSeconds(String.valueOf(mTotalTime)));
+          getViewState().showTotalTime(Converters.timeFromSeconds(String.valueOf(mTotalTime.longValue())));
         });
     addToUnsubscription(subscription);
   }

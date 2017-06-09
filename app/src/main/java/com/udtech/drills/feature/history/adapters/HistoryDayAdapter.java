@@ -62,8 +62,9 @@ public class HistoryDayAdapter extends RecyclerView.Adapter<HistoryDayAdapter.Hi
         Converters.fullDateWithTimeFromSeconds(mHistories.get(position).getStringDate()));
 
     //tv Total time
+    Double dd = Double.parseDouble(mHistories.get(position).getStringTimeDay());
     holder.mTextViewTotalTime.setText(
-        Converters.timeFromSeconds(mHistories.get(position).getStringTimeDay()));
+        Converters.timeFromSeconds(String.valueOf(dd.longValue())));
   }
 
   public boolean isCBEnabled() {
