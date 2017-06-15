@@ -16,7 +16,6 @@ import com.udtech.drills.feature.change_practic_settings.presenters.ChangePracti
 import com.udtech.drills.feature.change_practic_settings.views.IChangePracticFragmentView;
 import com.udtech.drills.feature.holoshenie_with_timer.fragments.HoloshenieWithTimerFragment;
 import com.udtech.drills.utils.Converters;
-import com.udtech.drills.utils.Randomizer;
 
 /**
  * Created by Vrungel on 13.05.2017.
@@ -35,6 +34,8 @@ public class ChangePracticFragment extends BaseFragment implements IChangePracti
   @BindView(R.id.etComments) EditText mEditTextComments;
 
   private Practic mPractic;
+  private String tempFirstSignalDelay;
+  private String tempSignalBetweenSetsDelay;
 
   public static ChangePracticFragment newInstance(Practic practic) {
     Bundle args = new Bundle();
@@ -57,28 +58,40 @@ public class ChangePracticFragment extends BaseFragment implements IChangePracti
     super.onViewCreated(view, savedInstanceState);
     mEditTextPracticName.setText(mPractic.getDryPracticsName());
     mEditTextSetTime.setText(String.valueOf(mPractic.getDryPracticsTime()));
-    mEditTextDelay.setText(String.valueOf(mPractic.getDryPracticsFirstSignalDelay()));
+    if (mPractic.getBoolIsRandPracticsFirstSignalDelay() == 1) {
+      mEditTextDelay.setText(String.valueOf(mPractic.getDryPracticsFirstSignalDelay()));
+    } else {
+
+      mEditTextDelay.setText(String.valueOf(mPractic.getDryPracticsFirstSignalDelay()));
+    }
     mCheckBoxRandDelay.setChecked(
         Converters.intToBool(mPractic.getBoolIsRandPracticsFirstSignalDelay()));
-    mEditTextBetweenSets.setText(String.valueOf(mPractic.getDryPracticsTimeBetweenSets()));
+    if (mPractic.getBoolIsRandPracticsTimeBetweenSets() == 1) {
+      mEditTextBetweenSets.setText(String.valueOf(mPractic.getDryPracticsTimeBetweenSets()));
+    } else {
+
+      mEditTextBetweenSets.setText(String.valueOf(mPractic.getDryPracticsTimeBetweenSets()));
+    }
     mCheckBoxRandBetweenSets.setChecked(
         Converters.intToBool(mPractic.getBoolIsRandPracticsTimeBetweenSets()));
     mEditTextComments.setText(mPractic.getDryPracticsDescription());
   }
 
   @OnClick(R.id.tvSave) public void tvSaveClicked() {
-    if (Integer.parseInt(mEditTextDelay.getText().toString()) > 2
-        || Integer.parseInt(mEditTextBetweenSets.getText().toString()) > 2) {
-      
-      mPractic.setDryPracticsName(mEditTextPracticName.getText().toString());
-      mPractic.setDryPracticsTime(Double.valueOf(mEditTextSetTime.getText().toString()));
-      mPractic.setDryPracticsFirstSignalDelay(mEditTextDelay.getText().toString());
-      mPractic.setBoolIsRandPracticsFirstSignalDelay(
-          Converters.boolToInt(mCheckBoxRandDelay.isChecked()));
-      mPractic.setDryPracticsTimeBetweenSets(mEditTextBetweenSets.getText().toString());
-      mPractic.setBoolIsRandPracticsTimeBetweenSets(
-          Converters.boolToInt(mCheckBoxRandBetweenSets.isChecked()));
-      mPractic.setDryPracticsDescription(mEditTextComments.getText().toString());
+
+    mPractic.setDryPracticsName(mEditTextPracticName.getText().toString());
+    mPractic.setDryPracticsTime(Double.valueOf(mEditTextSetTime.getText().toString()));
+    mPractic.setDryPracticsFirstSignalDelay(mEditTextDelay.getText().toString());
+    mPractic.setDryPracticsTimeBetweenSets(mEditTextBetweenSets.getText().toString());
+    mPractic.setBoolIsRandPracticsFirstSignalDelay(
+        Converters.boolToInt(mCheckBoxRandDelay.isChecked()));
+
+    mPractic.setBoolIsRandPracticsTimeBetweenSets(
+        Converters.boolToInt(mCheckBoxRandBetweenSets.isChecked()));
+    mPractic.setDryPracticsDescription(mEditTextComments.getText().toString());
+
+    if (Integer.parseInt(mPractic.getDryPracticsTimeBetweenSets()) > 2
+        || Integer.parseInt(mPractic.getDryPracticsFirstSignalDelay()) > 2) {
       mChangePracticFragmentPresenter.updateCurrentPractice(mPractic);
 
       mNavigator.replaceFragment((AppCompatActivity) getActivity(), R.id.contentContainer,
@@ -99,8 +112,7 @@ public class ChangePracticFragment extends BaseFragment implements IChangePracti
       if (mEditTextDelay.getText().toString().isEmpty()) {
         showToastMessage("Invalid input");
       } else {
-        mEditTextDelay.setText(String.valueOf(Randomizer.getRandomNumberInRange(3,
-            Integer.parseInt(mEditTextDelay.getText().toString()))));
+        mEditTextDelay.setText("3..." + mEditTextDelay.getText().toString());
       }
     }
   }
@@ -110,8 +122,7 @@ public class ChangePracticFragment extends BaseFragment implements IChangePracti
       if (mEditTextBetweenSets.getText().toString().isEmpty()) {
         showToastMessage("Invalid input");
       } else {
-        mEditTextBetweenSets.setText(String.valueOf(Randomizer.getRandomNumberInRange(3,
-            Integer.parseInt(mEditTextBetweenSets.getText().toString()))));
+        mEditTextBetweenSets.setText("3..." + mEditTextBetweenSets.getText().toString());
       }
     }
   }

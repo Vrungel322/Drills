@@ -52,6 +52,8 @@ public class HoloshenieWithTimerFragment extends BaseFragment
   private Practic mPractic;
   private boolean isRunning;
   private Integer mSetsCount;
+  private String tempDelayFirstSignal;
+  private String tempDelayBetweenSets;
 
   public static HoloshenieWithTimerFragment newInstance(Practic item) {
     Bundle args = new Bundle();
@@ -75,18 +77,26 @@ public class HoloshenieWithTimerFragment extends BaseFragment
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     mTextViewPracticeToChangeName.setText(mPractic.getDryPracticsName());
-    mCircleView.setMax((int) Math.round(
-        Converters.stringToDouble(mPractic.getDryPracticsFirstSignalDelay()) * 1000));
+    if (mPractic.getBoolIsRandPracticsFirstSignalDelay()==1){
+
+      mCircleView.setMax((int) Math.round(
+          Converters.stringToDouble(mPractic.getDryPracticsFirstSignalDelay().trim().replace("3...","")) * 1000));
+    }else {
+      mCircleView.setMax((int) Math.round(
+          Converters.stringToDouble(mPractic.getDryPracticsFirstSignalDelay()) * 1000));
+    }
     mTextViewPracticTime.setText(
         Converters.milisToSecWithDecimal(Math.round(mPractic.getDryPracticsTime() * 1000)));
-    mTextViewDelayTime.setText(mPractic.getDryPracticsFirstSignalDelay());
 
+    mTextViewDelayTime.setText(mPractic.getDryPracticsFirstSignalDelay());
     mTextViewSetsCount.setText(String.valueOf(mSetsCount));
     mTextViewPracticeDescription.setMovementMethod(new ScrollingMovementMethod());
     mTextViewPracticeDescription.setText(mPractic.getDryPracticsDescription());
   }
 
   @OnClick(R.id.tvBack) public void tvBackClick() {
+    mPractic.setDryPracticsFirstSignalDelay(tempDelayFirstSignal);
+    mPractic.setDryPracticsTimeBetweenSets(tempDelayBetweenSets);
     mHoloshenieWithTimerFragmentPresenter.updateCurrentPractice(mPractic, mSetsCount);
     mHoloshenieWithTimerFragmentPresenter.addToDbHistoryByPractic(mPractic);
   }
@@ -136,7 +146,11 @@ public class HoloshenieWithTimerFragment extends BaseFragment
     mTextViewPracticTime.setText(
         Converters.milisToSecWithDecimal(Math.round(mPractic.getDryPracticsTime() * 1000)));
 
-    mTextViewDelayTime.setText(mPractic.getDryPracticsFirstSignalDelay());
+    if (mPractic.getBoolIsRandPracticsFirstSignalDelay() == 1) {
+      mTextViewDelayTime.setText(mPractic.getDryPracticsFirstSignalDelay());
+    } else {
+      mTextViewDelayTime.setText(mPractic.getDryPracticsFirstSignalDelay());
+    }
     YoYo.with(Techniques.FadeInDown).duration(1000).playOn(mButtonMinusSet);
     YoYo.with(Techniques.FadeInDown).duration(1000).playOn(mButtonPlusSet);
     YoYo.with(Techniques.FadeInDown).duration(1000).playOn(mView);
@@ -175,8 +189,14 @@ public class HoloshenieWithTimerFragment extends BaseFragment
       //playReadySound();
 
       mHoloshenieWithTimerFragmentPresenter.setsRemain(mSetsCount);
-      mCircleView.setMax((int) Math.round(
-          Converters.stringToDouble(mPractic.getDryPracticsFirstSignalDelay()) * 1000));
+      if (mPractic.getBoolIsRandPracticsFirstSignalDelay()==1){
+        mCircleView.setMax((int) Math.round(
+            Converters.stringToDouble(mPractic.getDryPracticsFirstSignalDelay().trim().replace("3...", "")) * 1000));
+      }else {
+
+        mCircleView.setMax((int) Math.round(
+            Converters.stringToDouble(mPractic.getDryPracticsFirstSignalDelay()) * 1000));
+      }
       mCircleView.setFinishedStrokeColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
       isRunning = !isRunning;
       if (isRunning) {
@@ -186,23 +206,23 @@ public class HoloshenieWithTimerFragment extends BaseFragment
         YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mView);
         YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mTextViewBack);
         YoYo.with(Techniques.FadeOutUp).delay(500).duration(500).playOn(mTextViewChange);
+        tempDelayFirstSignal = mPractic.getDryPracticsFirstSignalDelay();
+        tempDelayBetweenSets = mPractic.getDryPracticsTimeBetweenSets();
         if (isRunning) {
-          if (mPractic.getBoolIsRandPracticsFirstSignalDelay()==1){
-            mPractic.setDryPracticsFirstSignalDelay(
-                String.valueOf(Randomizer.getRandomNumberInRange(3,
-                    Integer.parseInt(mPractic.getDryPracticsFirstSignalDelay()))));
+          if (mPractic.getBoolIsRandPracticsFirstSignalDelay() == 1) {
+            tempDelayFirstSignal = String.valueOf(Randomizer.getRandomNumberInRange(3,
+                Integer.parseInt(mPractic.getDryPracticsFirstSignalDelay().trim().replace("3...",""))));
           }
-          if (mPractic.getBoolIsRandPracticsTimeBetweenSets()==1){
-            mPractic.setDryPracticsTimeBetweenSets(
-                String.valueOf(Randomizer.getRandomNumberInRange(3,
-                    Integer.parseInt(mPractic.getDryPracticsTimeBetweenSets()))));
+          if (mPractic.getBoolIsRandPracticsTimeBetweenSets() == 1) {
+            tempDelayBetweenSets = String.valueOf(Randomizer.getRandomNumberInRange(3,
+                Integer.parseInt(mPractic.getDryPracticsTimeBetweenSets().trim().replace("3...",""))));
           }
-          Timber.e("" + mPractic.getDryPracticsFirstSignalDelay());
-          Timber.e("" + mPractic.getDryPracticsTimeBetweenSets());
-          mHoloshenieWithTimerFragmentPresenter.startTimer(Long.parseLong(String.valueOf(
-              Math.round(Double.parseDouble(mPractic.getDryPracticsFirstSignalDelay()) * 1000))),
-              Long.parseLong(String.valueOf(
-                  Math.round(Double.parseDouble(mPractic.getDryPracticsTimeBetweenSets()) * 1000))),
+          Timber.e("" + tempDelayFirstSignal);
+          Timber.e("" + tempDelayBetweenSets);
+          mHoloshenieWithTimerFragmentPresenter.startTimer(Long.parseLong(
+              String.valueOf(Math.round(Double.parseDouble(tempDelayFirstSignal) * 1000))),
+              Long.parseLong(
+                  String.valueOf(Math.round(Double.parseDouble(tempDelayBetweenSets) * 1000))),
               Long.parseLong(String.valueOf(Math.round(
                   mPractic.getDryPracticsTime().longValue() * 1000
                       + (mPractic.getDryPracticsTime() - mPractic.getDryPracticsTime().longValue())
@@ -216,9 +236,7 @@ public class HoloshenieWithTimerFragment extends BaseFragment
             Converters.milisToSecWithDecimal(Math.round(mPractic.getDryPracticsTime() * 1000)));
         mTextViewStartStop.setText(R.string.start);
       }
-    }
-
-    else {
+    } else {
       restoreTv();
       mHoloshenieWithTimerFragmentPresenter.stopAllTimers();
     }
