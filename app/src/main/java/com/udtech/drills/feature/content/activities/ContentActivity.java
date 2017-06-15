@@ -25,14 +25,14 @@ public class ContentActivity extends BaseActivity implements IContentActivityVie
   }
 
   @Override public void onBackPressed() {
-    if (mNavigator.getCountBackStack(this) == 1) {
-      mContentActivityPresenter.postToUpdate();
-    }
-    int index = getFragmentManager().getBackStackEntryCount();
-    Fragment fr = getSupportFragmentManager().findFragmentById(R.id.contentContainer);
-    if (fr instanceof CreatePracticeFragment){
-      Timber.e("CreatePracticeFragment");
-    }
-    super.onBackPressed();
+    //if (mNavigator.getCountBackStack(this) == 1) {
+    //  mContentActivityPresenter.postToUpdate();
+    //}
+    //int index = getFragmentManager().getBackStackEntryCount();
+    //Fragment fr = getSupportFragmentManager().findFragmentById(R.id.contentContainer);
+    //if (fr instanceof CreatePracticeFragment){
+    //  Timber.e("CreatePracticeFragment");
+    //}
+    //super.onBackPressed();
   }
 }
