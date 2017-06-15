@@ -189,11 +189,13 @@ public class HoloshenieWithTimerFragment extends BaseFragment
         if (isRunning) {
           if (mPractic.getBoolIsRandPracticsFirstSignalDelay()==1){
             mPractic.setDryPracticsFirstSignalDelay(
-                String.valueOf(Randomizer.getRandomNumberInRange(3,20)));
+                String.valueOf(Randomizer.getRandomNumberInRange(3,
+                    Integer.parseInt(mPractic.getDryPracticsFirstSignalDelay()))));
           }
           if (mPractic.getBoolIsRandPracticsTimeBetweenSets()==1){
             mPractic.setDryPracticsTimeBetweenSets(
-                String.valueOf(Randomizer.getRandomNumberInRange(3,20)));
+                String.valueOf(Randomizer.getRandomNumberInRange(3,
+                    Integer.parseInt(mPractic.getDryPracticsTimeBetweenSets()))));
           }
           Timber.e("" + mPractic.getDryPracticsFirstSignalDelay());
           Timber.e("" + mPractic.getDryPracticsTimeBetweenSets());
